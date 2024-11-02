@@ -37,4 +37,12 @@ public class Estoque {
     public void removerQuantidade(Integer quantidade) {
         this.quantidade -= quantidade;
     }
+
+    public Boolean emitirAlerta() {
+        return quantidadeMinima > quantidade;
+    }
+
+    public Boolean possuiEstoque() {
+        return quantidade == 0;
+    }
 }
