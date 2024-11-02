@@ -16,8 +16,4 @@ public class ProdutoController {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
-    public Boolean verificarEstoque() {
-        return produto.getEstoque().getQuantidade() > produto.getEstoque().getQuantidadeMinima();
-    }
 }
