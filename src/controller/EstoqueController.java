@@ -18,10 +18,22 @@ public class EstoqueController {
     }
 
     public void adicionarQuantidade(Integer quantidade) {
-        estoque.adicionarQuantidade(quantidade);
+        if(quantidade > 0) {
+            estoque.adicionarQuantidade(quantidade);
+        }
     }
 
     public void removerQuantidade(Integer quantidade) {
-        estoque.removerQuantidade(quantidade);
+        if(quantidade > 0 && quantidade <= estoque.getQuantidade()) {
+            estoque.removerQuantidade(quantidade);
+        }
+    }
+
+    public Boolean emitirAlerta() {
+        return estoque.emitirAlerta();
+    }
+
+    public Boolean possuiEstoque() {
+        return estoque.possuiEstoque();
     }
 }
