@@ -18,8 +18,16 @@ public class ProdutoDao {
         dados.remove(produto);
     }
 
-    public static void editar(Produto produto) {
-
+    public static void editar(Integer codigo, Produto produtoMod) {
+        Produto prodE = buscarProduto(codigo);
+        if(prodE != null) {
+            prodE.setNome(produtoMod.getNome());
+            prodE.setPreco(produtoMod.getPreco());
+            prodE.setCategoria(produtoMod.getCategoria());
+            prodE.setEstoque(produtoMod.getEstoque());
+            prodE.setFornecedor(produtoMod.getFornecedor());
+            prodE.setCodigo(produtoMod.getCodigo());
+        }
     }
 
     public static Produto buscarProduto(Integer codigo) {
