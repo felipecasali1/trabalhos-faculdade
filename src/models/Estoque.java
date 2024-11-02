@@ -43,6 +43,6 @@ public class Estoque {
     }
 
     public Boolean possuiEstoque() {
-        return quantidade == 0;
+        return quantidade > 0;
     }
 }
