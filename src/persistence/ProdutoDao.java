@@ -9,9 +9,7 @@ public class ProdutoDao {
     private static List<Produto> dados = new LinkedList<>();
 
     public static void salvar(Produto produto) {
-        if(buscarProduto(produto.getCodigo()) == null) {
-            dados.add(produto);
-        }
+        dados.add(produto);
     }
 
     public static void excluir(Produto produto) {
@@ -20,7 +18,7 @@ public class ProdutoDao {
 
     public static void editar(Integer codigo, Produto produtoMod) {
         Produto prodE = buscarProduto(codigo);
-        if(prodE != null) {
+        if(prodE != null && produtoMod != null) {
             prodE.setNome(produtoMod.getNome());
             prodE.setPreco(produtoMod.getPreco());
             prodE.setCategoria(produtoMod.getCategoria());
@@ -37,5 +35,9 @@ public class ProdutoDao {
             }
         }
         return null;
+    }
+
+    public static Boolean contains(Produto produto) {
+        return dados.contains(produto);
     }
 }
