@@ -24,7 +24,6 @@ public class ProdutoDao {
             prodE.setCategoria(produtoMod.getCategoria());
             prodE.setEstoque(produtoMod.getEstoque());
             prodE.setFornecedor(produtoMod.getFornecedor());
-            prodE.setCodigo(produtoMod.getCodigo());
         }
     }
 
@@ -37,7 +36,11 @@ public class ProdutoDao {
         return null;
     }
 
+    public static Boolean produtoExiste (Integer codigo) {
+        return buscarProduto(codigo) != null;
+    }
+
     public static Boolean contains(Produto produto) {
-        return dados.contains(produto);
+        return dados.contains(produto) && produto != null;
     }
 }
