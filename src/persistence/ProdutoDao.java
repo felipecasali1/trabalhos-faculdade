@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ProdutoDao {
-    private static List<Produto> dados = new LinkedList<>();
+    private static final List<Produto> dados = new LinkedList<>();
 
     public static void salvar(Produto produto) {
         dados.add(produto);
