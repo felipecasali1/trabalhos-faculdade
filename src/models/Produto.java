@@ -1,5 +1,7 @@
 package models;
 
+import persistence.ProdutoDao;
+
 public class Produto {
     private String nome;
     private Integer codigo;
@@ -62,8 +64,12 @@ public class Produto {
         return codigo;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
+    public Boolean setCodigo(Integer codigo) {
+        if(ProdutoDao.produtoExiste(codigo) && codigo != null){
+            this.codigo = codigo;
+            return true;
+        }
+        return false;
     }
 
     public Estoque getEstoque() {
