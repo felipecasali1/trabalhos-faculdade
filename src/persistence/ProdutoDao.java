@@ -1,19 +1,24 @@
 package persistence;
 
+import models.Categoria;
 import models.Produto;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class ProdutoDao {
-    private static final List<Produto> dados = new LinkedList<>();
+    private static final List<Produto> produtos = new LinkedList<>();
+
+    public static List<Produto> getProdutos () {
+        return produtos;
+    }
 
     public static void salvar(Produto produto) {
-        dados.add(produto);
+        produtos.add(produto);
     }
 
     public static void excluir(Produto produto) {
-        dados.remove(produto);
+        produtos.remove(produto);
     }
 
     public static void editar(Integer codigo, Produto produtoMod) {
@@ -28,7 +33,7 @@ public class ProdutoDao {
     }
 
     public static Produto buscarProduto(Integer codigo) {
-        for(Produto prod : dados){
+        for(Produto prod : produtos){
             if(prod.getCodigo().equals(codigo)){
                 return prod;
             }
@@ -41,6 +46,10 @@ public class ProdutoDao {
     }
 
     public static Boolean contains(Produto produto) {
-        return dados.contains(produto) && produto != null;
+        return produtos.contains(produto) && produto != null;
+    }
+
+    public static Boolean isEmpty() {
+        return produtos.isEmpty();
     }
 }

@@ -34,11 +34,11 @@ public class ProdutoController {
         return false;
     }
 
-    public static Boolean editar(Integer codigo, Produto produtoMod) {
-        if (produtoMod != null) {
-            Produto prodE = ProdutoDao.buscarProduto(codigo);
-            if (prodE != null) {
-                ProdutoDao.editar(codigo, produtoMod);
+    public static Boolean editar(Integer codigo, Produto produto) {
+        if (produto != null) {
+            Produto prod = ProdutoDao.buscarProduto(codigo);
+            if (prod != null) {
+                ProdutoDao.editar(codigo, produto);
                 return true;
             }
         }
