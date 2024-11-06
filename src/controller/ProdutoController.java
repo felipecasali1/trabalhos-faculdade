@@ -44,4 +44,17 @@ public class ProdutoController {
         }
         return false;
     }
+
+    public static String toString(Produto produto) {
+        if (produto != null) {
+            return "Produto: " + produto.getNome() +
+                    "\nCódigo: " + produto.getCodigo() +
+                    "\nPreço: " + produto.getPreco() +
+                    "\nCategoria: " + produto.getCategoria() +
+                    "\nFornecedor: " + produto.getFornecedor() +
+                    "\nQuantidade em estoque: " + produto.getEstoque().getQuantidade() +
+                    "\nQuantidade mínima: " + produto.getEstoque().getQuantidadeMinima();
+        }
+        return null;
+    }
 }
