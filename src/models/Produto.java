@@ -79,4 +79,9 @@ public class Produto {
     public void setEstoque(Estoque estoque) {
         this.estoque = estoque;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
