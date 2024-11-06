@@ -1,5 +1,6 @@
 package app;
 
+import controller.CategoriaController;
 import controller.ProdutoController;
 import models.Categoria;
 import models.Estoque;
@@ -13,13 +14,9 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        Boolean run = true;
-        Fornecedor fornecedor1 = new Fornecedor("Felipe", "123123");
-        Categoria categoria1 = new Categoria("Frutas", 123123);
-        FornecedorDao.salvar(fornecedor1);
-        CategoriaDao.salvar(categoria1);
+        Integer opt = null;
         do {
-            Integer opt = Integer.valueOf(JOptionPane.showInputDialog(null, "MENU" +
+            opt = Integer.valueOf(JOptionPane.showInputDialog(null, "MENU" +
                     "\n1 - Cadastro e Edição" +
                     "\n2 - Operações e Estoque" +
                     "\n3 - Relatórios e Visualização" +
@@ -27,16 +24,15 @@ public class Main {
             switch (opt) {
                 case 0:
                     JOptionPane.showMessageDialog(null, "Finalizando");
-                    run = false;
                     break;
                 case 1:
                     menuCadastroEdicao();
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção Inválida! 1");
+                    JOptionPane.showMessageDialog(null, "Opção Inválida!");
                     break;
             }
-        } while(run);
+        } while(opt != 0);
     }
 
     public static void menuCadastroEdicao() {
@@ -55,7 +51,7 @@ public class Main {
                     menuProdutos();
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção Inválida! 2");
+                    JOptionPane.showMessageDialog(null, "Opção Inválida!");
                     break;
             }
         } while (opt2 != 0);
@@ -79,8 +75,14 @@ public class Main {
                 case 2:
                     menuEditarProdutos();
                     break;
+                case 3:
+                    menuRemoverProdutos();
+                    break;
+                case 4:
+                    menuListarProdutos();
+                    break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção Inválida! 3");
+                    JOptionPane.showMessageDialog(null, "Opção Inválida!");
                     break;
             }
         } while (opt3 != 0);
@@ -101,7 +103,9 @@ public class Main {
                 if (codigo == null || codigo.isEmpty()) {
                     throw new IllegalArgumentException("Código inválido!");
                 }
-                produto.setCodigo(Integer.valueOf(codigo));
+                if(!produto.setCodigo(Integer.valueOf(codigo))) {
+                    throw new IllegalArgumentException("O código já pertence a um produto! Tente novamente.");
+                }
 
                 Categoria categoria = (Categoria) JOptionPane.showInputDialog(null, "Selecione a categoria:", "Categoria", JOptionPane.QUESTION_MESSAGE, null, CategoriaDao.getCategorias().toArray(), null);
                 if (categoria == null) {
@@ -211,4 +215,90 @@ public class Main {
             }
         }
     }
+
+    public static void menuRemoverProdutos() {
+        try {
+            Produto prod = (Produto) JOptionPane.showInputDialog(null, "Selecione o produto a ser removido:", "Produto", JOptionPane.QUESTION_MESSAGE, null, ProdutoDao.getProdutos().toArray(), null);
+            if (prod == null) {
+                throw new IllegalArgumentException("Erro na seleção de produto!");
+            }
+            ProdutoController.excluir(prod);
+            JOptionPane.showMessageDialog(null, "Produto removido com sucesso!");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    public static void menuListarProdutos() {
+        try {
+            Produto prod = (Produto) JOptionPane.showInputDialog(null, "Selecione o produto:", "Produto", JOptionPane.QUESTION_MESSAGE, null, ProdutoDao.getProdutos().toArray(), null);
+            if (prod == null) {
+                throw new IllegalArgumentException("Erro na seleção de produto!");
+            }
+            JOptionPane.showMessageDialog(null, ProdutoController.toString(prod));
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    public static void menuCategorias() {
+        Integer opt3 = null;
+        do {
+            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Categorias" +
+                    "\n1 - Cadastrar" +
+                    "\n2 - Editar" +
+                    "\n3 - Remover" +
+                    "\n4 - Listar" +
+                    "\n0 - Voltar"));
+            switch (opt3) {
+                case 0:
+                    break;
+                case 1:
+                    menuCadastrarCategorias();
+                    break;
+                case 2:
+                    menuEditarCategorias();
+                    break;
+                case 3:
+                    menuRemoverCategorias();
+                    break;
+                case 4:
+                    menuListarCategorias();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Opção Inválida!");
+                    break;
+            }
+        } while (opt3 != 0);
+    }
+
+    public static void menuCadastrarCategorias() {
+        try {
+            Categoria categoria = new Categoria();
+            String nome = JOptionPane.showInputDialog(null, "Nome da categoria");
+            if (nome == null || nome.isEmpty()) {
+                throw new IllegalArgumentException("Nome inválido!");
+            }
+            categoria.setNome(nome);
+
+            String codigo = JOptionPane.showInputDialog(null, "Código da categoria");
+            if (codigo == null || codigo.isEmpty()) {
+                throw new IllegalArgumentException("Código inválido!");
+            }
+            if(!categoria.setCodigo(Integer.valueOf(codigo))) {
+                throw new IllegalArgumentException("O código já pertence a uma categoria! Tente novamente.");
+            }
+
+            CategoriaController.salvar(categoria);
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Formato inválido! Por favor, digite um número.");
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro inesperado: " + e.getMessage());
+        }
+    }
+
+
 }
