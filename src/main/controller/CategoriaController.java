@@ -4,20 +4,6 @@ import main.models.Categoria;
 import main.persistence.CategoriaDao;
 
 public class CategoriaController {
-    private Categoria categoria;
-
-    public CategoriaController(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
     public static Boolean salvar(Categoria categoria) {
         return categoria != null && CategoriaDao.salvar(categoria);
     }
@@ -31,7 +17,7 @@ public class CategoriaController {
     }
 
     public static Boolean verificarCodigo(Integer codigo) {
-        return CategoriaDao.categoriaExiste(codigo);
+        return codigo != null && CategoriaDao.categoriaExiste(codigo);
     }
 
     public static String toString(Categoria categoria) {

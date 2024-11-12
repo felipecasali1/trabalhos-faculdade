@@ -1,39 +1,26 @@
 package main.controller;
 
-import main.models.Estoque;
+import main.persistence.EstoqueDao;
+import main.models.Produto;
 
 public class EstoqueController {
-    private Estoque estoque;
-
-    public EstoqueController(Estoque estoque) {
-        this.estoque = estoque;
+    public static Boolean adicionarQuantidade(Integer quantidade, Produto produto) {
+        return quantidade > 0 && produto != null && EstoqueDao.adicionarQuantidade(quantidade, produto);
     }
 
-    public Estoque getEstoque() {
-        return estoque;
+    public static Boolean removerQuantidade(Integer quantidade, Produto produto) {
+        return quantidade > 0 && produto != null && EstoqueDao.removerQuantidade(quantidade, produto);
     }
 
-    public void setEstoque(Estoque estoque) {
-        this.estoque = estoque;
+    public static Boolean emitirAlerta() {
+        return !possuiEstoque() || !possuiEstoqueMin();
     }
 
-    public void adicionarQuantidade(Integer quantidade) {
-        if(quantidade > 0) {
-            estoque.adicionarQuantidade(quantidade);
-        }
+    public static Boolean possuiEstoque() {
+        return EstoqueDao.possuiEstoque();
     }
 
-    public void removerQuantidade(Integer quantidade) {
-        if(quantidade > 0 && quantidade <= estoque.getQuantidade()) {
-            estoque.removerQuantidade(quantidade);
-        }
-    }
-
-    public Boolean emitirAlerta() {
-        return estoque.emitirAlerta();
-    }
-
-    public Boolean possuiEstoque() {
-        return estoque.possuiEstoque();
+    public static Boolean possuiEstoqueMin() {
+        return EstoqueDao.possuiEstoqueMin;
     }
 }
