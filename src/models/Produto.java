@@ -64,12 +64,8 @@ public class Produto {
         return codigo;
     }
 
-    public Boolean setCodigo(Integer codigo) {
-        if(ProdutoDao.produtoExiste(codigo) && codigo != null){
-            this.codigo = codigo;
-            return true;
-        }
-        return false;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public Estoque getEstoque() {

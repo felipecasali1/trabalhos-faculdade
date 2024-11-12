@@ -12,17 +12,29 @@ public class CategoriaDao {
         return categorias;
     }
 
-    public static void salvar(Categoria categoria) {
-        categorias.add(categoria);
+    public static Boolean salvar(Categoria categoria) {
+        if (CategoriaDao.buscarCategoria(categoria.getCodigo()) == null) {
+            categorias.add(categoria);
+            return true;
+        }
+        return false;
     }
 
-    public static void excluir(Categoria categoria) {
-        categorias.remove(categoria);
+    public static Boolean excluir(Categoria categoria) {
+        if (categorias.contains(categoria)) {
+            categorias.remove(categoria);
+            return true;
+        }
+        return false;
     }
 
-    public static void editar(Integer codigo, Categoria categoria) {
+    public static Boolean editar(Integer codigo, Categoria categoria) {
         Categoria cat = buscarCategoria(codigo);
-        cat.setNome(categoria.getNome());
+        if (cat != null) {
+            categoria.setNome(cat.getNome());
+            return true;
+        }
+        return false;
     }
 
     public static Categoria buscarCategoria(Integer codigo) {
@@ -39,7 +51,7 @@ public class CategoriaDao {
     }
 
     public static Boolean contains(Categoria categoria) {
-        return categorias.contains(categoria) && categoria != null;
+        return categorias.contains(categoria);
     }
 
     public static Boolean isEmpty() {

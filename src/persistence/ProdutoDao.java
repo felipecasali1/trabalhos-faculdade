@@ -1,6 +1,5 @@
 package persistence;
 
-import models.Categoria;
 import models.Produto;
 
 import java.util.LinkedList;
@@ -9,27 +8,37 @@ import java.util.List;
 public class ProdutoDao {
     private static final List<Produto> produtos = new LinkedList<>();
 
-    public static List<Produto> getProdutos () {
+    public static List<Produto> getProdutos() {
         return produtos;
     }
 
-    public static void salvar(Produto produto) {
-        produtos.add(produto);
-    }
-
-    public static void excluir(Produto produto) {
-        produtos.remove(produto);
-    }
-
-    public static void editar(Integer codigo, Produto produtoMod) {
-        Produto prodE = buscarProduto(codigo);
-        if(prodE != null && produtoMod != null) {
-            prodE.setNome(produtoMod.getNome());
-            prodE.setPreco(produtoMod.getPreco());
-            prodE.setCategoria(produtoMod.getCategoria());
-            prodE.setEstoque(produtoMod.getEstoque());
-            prodE.setFornecedor(produtoMod.getFornecedor());
+    public static Boolean salvar(Produto produto) {
+        if (ProdutoDao.buscarProduto(produto.getCodigo()) == null) {
+            produtos.add(produto);
+            return true;
         }
+        return false;
+    }
+
+    public static Boolean excluir(Produto produto) {
+        if (produtos.contains(produto)) {
+            produtos.remove(produto);
+            return true;
+        }
+        return false;
+    }
+
+    public static Boolean editar(Integer codigo, Produto produto) {
+        Produto prodE = buscarProduto(codigo);
+        if (prodE != null) {
+            prodE.setNome(produto.getNome());
+            prodE.setPreco(produto.getPreco());
+            prodE.setCategoria(produto.getCategoria());
+            prodE.setEstoque(produto.getEstoque());
+            prodE.setFornecedor(produto.getFornecedor());
+            return true;
+        }
+        return false;
     }
 
     public static Produto buscarProduto(Integer codigo) {
@@ -46,7 +55,7 @@ public class ProdutoDao {
     }
 
     public static Boolean contains(Produto produto) {
-        return produtos.contains(produto) && produto != null;
+        return produtos.contains(produto);
     }
 
     public static Boolean isEmpty() {

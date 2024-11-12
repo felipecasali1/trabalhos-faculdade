@@ -1,6 +1,5 @@
 package persistence;
 
-import models.Categoria;
 import models.Fornecedor;
 
 import java.util.LinkedList;
@@ -13,19 +12,29 @@ public class FornecedorDao {
         return fornecedores;
     }
 
-    public static void salvar(Fornecedor fornecedor) {
-        fornecedores.add(fornecedor);
+    public static Boolean salvar(Fornecedor fornecedor) {
+        if (FornecedorDao.buscarFornecedor(fornecedor.getCnpj()) == null) {
+            fornecedores.add(fornecedor);
+            return true;
+        }
+        return false;
     }
 
-    public static void excluir(Fornecedor fornecedor) {
-        fornecedores.remove(fornecedor);
+    public static Boolean excluir(Fornecedor fornecedor) {
+        if (fornecedores.contains(fornecedor)) {
+            fornecedores.remove(fornecedor);
+            return true;
+        }
+        return false;
     }
 
-    public static void editar(String cnpj, Fornecedor fornecedor) {
+    public static Boolean editar(String cnpj, Fornecedor fornecedor) {
         Fornecedor forn = buscarFornecedor(cnpj);
         if(forn != null) {
             forn.setNome(fornecedor.getNome());
+            return true;
         }
+        return false;
     }
 
     public static Fornecedor buscarFornecedor(String cnpj) {

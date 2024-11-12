@@ -19,30 +19,15 @@ public class ProdutoController {
     }
 
     public static Boolean salvar(Produto produto) {
-        if(produto != null && ProdutoDao.buscarProduto(produto.getCodigo()) == null) {
-            ProdutoDao.salvar(produto);
-            return true;
-        }
-        return false;
+        return produto != null && ProdutoDao.salvar(produto);
     }
 
     public static Boolean excluir(Produto produto) {
-        if(produto != null && ProdutoDao.contains(produto)){
-            ProdutoDao.excluir(produto);
-            return true;
-        }
-        return false;
+        return produto != null && ProdutoDao.excluir(produto);
     }
 
     public static Boolean editar(Integer codigo, Produto produto) {
-        if (produto != null) {
-            Produto prod = ProdutoDao.buscarProduto(codigo);
-            if (prod != null) {
-                ProdutoDao.editar(codigo, produto);
-                return true;
-            }
-        }
-        return false;
+        return produto != null && ProdutoDao.editar(codigo, produto);
     }
 
     public static String toString(Produto produto) {
@@ -56,5 +41,9 @@ public class ProdutoController {
                     "\nQuantidade mínima: " + produto.getEstoque().getQuantidadeMinima();
         }
         return null;
+    }
+
+    public static Boolean verificarCodigo(Integer codigo) {
+        return ProdutoDao.produtoExiste(codigo);
     }
 }

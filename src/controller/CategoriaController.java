@@ -2,7 +2,6 @@ package controller;
 
 import models.Categoria;
 import persistence.CategoriaDao;
-import persistence.ProdutoDao;
 
 public class CategoriaController {
     private Categoria categoria;
@@ -20,29 +19,26 @@ public class CategoriaController {
     }
 
     public static Boolean salvar(Categoria categoria) {
-        if(categoria != null && ProdutoDao.buscarProduto(categoria.getCodigo()) == null) {
-            CategoriaDao.salvar(categoria);
-            return true;
-        }
-        return false;
+        return categoria != null && CategoriaDao.salvar(categoria);
     }
 
     public static Boolean excluir(Categoria categoria) {
-        if(categoria != null && CategoriaDao.contains(categoria)){
-            CategoriaDao.excluir(categoria);
-            return true;
-        }
-        return false;
+        return categoria != null && CategoriaDao.excluir(categoria);
     }
 
     public static Boolean editar(Integer codigo, Categoria categoria) {
+        return categoria != null && CategoriaDao.editar(codigo, categoria);
+    }
+
+    public static Boolean verificarCodigo(Integer codigo) {
+        return CategoriaDao.categoriaExiste(codigo);
+    }
+
+    public static String toString(Categoria categoria) {
         if (categoria != null) {
-            Categoria cat = CategoriaDao.buscarCategoria(codigo);
-            if (cat != null) {
-                CategoriaDao.editar(codigo, categoria);
-                return true;
-            }
+            return "Categoria: " + categoria.getNome() +
+                    "\nCódigo: " + categoria.getCodigo();
         }
-        return false;
+        return null;
     }
 }

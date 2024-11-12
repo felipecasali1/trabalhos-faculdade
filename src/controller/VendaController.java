@@ -2,6 +2,7 @@ package controller;
 
 import models.ProdutoVendido;
 import models.Venda;
+import persistence.VendaDao;
 
 public class VendaController {
     private Venda venda;
@@ -52,5 +53,9 @@ public class VendaController {
                 prodVend.getProduto().getEstoque().removerQuantidade(prodVend.getQuantidade());
             }
         }
+    }
+
+    public static Boolean salvar(Venda venda) {
+        return venda != null && venda.getProdutosVendidos() != null && VendaDao.salvar(venda);
     }
 }

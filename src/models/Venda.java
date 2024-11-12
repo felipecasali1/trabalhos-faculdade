@@ -1,23 +1,25 @@
 package models;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Venda {
     private Date data;
-    private ProdutoVendido[] produtosVendidos;
+    private List<ProdutoVendido> produtosVendidos;
     private Integer quantidadeTotal;
     private Float valorTotal;
     private Cliente cliente;
 
     public Venda() {
         this.data = new Date();
-        this.produtosVendidos = new ProdutoVendido[0];
+        this.produtosVendidos = new LinkedList<>();
         this.quantidadeTotal = 0;
         this.valorTotal = 0.0F;
         this.cliente = new Cliente();
     }
 
-    public Venda(Date data, ProdutoVendido[] produtosVendidos, Integer quantidadeTotal, Float valorTotal, Cliente cliente) {
+    public Venda(Date data, List<ProdutoVendido> produtosVendidos, Integer quantidadeTotal, Float valorTotal, Cliente cliente) {
         this.data = data;
         this.produtosVendidos = produtosVendidos;
         this.quantidadeTotal = calcularQuantidadeTotal();
@@ -33,11 +35,11 @@ public class Venda {
         this.data = data;
     }
 
-    public ProdutoVendido[] getProdutosVendidos() {
+    public List<ProdutoVendido> getProdutosVendidos() {
         return produtosVendidos;
     }
 
-    public void setProdutosVendidos(ProdutoVendido[] produtosVendidos) {
+    public void setProdutosVendidos(List<ProdutoVendido> produtosVendidos) {
         this.produtosVendidos = produtosVendidos;
         this.quantidadeTotal = calcularQuantidadeTotal();
         this.valorTotal = calcularValorTotal();

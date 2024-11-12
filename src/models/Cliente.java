@@ -1,5 +1,8 @@
 package models;
 
+import persistence.FornecedorDao;
+import persistence.ClienteDao;
+
 public class Cliente {
     private String nome;
     private String cpf;
