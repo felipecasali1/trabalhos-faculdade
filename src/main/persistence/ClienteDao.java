@@ -13,7 +13,7 @@ public class ClienteDao {
     }
 
     public static Boolean salvar(Cliente cliente) {
-        if (VendedorDao.buscarVendedor(cliente.getCpf()) == null) {
+        if (ClienteDao.buscarClientes(cliente.getCpf()) == null) {
             clientes.add(cliente);
             return true;
         }

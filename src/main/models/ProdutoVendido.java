@@ -29,4 +29,9 @@ public class ProdutoVendido {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    @Override
+    public String toString() {
+        return "\n Produto: " + produto.getNome() + " - Quantidade: " + quantidade + "\n";
+    }
 }

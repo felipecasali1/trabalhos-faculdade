@@ -19,11 +19,11 @@ public class Venda {
         this.cliente = new Cliente();
     }
 
-    public Venda(Date data, List<ProdutoVendido> produtosVendidos, Integer quantidadeTotal, Float valorTotal, Cliente cliente) {
+    public Venda(Date data, List<ProdutoVendido> produtosVendidos, Cliente cliente) {
         this.data = data;
         this.produtosVendidos = produtosVendidos;
-        this.quantidadeTotal = calcularQuantidadeTotal();
-        this.valorTotal = calcularValorTotal();
+        this.quantidadeTotal = calcularQuantidadeTotal(produtosVendidos);
+        this.valorTotal = calcularValorTotal(produtosVendidos);
         this.cliente = cliente;
     }
 
@@ -41,8 +41,8 @@ public class Venda {
 
     public void setProdutosVendidos(List<ProdutoVendido> produtosVendidos) {
         this.produtosVendidos = produtosVendidos;
-        this.quantidadeTotal = calcularQuantidadeTotal();
-        this.valorTotal = calcularValorTotal();
+        this.quantidadeTotal = calcularQuantidadeTotal(produtosVendidos);
+        this.valorTotal = calcularValorTotal(produtosVendidos);
     }
 
     public Integer getQuantidadeTotal() {
@@ -61,7 +61,7 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    private Integer calcularQuantidadeTotal() {
+    private Integer calcularQuantidadeTotal(List<ProdutoVendido> produtosVendidos) {
         Integer quant = 0;
         for(ProdutoVendido prodVend : produtosVendidos) {
             quant += prodVend.getQuantidade();
@@ -69,11 +69,16 @@ public class Venda {
         return quant;
     }
 
-    private Float calcularValorTotal() {
+    private Float calcularValorTotal(List<ProdutoVendido> produtosVendidos) {
         Float valorT = 0.0F;
         for(ProdutoVendido prodVend : produtosVendidos) {
             valorT += prodVend.getProduto().getPreco() * prodVend.getQuantidade();
         }
         return valorT;
+    }
+
+    @Override
+    public String toString() {
+        return cliente.getNome() + " - " + data;
     }
 }

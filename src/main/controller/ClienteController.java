@@ -29,4 +29,8 @@ public class ClienteController {
         }
         return null;
     }
+
+    public static Cliente buscarClientes(String cpf) {
+        return ClienteDao.buscarClientes(cpf);
+    }
 }

@@ -19,4 +19,16 @@ public class VendedorController {
     public static Boolean verificarCpf(String cpf) {
         return VendedorDao.vendedorExiste(cpf);
     }
+
+    public static Vendedor buscarVendedor(String cpf) {
+        return VendedorDao.buscarVendedor(cpf);
+    }
+
+    public static String toString(Vendedor vendedor) {
+        if (vendedor != null) {
+            return "Nome: " + vendedor.getNome() +
+                    "\nCpf: " + vendedor.getCpf();
+        }
+        return null;
+    }
 }
