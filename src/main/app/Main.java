@@ -9,29 +9,29 @@ import javax.swing.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Categoria categoria = new Categoria("categoria a", 1);
-        Fornecedor fornecedor = new Fornecedor("Felipe", "12172461");
-        Estoque estoque = new Estoque(100, 2);
-        Produto produto = new Produto("prod 1", 1,12F, categoria, fornecedor, estoque);
-        Vendedor vendedor = new Vendedor("Vendedor 1", "1234");
-        Cliente cliente = new Cliente("Felipe", "123", "1234566-234", "fodase@gmail.com");
-        CategoriaDao.salvar(categoria);
-        FornecedorDao.salvar(fornecedor);
-        ProdutoDao.salvar(produto);
-        VendedorDao.salvar(vendedor);
-        ClienteDao.salvar(cliente);
-        Integer opt = null;
+        Integer opt = 0;
         do {
-            opt = InputUtils.getIntegerInput("MENU" +
+            String input = InputUtils.getStringInput("MENU" +
                     "\n1 - Cadastro e Edição" +
                     "\n2 - Operações e Estoque" +
                     "\n3 - Relatórios e Visualização" +
                     "\n0 - Sair");
+            if (input == null) {
+                opt = 0;
+                break;
+            }
+            try {
+                opt = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt = -1;
+            }
             switch (opt) {
                 case 0:
                     JOptionPane.showMessageDialog(null, "Finalizando");
@@ -49,19 +49,29 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Opção Inválida!");
                     break;
             }
-        } while(opt != 0);
+        } while (opt != 0);
     }
 
     public static void menuCadastroEdicao() {
-        Integer opt2 = null;
+        Integer opt2 = 0;
         do {
-            opt2 = InputUtils.getIntegerInput("Cadastro e Edição" +
+            String input = InputUtils.getStringInput("Cadastro e Edição" +
                     "\n1 - Produtos" +
                     "\n2 - Categorias" +
                     "\n3 - Fornecedores" +
                     "\n4 - Vendedores" +
                     "\n5 - Clientes" +
                     "\n0 - Voltar");
+            if (input == null) {
+                opt2 = 0;
+                break;
+            }
+            try {
+                opt2 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt2 = -1;
+            }
             switch (opt2) {
                 case 0:
                     break;
@@ -88,14 +98,24 @@ public class Main {
     }
 
     public static void menuProdutos() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = InputUtils.getIntegerInput("Produtos" +
+            String input = InputUtils.getStringInput("Produtos" +
                     "\n1 - Cadastrar" +
                     "\n2 - Editar" +
                     "\n3 - Remover" +
                     "\n4 - Listar" +
                     "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -179,10 +199,10 @@ public class Main {
             }
         } else {
             if (CategoriaDao.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhuma categoria cadastrada.");
+                JOptionPane.showMessageDialog(null, "Nenhuma categoria cadastrada!");
             }
             if (FornecedorDao.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Nenhum fornecedor cadastrado.");
+                JOptionPane.showMessageDialog(null, "Nenhum fornecedor cadastrado!");
             }
         }
     }
@@ -243,13 +263,11 @@ public class Main {
             }
         } else {
             if (ProdutoDao.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhum produto encontrado.");
-            }
-            if (CategoriaDao.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada.");
-            }
-            if (FornecedorDao.isEmpty()){
-                JOptionPane.showMessageDialog(null, "Nenhum fornecedor encontrado.");
+                JOptionPane.showMessageDialog(null, "Nenhum produto encontrado!");
+            } else if (CategoriaDao.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada!");
+            } else if (FornecedorDao.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Nenhum fornecedor encontrado!");
             }
         }
     }
@@ -292,14 +310,24 @@ public class Main {
     }
 
     public static void menuCategorias() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Categorias" +
+            String input = InputUtils.getStringInput("Categorias" +
                     "\n1 - Cadastrar" +
                     "\n2 - Editar" +
                     "\n3 - Remover" +
                     "\n4 - Listar" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -376,7 +404,7 @@ public class Main {
                 JOptionPane.showMessageDialog(null, "Erro inesperado: " + e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada.");
+            JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada!");
         }
     }
 
@@ -395,7 +423,7 @@ public class Main {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada.");
+            JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada!");
         }
     }
 
@@ -411,19 +439,29 @@ public class Main {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada.");
+            JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada!");
         }
     }
 
     public static void menuFornecedores() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Fornecedores" +
+            String input = InputUtils.getStringInput("Fornecedores" +
                     "\n1 - Cadastrar" +
                     "\n2 - Editar" +
                     "\n3 - Remover" +
                     "\n4 - Listar" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -540,14 +578,24 @@ public class Main {
     }
 
     public static void menuVendedores() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Vendedores" +
+            String input = InputUtils.getStringInput("Vendedores" +
                     "\n1 - Cadastrar" +
                     "\n2 - Editar" +
                     "\n3 - Remover" +
                     "\n4 - Listar" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -624,7 +672,7 @@ public class Main {
                 JOptionPane.showMessageDialog(null, "Erro inesperado: " + e.getMessage());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum vendedor encontrado.");
+            JOptionPane.showMessageDialog(null, "Nenhum vendedor encontrado!");
         }
     }
 
@@ -664,13 +712,23 @@ public class Main {
     }
 
     public static void menuClientes() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Clientes" +
+            String input = InputUtils.getStringInput("Clientes" +
                     "\n1 - Cadastrar" +
                     "\n2 - Editar" +
                     "\n3 - Listar" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -717,6 +775,10 @@ public class Main {
                 throw new IllegalArgumentException("Email inválido!");
             }
             cliente.setEmail(email);
+
+            if (ClienteController.salvar(cliente)) {
+                JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!");
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Formato inválido! Por favor, digite um número.");
         } catch (IllegalArgumentException e) {
@@ -789,10 +851,20 @@ public class Main {
     public static void menuOperacoesEstoque() {
         Integer opt2 = null;
         do {
-            opt2 = InputUtils.getIntegerInput("Operações e Estoque" +
+            String input = InputUtils.getStringInput("Operações e Estoque" +
                     "\n1 - Vendas" +
                     "\n2 - Estoque" +
                     "\n0 - Voltar");
+            if (input == null) {
+                opt2 = 0;
+                break;
+            }
+            try {
+                opt2 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt2 = -1;
+            }
             switch (opt2) {
                 case 0:
                     break;
@@ -810,16 +882,26 @@ public class Main {
     }
 
     public static void menuVendas() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Vendas" +
+            String input = InputUtils.getStringInput("Vendas" +
                     "\n1 - Adicionar Produtos no Carrinho" +
                     "\n2 - Remover Produto do Carrinho" +
                     "\n3 - Limpar Carrinho" +
                     "\n4 - Listar Produtos no Carrinho" +
                     "\n5 - Finalizar Venda" +
                     "\n6 - Listar Vendas" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -1066,14 +1148,24 @@ public class Main {
     }
 
     public static void menuEstoque() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Estoque" +
+            String input = InputUtils.getStringInput("Estoque" +
                     "\n1 - Abastecer Estoque" +
                     "\n2 - Listar Todos os Produtos" +
                     "\n3 - Listar Produtos Abaixo do Estoque Minimo" +
                     "\n4 - Listar Produtos por Categoria" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -1164,20 +1256,30 @@ public class Main {
             }
         } else {
             if (!CategoriaDao.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhuma categoria cadastrada!");
+                JOptionPane.showMessageDialog(null, "Nenhuma categoria encontrada!");
             } else if (ProdutoDao.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Nenhum produto cadastrado!");
+                JOptionPane.showMessageDialog(null, "Nenhum produto encontrado!");
             }
         }
     }
 
     public static void menuRelatorios() {
-        Integer opt3 = null;
+        Integer opt3 = 0;
         do {
-            opt3 = Integer.valueOf(JOptionPane.showInputDialog(null, "Relatorios e Visualização" +
+            String input = InputUtils.getStringInput("Relatorios e Visualização" +
                     "\n1 - Relatorio de Estoque" +
                     "\n2 - Relatorio de Vendas" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt3 = 0;
+                break;
+            }
+            try {
+                opt3 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt3 = -1;
+            }
             switch (opt3) {
                 case 0:
                     break;
@@ -1195,13 +1297,23 @@ public class Main {
     }
 
     public static void menuRelatoriosEstoque() {
-        Integer opt4 = null;
+        Integer opt4 = 0;
         do {
-            opt4 = Integer.valueOf(JOptionPane.showInputDialog(null, "Relatorios de Estoque" +
+            String input = InputUtils.getStringInput("Relatorios de Estoque" +
                     "\n1 - Relatorio por Produto" +
                     "\n2 - Relatorio por Categoria" +
                     "\n3 - Relatorio por Data" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt4 = 0;
+                break;
+            }
+            try {
+                opt4 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt4 = -1;
+            }
             switch (opt4) {
                 case 0:
                     break;
@@ -1222,14 +1334,24 @@ public class Main {
     }
 
     public static void menuRelatoriosVendas() {
-        Integer opt4 = null;
+        Integer opt4 = 0;
         do {
-            opt4 = Integer.valueOf(JOptionPane.showInputDialog(null, "Relatorios de Vendas" +
+            String input = InputUtils.getStringInput("Relatorios de Vendas" +
                     "\n1 - Relatorio por Produto" +
                     "\n2 - Relatorio por Categoria" +
                     "\n3 - Relatorio por Data" +
                     "\n4 - Relatorio por Volume de Vendas" +
-                    "\n0 - Voltar"));
+                    "\n0 - Voltar");
+            if (input == null) {
+                opt4 = 0;
+                break;
+            }
+            try {
+                opt4 = Integer.valueOf(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Opção inválida!");
+                opt4 = -1;
+            }
             switch (opt4) {
                 case 0:
                     break;
@@ -1392,7 +1514,7 @@ public class Main {
 
                 List<Venda> vendasPorCat = VendaDao.vendasPorCategoria(cat);
                 if (vendasPorCat != null) {
-                    System.out.println("\nRelatório por Produto (" + cat.getNome() + ")");
+                    System.out.println("\nRelatório por Categoria (" + cat.getNome() + ")");
                     for (Venda venda : vendasPorCat) {
                         System.out.println(VendaController.toStringRelatorio(venda));
                     }

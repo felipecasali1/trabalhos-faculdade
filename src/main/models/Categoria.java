@@ -1,7 +1,5 @@
 package main.models;
 
-import main.persistence.CategoriaDao;
-
 public class Categoria {
     private String nome;
     private Integer codigo;

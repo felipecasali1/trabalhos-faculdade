@@ -40,6 +40,9 @@ public class RegistroDao {
         Boolean prodEncontrado = false;
 
         for (Registro registro : registros) {
+            if (!registro.getTipo().equals("Saída")) {
+                continue;
+            }
             for (Registro regAgrupado : registrosFinal) {
                 if (regAgrupado.getProduto().equals(registro.getProduto())) {
                     regAgrupado.setQuantidade(regAgrupado.getQuantidade() + registro.getQuantidade());
@@ -48,7 +51,7 @@ public class RegistroDao {
                 }
             }
             if (!prodEncontrado) {
-                registrosFinal.add(new Registro(registro.getProduto(), "", registro.getQuantidade(), registro.getData()));
+                registrosFinal.add(new Registro(registro.getProduto(), "Saída", registro.getQuantidade(), registro.getData()));
             }
         }
         registrosFinal.sort((r1, r2) -> Integer.compare(r2.getQuantidade(), r1.getQuantidade()));
