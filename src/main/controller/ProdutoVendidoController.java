@@ -1,6 +1,5 @@
 package main.controller;
 
-import main.models.Produto;
 import main.models.ProdutoVendido;
 import main.persistence.ProdutoVendidoDao;
 

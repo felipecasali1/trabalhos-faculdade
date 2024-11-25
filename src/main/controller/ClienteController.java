@@ -17,7 +17,7 @@ public class ClienteController {
     }
 
     public static Boolean verificarCpf(String cpf) {
-        return cpf != null && ClienteDao.clienteExiste(cpf);
+        return ClienteDao.clienteExiste(cpf);
     }
 
     public static String toString(Cliente cliente) {

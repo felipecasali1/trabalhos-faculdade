@@ -1,5 +1,7 @@
 package main.models;
 
+import main.persistence.EstoqueDao;
+
 public class Produto {
     private String nome;
     private Integer codigo;
@@ -76,6 +78,11 @@ public class Produto {
 
     @Override
     public String toString() {
+        if (EstoqueDao.emitirAlertaZero(this)) {
+            return nome + " (Sem estoque)";
+        } else if (EstoqueDao.emitirAlerta(this)) {
+            return nome + " (Estoque Baixo)";
+        }
         return nome;
     }
 }

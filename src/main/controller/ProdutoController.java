@@ -24,7 +24,7 @@ public class ProdutoController {
         if (produto != null) {
             return "Produto: " + produto.getNome() +
                     "\nCódigo: " + produto.getCodigo() +
-                    "\nPreço: " + produto.getPreco() +
+                    "\nPreço: R$" + produto.getPreco() +
                     "\nCategoria: " + produto.getCategoria() +
                     "\nFornecedor: " + produto.getFornecedor() +
                     "\nQuantidade em estoque: " + produto.getEstoque().getQuantidade() +
@@ -33,4 +33,15 @@ public class ProdutoController {
         return null;
     }
 
+    public static String toStringRelatorio(Produto produto) {
+        if (produto != null) {
+            return "Produto: " + produto.getNome() +
+                    " | Código: " + produto.getCodigo() +
+                    " | Preço: R$" + produto.getPreco() +
+                    " | Fornecedor: " + produto.getFornecedor() +
+                    " | Quantidade em estoque: " + produto.getEstoque().getQuantidade() +
+                    " | Quantidade mínima: " + produto.getEstoque().getQuantidadeMinima();
+        }
+        return null;
+    }
 }

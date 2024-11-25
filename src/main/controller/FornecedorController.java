@@ -4,20 +4,6 @@ import main.models.Fornecedor;
 import main.persistence.FornecedorDao;
 
 public class FornecedorController {
-    private Fornecedor fornecedor;
-
-    public FornecedorController(Fornecedor fornecedor){
-        this.fornecedor = fornecedor;
-    }
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
     public static Boolean salvar(Fornecedor fornecedor) {
         return fornecedor != null && FornecedorDao.salvar(fornecedor);
     }

@@ -1,5 +1,6 @@
 package main.persistence;
 
+import main.models.Categoria;
 import main.models.Produto;
 
 import java.util.LinkedList;
@@ -60,5 +61,25 @@ public class ProdutoDao {
 
     public static Boolean isEmpty() {
         return produtos.isEmpty();
+    }
+
+    public static List<Produto> produtosAbaixoEstoqueMin() {
+        List<Produto> produtosAbaixo = new LinkedList<>();
+        for(Produto produto : produtos){
+            if (EstoqueDao.emitirAlerta(produto)) {
+                produtosAbaixo.add(produto);
+            }
+        }
+        return produtosAbaixo;
+    }
+
+    public static List<Produto> produtosPorCategoria(Categoria categoria) {
+        List<Produto> produtosCategoria = new LinkedList<>();
+        for(Produto produto : produtos){
+            if (produto.getCategoria().equals(categoria)) {
+                produtosCategoria.add(produto);
+            }
+        }
+        return produtosCategoria;
     }
 }

@@ -29,12 +29,4 @@ public class Estoque {
     public void setQuantidadeMinima(Integer quantidadeMinima) {
         this.quantidadeMinima = quantidadeMinima;
     }
-
-    public void adicionarQuantidade(Integer quantidade) {
-        this.quantidade += quantidade;
-    }
-
-    public void removerQuantidade(Integer quantidade) {
-        this.quantidade -= quantidade;
-    }
 }

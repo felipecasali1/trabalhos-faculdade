@@ -1,5 +1,6 @@
 package main.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,7 @@ public class Venda {
     private Integer quantidadeTotal;
     private Float valorTotal;
     private Cliente cliente;
+    private Vendedor vendedor;
 
     public Venda() {
         this.data = new Date();
@@ -17,14 +19,16 @@ public class Venda {
         this.quantidadeTotal = 0;
         this.valorTotal = 0.0F;
         this.cliente = new Cliente();
+        this.vendedor = new Vendedor();
     }
 
-    public Venda(Date data, List<ProdutoVendido> produtosVendidos, Cliente cliente) {
+    public Venda(Date data, List<ProdutoVendido> produtosVendidos, Cliente cliente, Vendedor vendedor) {
         this.data = data;
         this.produtosVendidos = produtosVendidos;
         this.quantidadeTotal = calcularQuantidadeTotal(produtosVendidos);
         this.valorTotal = calcularValorTotal(produtosVendidos);
         this.cliente = cliente;
+        this.vendedor = vendedor;
     }
 
     public Date getData() {
@@ -61,6 +65,14 @@ public class Venda {
         this.cliente = cliente;
     }
 
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
     private Integer calcularQuantidadeTotal(List<ProdutoVendido> produtosVendidos) {
         Integer quant = 0;
         for(ProdutoVendido prodVend : produtosVendidos) {
@@ -79,6 +91,7 @@ public class Venda {
 
     @Override
     public String toString() {
-        return cliente.getNome() + " - " + data;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return cliente.getNome() + " - " + sdf.format(data);
     }
 }

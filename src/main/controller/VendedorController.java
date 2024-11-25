@@ -1,6 +1,7 @@
 package main.controller;
 
 import main.models.Vendedor;
+import main.persistence.ClienteDao;
 import main.persistence.VendedorDao;
 
 public class VendedorController {

@@ -32,6 +32,6 @@ public class ProdutoVendido {
 
     @Override
     public String toString() {
-        return "\n Produto: " + produto.getNome() + " - Quantidade: " + quantidade + "\n";
+        return "Produto: " + produto.getNome() + " - Quantidade: " + quantidade;
     }
 }

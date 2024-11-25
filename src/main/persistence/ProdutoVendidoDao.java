@@ -1,8 +1,11 @@
 package main.persistence;
 
-import main.models.Produto;
+import main.controller.EstoqueController;
+import main.controller.RegistroController;
 import main.models.ProdutoVendido;
+import main.models.Registro;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +30,9 @@ public class ProdutoVendidoDao {
 
     public static void atualizarEstoque(){
         for(ProdutoVendido prodVend : produtosVendidos){
-            prodVend.getProduto().getEstoque().removerQuantidade(prodVend.getQuantidade());
+            EstoqueController.removerQuantidade(prodVend.getQuantidade(), prodVend.getProduto());
+            Registro registro = new Registro(prodVend.getProduto(), "Saída", prodVend.getQuantidade(), new Date());
+            RegistroController.salvar(registro);
         }
     }
 

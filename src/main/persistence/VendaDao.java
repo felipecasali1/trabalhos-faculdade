@@ -1,9 +1,12 @@
 package main.persistence;
 
+import main.controller.VendaController;
+import main.models.Categoria;
 import main.models.Produto;
 import main.models.ProdutoVendido;
 import main.models.Venda;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,7 +41,51 @@ public class VendaDao {
         return quant;
     }
 
+    public static List<Venda> vendasPorProduto(Produto prod) {
+        List<Venda> vendasProd = new LinkedList<>();
+        for(Venda v : vendas) {
+            for (ProdutoVendido prodV : v.getProdutosVendidos()) {
+                if(prodV.getProduto().equals(prod)) {
+                    vendasProd.add(v);
+                }
+            }
+        }
+        if(!vendasProd.isEmpty()) {
+            return vendasProd;
+        }
+        return null;
+    }
 
+    public static List<Venda> vendasPorCategoria(Categoria cat) {
+        List<Venda> vendasCat = new LinkedList<>();
+        for(Venda v : vendas) {
+            for (ProdutoVendido prodV : v.getProdutosVendidos()) {
+                if (prodV.getProduto().getCategoria().equals(cat)) {
+                    if (!vendasCat.contains(v)) {
+                        vendasCat.add(v);
+                    }
+                    break;
+                }
+            }
+        }
+        if(!vendasCat.isEmpty()) {
+            return vendasCat;
+        }
+        return null;
+    }
+
+    public static List<Venda> vendasPorPeriodo(Date dataInicial, Date dataFinal) {
+        List<Venda> vendasPeriodo = new LinkedList<>();
+        if (VendaController.periodoValido(dataInicial, dataFinal)) {
+            for (Venda v : vendas) {
+                if (v.getData().after(dataInicial) && v.getData().before(dataFinal)) {
+                    vendasPeriodo.add(v);
+                }
+            }
+            return vendasPeriodo;
+        }
+        return null;
+    }
 
     public static Boolean isEmpty() {
         return vendas.isEmpty();
