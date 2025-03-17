@@ -1,0 +1,3 @@
+1233 Mario de Alencar 4.5 5.6 8.6 9.2
+1234 Jose de Andrade 5.6 7.8 6.5 4.5
+1235 Geraldo Ferreira 5.9 4.5 2.8 3.5

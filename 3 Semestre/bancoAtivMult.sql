@@ -1,0 +1,143 @@
+CREATE TABLE ESTADO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	nome text
+);
+
+CREATE TABLE CIDADE(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	nome text,
+	estadoId integer,
+	FOREIGN KEY (estadoId) REFERENCES ESTADO(id)
+);
+
+CREATE TABLE BAIRRO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	nome text,
+	cidadeId int,
+	FOREIGN KEY (cidadeId) REFERENCES CIDADE(id)
+);
+
+CREATE TABLE ADMIN(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cpf text,
+	rg text,
+	nome text
+);
+
+CREATE TABLE FUNCIONARIO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cpf text,
+	rg text,
+	nome text
+);
+
+CREATE TABLE CLIENTE(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	descricao text,
+	status text,
+	dataCadastro text
+);
+
+CREATE TABLE ENDERECO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	rua text,
+	numero text,
+	clienteId integer,
+	adminId integer,
+	funcionarioId integer,
+	bairroId integer,
+	FOREIGN KEY (bairroId) REFERENCES BAIRRO(id),
+	FOREIGN KEY (adminId) REFERENCES ADMIN(id),
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id),
+	FOREIGN KEY (funcionarioId) REFERENCES FUNCIONARIO(id)
+);
+
+CREATE TABLE EMPRESA(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cnpj text,
+	nome text,
+	clienteId integer,
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id)
+);
+
+CREATE TABLE PESSOA(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	cpf text,
+	rg text,
+	nome text,
+	clienteId integer,
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id)
+);
+
+CREATE TABLE REUNIAO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	status text,
+	horario text,
+	dataAgendada text,
+	clienteId integer,
+	funcionarioId integer,
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id),
+	FOREIGN KEY (funcionarioId) REFERENCES FUNCIONARIO(id)
+);
+
+CREATE TABLE TELEFONE(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	numero text,
+	clienteId integer,
+	adminId integer,
+	funcionarioId integer,
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id),
+	FOREIGN KEY (adminId) REFERENCES ADMIN(id),
+	FOREIGN KEY (funcionarioId) REFERENCES FUNCIONARIO(id)
+);
+
+CREATE TABLE VENDA(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	dataVenda text,
+	clienteId integer,
+	funcionarioId integer,
+	FOREIGN KEY (funcionarioId) REFERENCES FUNCIONARIO(id),
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id)
+);
+
+CREATE TABLE JUSTIFICATIVA(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	nome text
+);
+
+CREATE TABLE CATEGORIACONVERSAO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	nome text
+);
+
+CREATE TABLE LEAD(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	dataCadastro text,
+	status text,
+	categoriaId integer,
+	clienteId integer,
+	funcionarioId integer,
+	justificativaId integer,
+	FOREIGN KEY (justificativaId) REFERENCES JUSTIFICATIVA(id),
+	FOREIGN KEY (categoriaId) REFERENCES CATEGORIACONVERSAO(id),
+	FOREIGN KEY (funcionarioId) REFERENCES FUNCIONARIO(id),
+	FOREIGN KEY (clienteId) REFERENCES CLIENTE(id)
+);
+
+CREATE TABLE RELATORIO(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	leadsAprovados integer,
+	leadsInativados integer,
+	novosLeads integer,
+	dataGeracao text,
+	leadId integer,
+	FOREIGN KEY (leadId) REFERENCES LEAD(id)
+);
+
+CREATE TABLE OBSERVACOES(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	dataCadastro text,
+	descricao text,
+	leadId integer,
+	FOREIGN KEY (leadId) REFERENCES LEAD(id)
+);
