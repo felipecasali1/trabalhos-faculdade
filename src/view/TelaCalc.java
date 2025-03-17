@@ -1,9 +1,16 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+
 public class TelaCalc extends javax.swing.JFrame {
+    private int operation = 0;
+    private double firstNumber = 0D;
 
     public TelaCalc() {
         initComponents();
+        actions();
     }
 
     @SuppressWarnings("unchecked")
@@ -182,6 +189,101 @@ public class TelaCalc extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void actions() {        
+        jbClear.addActionListener((e) -> {
+           jtfDisplay.setText("0");
+           firstNumber = 0D;
+           operation = 0;
+        });
+        
+        
+        jbComma.addActionListener((e) -> {
+           if(!jtfDisplay.getText().contains(",")) {
+               jtfDisplay.setText(jtfDisplay.getText() + ".");
+           } 
+        });
+        
+        jbEquals.addActionListener((e) -> {
+            runPrevOperation();
+            operation = 0;
+        });
+        
+        jbPlus.addActionListener((e) -> {
+            runPrevOperation();
+            operation = 1;
+            jtfDisplay.setText("0");
+        });
+        
+        jbMinus.addActionListener((e) -> {
+            runPrevOperation();
+            operation = 2;
+            jtfDisplay.setText("0");
+        });
+        
+        jbMultiply.addActionListener((e) -> {
+            runPrevOperation();
+            operation = 3;
+            jtfDisplay.setText("0");
+        });
+        
+        jbDivide.addActionListener((e) -> {
+            runPrevOperation();
+            operation = 4;
+            jtfDisplay.setText("0");
+        });
+        
+        ActionListener numberListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JButton buttonClicked = (JButton) e.getSource();
+                String buttonText = buttonClicked.getText();
+                
+                String currentText = jtfDisplay.getText();
+                if (currentText.equals("0")) {
+                    jtfDisplay.setText(buttonText);
+                } else {
+                    jtfDisplay.setText(currentText + buttonText);
+                }
+            }
+        };
+        
+        jbButton0.addActionListener(numberListener);
+        jbButton1.addActionListener(numberListener);
+        jbButton2.addActionListener(numberListener);
+        jbButton3.addActionListener(numberListener);
+        jbButton4.addActionListener(numberListener);
+        jbButton5.addActionListener(numberListener);
+        jbButton6.addActionListener(numberListener);
+        jbButton7.addActionListener(numberListener);
+        jbButton8.addActionListener(numberListener);
+        jbButton9.addActionListener(numberListener);
+    }
+    
+    private void runPrevOperation() {
+        Double currentNumber = Double.valueOf(jtfDisplay.getText());
+        
+        switch (operation) {
+            case 0:
+                firstNumber = currentNumber;
+                break;
+            case 1:
+                firstNumber += currentNumber;
+                break;
+            case 2:
+                firstNumber -= currentNumber;
+                break;
+            case 3:
+                firstNumber *= currentNumber;
+                break;
+            case 4:
+                firstNumber /= currentNumber;
+                break;
+            default:
+                throw new AssertionError();
+        }
+        jtfDisplay.setText(String.valueOf(firstNumber));
+    }
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
