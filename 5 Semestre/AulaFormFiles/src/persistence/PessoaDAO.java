@@ -8,12 +8,28 @@ public class PessoaDAO {
     private static final List<Pessoa> pessoas = new LinkedList<>();
     
     public static void salvar(Pessoa pessoa) {
-        pessoas.add(pessoa);
-        GerenciadorArquivos.escreverObjetos(pessoas);
+        if(!verificar(pessoa)) {
+            pessoas.add(pessoa);
+            atualizar();
+        }
     }
     
     public static void remover(Pessoa pessoa) {
-        pessoas.remove(pessoa);
+        if(verificar(pessoa)) {
+            pessoas.remove(pessoa);
+            atualizar();
+        }
+    }
+    
+    public static void atualizar() {
         GerenciadorArquivos.escreverObjetos(pessoas);
+    }
+    
+    public static boolean verificar(Pessoa pessoa) {
+        return pessoas.contains(pessoa);
+    }
+    
+    public static void recuperar() {
+        
     }
 }

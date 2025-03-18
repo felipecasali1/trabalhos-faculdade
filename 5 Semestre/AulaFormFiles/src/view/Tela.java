@@ -5,6 +5,7 @@
 package view;
 
 import controller.PessoaController;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Tela extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Cadastro");
         setPreferredSize(new java.awt.Dimension(480, 360));
+        setResizable(false);
         setSize(new java.awt.Dimension(480, 360));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -62,11 +64,11 @@ public class Tela extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+            .addGap(0, 480, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(148, 148, 148)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
                     .addGap(149, 149, 149)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -106,6 +108,11 @@ public class Tela extends javax.swing.JFrame {
         jButton3.setMaximumSize(null);
         jButton3.setMinimumSize(new java.awt.Dimension(80, 30));
         jButton3.setPreferredSize(new java.awt.Dimension(80, 30));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel4.add(jButton3);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -183,7 +190,7 @@ public class Tela extends javax.swing.JFrame {
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -222,11 +229,25 @@ public class Tela extends javax.swing.JFrame {
         getContentPane().add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PessoaController.salvar(jTextField1.getText(), jFormattedTextField1.getText(), jComboBox1.getSelectedItem().toString());
+        String nome = jTextField1.getText().trim();
+        String cpf = jFormattedTextField1.getText().trim();
+        String cidade = jComboBox1.getSelectedItem().toString();
+        if (nome.isEmpty() || cpf.isEmpty() || cpf.length()<13 || cidade.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "ERRO! Todos os campos devem ser preenchidos!");
+        } else {
+            PessoaController.salvar(nome, cpf, cidade);
+            JOptionPane.showMessageDialog(rootPane, "Cadastro salvo!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jTextField1.setText("");
+        jFormattedTextField1.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
