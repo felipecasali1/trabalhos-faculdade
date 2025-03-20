@@ -5,7 +5,13 @@ import java.util.List;
 import models.Pessoa;
 
 public class PessoaDAO {
-    private static final List<Pessoa> pessoas = new LinkedList<>();
+    private static List<Pessoa> pessoas = new LinkedList<>();
+    
+    static {
+        if(GerenciadorArquivos.fileExist()) {
+           recuperarLista();
+        }
+    }
     
     public static void salvar(Pessoa pessoa) {
         if(!verificar(pessoa)) {
@@ -29,7 +35,7 @@ public class PessoaDAO {
         return pessoas.contains(pessoa);
     }
     
-    public static void recuperar() {
-        
+    public static void recuperarLista() {
+        pessoas = GerenciadorArquivos.lerObjetos();        
     }
 }
