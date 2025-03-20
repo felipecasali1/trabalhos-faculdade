@@ -239,8 +239,9 @@ public class Tela extends javax.swing.JFrame {
         if (nome.isEmpty() || cpf.isEmpty() || cpf.length()<13 || cidade.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "ERRO! Todos os campos devem ser preenchidos!");
         } else {
-            PessoaController.salvar(nome, cpf, cidade);
-            JOptionPane.showMessageDialog(rootPane, "Cadastro salvo!");
+            if (PessoaController.salvar(nome, cpf, cidade)) {
+                JOptionPane.showMessageDialog(rootPane, "Cadastro salvo!");
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
