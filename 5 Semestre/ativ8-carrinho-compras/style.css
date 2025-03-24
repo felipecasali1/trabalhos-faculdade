@@ -13,30 +13,27 @@ body {
     width: 428px;
     background-color: #18181B;
     font-family: "Inter";
+    display: grid;
+    overflow: hidden;
 }
 
-#item-counter {
+#cart-tab-item-counter {
     font-size: 24px;
     display: flex;
-    border: 1px solid red;
 }
 
 #cart-tab-header {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #3F3F46;
     padding: 1.5rem 2rem 1.5rem 2rem;
     background-color: #18181B;
-    position: fixed;
-    border: 1px solid red;
 }
 
 #cart-tab-exit {
     height: 2rem;
     width: 2rem;
-    border: 1px solid red;
 }
 
 #cart-tab-exit-button {
@@ -57,7 +54,6 @@ body {
 }
 
 #cart-tab-items {
-    padding-top: 100px;
     flex: 1;
     overflow-y: auto;
 }
@@ -71,10 +67,8 @@ body {
 }
 
 .cart-item-area {
-    padding: 2rem 2rem 1.5rem 2rem;
+    padding: 2rem 2rem 1rem 2rem;
     display: flex;
-    flex: 1;
-    overflow-y: auto;
 }
 
 .cart-item-img-area img {
