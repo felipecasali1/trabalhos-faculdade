@@ -19,7 +19,6 @@ body {
     font-size: 24px;
     display: flex;
     border: 1px solid red;
-
 }
 
 #cart-tab-header {
@@ -38,7 +37,6 @@ body {
     height: 2rem;
     width: 2rem;
     border: 1px solid red;
-
 }
 
 #cart-tab-exit-button {
@@ -71,7 +69,6 @@ body {
 .sec-txt-color {
     color: #E4E4E7;
 }
-
 
 .cart-item-area {
     padding: 2rem 2rem 1.5rem 2rem;
