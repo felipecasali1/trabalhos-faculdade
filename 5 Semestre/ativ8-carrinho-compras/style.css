@@ -10,7 +10,7 @@ body {
 
 #cart-tab {
     height: 100vh;
-    width: 428px;
+    width: 450px;
     background-color: #18181B;
     font-family: "Inter";
     display: grid;
@@ -29,6 +29,8 @@ body {
     border-bottom: 1px solid #3F3F46;
     padding: 1.5rem 2rem 1.5rem 2rem;
     background-color: #18181B;
+    position: fixed;
+    width: 386px;
 }
 
 #cart-tab-exit {
@@ -54,8 +56,64 @@ body {
 }
 
 #cart-tab-items {
+    padding-top: 80px;
+    padding-bottom: 204px;
     flex: 1;
     overflow-y: auto;
+}
+
+#cart-tab-footer {
+    height: 140px;
+    padding: 2rem;
+    border-top: 1px solid #3F3F46;
+    position: fixed;
+    width: 386px;
+    bottom: 0;
+    background-color: #18181B;
+}
+
+#cart-tab-total-value {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+#cart-tab-add-coupon {
+    float: right;
+    color: #A855F7;
+    padding: 0.5rem 0rem 1rem 0rem;
+    display: flex;
+    height: 1rem;
+}
+
+#cart-tab-add-coupon a {
+    text-decoration: none;
+    color: #A855F7;
+}
+
+#cart-tab-add-coupon a:hover {
+    transition: 500ms;
+    color: #C084FC;
+}
+
+#cart-tab-checkout {
+    width: 100%;
+    margin-top: 3rem;
+}
+
+#cart-tab-checkout button {
+    height: 4rem;
+    width: 100%;
+    background-color: #9333EA;
+    color: #F9FAFB;
+    font-size: 20px;
+    border-radius: 10px;
+    border-style: none;
+}
+
+#cart-tab-checkout button:hover {
+    transition: 500ms;
+    background-color: #A855F7;
 }
 
 .prim-txt-color {
@@ -69,6 +127,7 @@ body {
 .cart-item-area {
     padding: 2rem 2rem 1rem 2rem;
     display: flex;
+    height: 100px;
 }
 
 .cart-item-img-area img {
@@ -81,6 +140,9 @@ body {
 
 .cart-item-info {
     padding-left: 1.5rem;
+    flex-grow: 1;
+    min-width: 0;
+    
 }
 
 .cart-item-title p {
@@ -94,6 +156,7 @@ body {
     margin-top: 10px;
     height: 40px;
     display: flex;
+    justify-content: space-between;
 }
 
 .cart-item-price p {
@@ -102,7 +165,7 @@ body {
 }
 
 .cart-item-controls {
-    width: 100%;
+    width: 120px;
     display: flex;
     justify-content: space-between;
     margin-left: 1rem;
