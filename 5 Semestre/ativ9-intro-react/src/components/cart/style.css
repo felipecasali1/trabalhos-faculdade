@@ -7,16 +7,17 @@
 
 body {
     background-color: black;
-    float: right;
 }
 
 #cart-tab {
     height: 100vh;
-    width: 450px;
+    width: 428px;
     background-color: #18181B;
     font-family: "Inter";
-    display: grid;
+    display: flex;
     overflow: hidden;
+    position: fixed;
+    right: 0;
 }
 
 #cart-tab-item-counter {
@@ -32,7 +33,9 @@ body {
     padding: 1.5rem 2rem 1.5rem 2rem;
     background-color: #18181B;
     position: fixed;
-    width: 386px;
+    width: 428px;
+    top: 0;
+    box-sizing: border-box;
 }
 
 #cart-tab-exit {
@@ -58,20 +61,23 @@ body {
 }
 
 #cart-tab-items {
-    padding-top: 80px;
-    padding-bottom: 204px;
+    margin-top: 5rem;
+    margin-bottom: 204px;
     flex: 1;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3F3F46 black;
 }
 
 #cart-tab-footer {
-    height: 140px;
+    height: 204px;
     padding: 2rem;
     border-top: 1px solid #3F3F46;
     position: fixed;
-    width: 386px;
-    bottom: 0;
+    width: 428px;
     background-color: #18181B;
+    bottom: 0;
+    box-sizing: border-box;
 }
 
 #cart-tab-total-value {
@@ -91,6 +97,7 @@ body {
 #cart-tab-add-coupon a {
     text-decoration: none;
     color: #A855F7;
+    padding-left: 0.5rem;
 }
 
 #cart-tab-add-coupon a:hover {
@@ -144,7 +151,6 @@ body {
     padding-left: 1.5rem;
     flex-grow: 1;
     min-width: 0;
-    
 }
 
 .cart-item-title p {
