@@ -154,7 +154,7 @@ export default function Cart() {
                             <path d="M2 9.5V2H9.5L22 14.5L14.5 22L2 9.5Z" stroke="#9333EA" stroke-width="2" stroke-linejoin="round"/>
                             <circle cx="6" cy="6" r="1.5" stroke="#9333EA" stroke-width="2"/>
                         </svg>
-                        <a href="">Adicionar cupom</a>
+                        <button href="">Adicionar cupom</button>
                     </div>
                     <div id="cart-tab-checkout">
                         <button id="cart-tab-checkout-button">Finalizar compra</button>

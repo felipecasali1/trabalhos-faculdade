@@ -91,16 +91,20 @@ body {
     color: #A855F7;
     padding: 0.5rem 0rem 1rem 0rem;
     display: flex;
+    align-items: center;
     height: 1rem;
 }
 
-#cart-tab-add-coupon a {
+#cart-tab-add-coupon button {
+    border: none;
+    font-size: 1rem;
+    background-color: transparent;
     text-decoration: none;
     color: #A855F7;
-    padding-left: 0.5rem;
+    margin-left: 0.5rem;
 }
 
-#cart-tab-add-coupon a:hover {
+#cart-tab-add-coupon button:hover {
     transition: 500ms;
     color: #C084FC;
 }
