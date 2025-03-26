@@ -26,58 +26,66 @@ public class NotePadView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelTxtArea = new javax.swing.JPanel();
-        jScrollPane = new javax.swing.JScrollPane();
-        jTextArea = new javax.swing.JTextArea();
-        jMenuBar = new javax.swing.JMenuBar();
-        jMenuFile = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuEdit = new javax.swing.JMenu();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Bloco de Notas");
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setSize(new java.awt.Dimension(800, 600));
 
-        jTextArea.setColumns(20);
-        jTextArea.setRows(5);
-        jTextArea.setToolTipText("");
-        jScrollPane.setViewportView(jTextArea);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
-        javax.swing.GroupLayout jPanelTxtAreaLayout = new javax.swing.GroupLayout(jPanelTxtArea);
-        jPanelTxtArea.setLayout(jPanelTxtAreaLayout);
-        jPanelTxtAreaLayout.setHorizontalGroup(
-            jPanelTxtAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 803, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
         );
-        jPanelTxtAreaLayout.setVerticalGroup(
-            jPanelTxtAreaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jMenuBar, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jMenuBar.setMaximumSize(new java.awt.Dimension(600, 50));
-        jMenuBar.setMinimumSize(new java.awt.Dimension(600, 50));
-        jMenuBar.setPreferredSize(new java.awt.Dimension(600, 50));
+        jLabel1.setText("Quantidade de caracteres: ");
 
-        jMenuFile.setText("File");
-        jMenuFile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jMenuFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenuFile.setPreferredSize(new java.awt.Dimension(50, 50));
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(376, 376, 376)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(387, 387, 387))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
+        );
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenuFile.add(jMenuItem1);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.SOUTH);
 
-        jMenuBar.add(jMenuFile);
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
 
-        jMenuEdit.setText("Edit");
-        jMenuEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jMenuEdit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jMenuEdit.setPreferredSize(new java.awt.Dimension(50, 50));
-        jMenuBar.add(jMenuEdit);
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
-        setJMenuBar(jMenuBar);
+        setJMenuBar(jMenuBar1);
 
         pack();
         setLocationRelativeTo(null);
@@ -119,12 +127,13 @@ public class NotePadView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBar;
-    private javax.swing.JMenu jMenuEdit;
-    private javax.swing.JMenu jMenuFile;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jPanelTxtArea;
-    private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JTextArea jTextArea;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
