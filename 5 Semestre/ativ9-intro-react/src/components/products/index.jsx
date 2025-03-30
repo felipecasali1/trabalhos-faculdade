@@ -1,4 +1,5 @@
 import "./products.css";
+import { products } from "./products.js"
 import Cart from "../cart";
 import React, { useEffect } from "react";
 import { HiOutlineShoppingCart } from "react-icons/hi";
@@ -12,10 +13,18 @@ export default function Products() {
         setCartItems((prev) => [...prev, item]);
     }
 
+    function fillCart() {
+        setCartItems((prev) => [...prev, ...products]);
+    }
+    
+    useEffect(() => {
+        fillCart();
+    }, []);
+
     return (
         <div id="store-container">
             <div id="store-navbar">
-                
+                <div id="store-name">Loja</div>
             </div>
             <div id="products-section">
                 <div className="product-area">

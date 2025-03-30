@@ -30,7 +30,7 @@ export default function Cart({cartItems, setCartItems, showCart, setShowCart}) {
                                         </div>
                                         <div className="cart-item-footer">
                                             <div className="cart-item-price">
-                                                <p className="sec-txt-color">{item.price}</p>
+                                                <p className="sec-txt-color">R${item.price}</p>
                                             </div>
                                             <div className="cart-item-controls">
                                                 <div className="cart-item-decrease-qty">
