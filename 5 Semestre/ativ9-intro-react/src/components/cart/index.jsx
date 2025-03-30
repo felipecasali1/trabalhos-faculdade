@@ -1,166 +1,75 @@
 import React from "react";
 import "./style.css"
+import { HiX } from "react-icons/hi";
+import { HiOutlineTicket } from "react-icons/hi";
 
-export default function Cart() {
+export default function Cart({cartItems, setCartItems, showCart, setShowCart}) {
+    if (!showCart) return null;
     return (
-        <body>
+        <div id="display">
             <div id="cart-tab">
                 <div id="cart-tab-header">
                     <div id="cart-tab-item-counter">
-                        <p class="sec-txt-color">Seu carrinho tem&nbsp;</p><p class="prim-txt-color"><strong>5 itens</strong></p>
+                        <span className="sec-txt-color">Seu carrinho tem&nbsp;</span><span className="prim-txt-color"><strong>{cartItems?.length}</strong>&nbsp;itens</span>
                     </div>
                     <div id="cart-tab-exit">
-                        <button id="cart-tab-exit-button">✖</button>
+                        <button id="cart-tab-exit-button" onClick={() => setShowCart(false)}><HiX size={28}/></button>
                     </div>
                 </div>
                 <div id="cart-tab-items">
-                    <div class="cart-item-area">
-                        <div class="cart-item-img-area">
-                            <img src="https://images.kabum.com.br/produtos/fotos/129919/monitor-gamer-samsung-odyssey-led-49-curvo-dqhd-hdmi-displayport-usb-g-sync-freesync-240hz-1ms-altura-ajustavel-lc49g95tsslxzd_1603130064_gg.jpg"/>
-                        </div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-title">
-                                <p class="sec-txt-color">Monitor Gamer Curvo 49 DQHD, 240Hz, 1ms, HDMI e DisplayPort, HDR 1000, FreeSync Premium, Ajuste de Altura - LC49G95TSSLXZD</p>
-                            </div>
-                            <div class="cart-item-footer">
-                                <div class="cart-item-price">
-                                    <p class="sec-txt-color">R$8.599,90</p>
-                                </div>
-                                <div class="cart-item-controls">
-                                    <div class="cart-item-decrease-qty">
-                                        <button>–</button>
+                    {
+                        cartItems?.map((item, index) => {
+                            return (
+                                <div className="cart-item-area" key={index}>
+                                    <div className="cart-item-img-area">
+                                        <img src={item.image}/>
                                     </div>
-                                    <div class="cart-item-quantity prim-txt-color">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="cart-item-increase-qty">
-                                        <button>+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cart-item-area">
-                        <div class="cart-item-img-area">
-                            <img src="https://i.zst.com.br/thumbs/12/3e/34/1675202523.jpg"/>
-                        </div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-title">
-                                <p class="sec-txt-color">Cadeira Gamer  RGB - Preta com Iluminação (Led)</p>
-                            </div>
-                            <div class="cart-item-footer">
-                                <div class="cart-item-price">
-                                    <p class="sec-txt-color">R$959,90</p>
-                                </div>
-                                <div class="cart-item-controls">
-                                    <div class="cart-item-decrease-qty">
-                                        <button>–</button>
-                                    </div>
-                                    <div class="cart-item-quantity prim-txt-color">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="cart-item-increase-qty">
-                                        <button>+</button>
+                                    <div className="cart-item-info">
+                                        <div className="cart-item-title">
+                                            <p className="sec-txt-color">{item.name}</p>
+                                        </div>
+                                        <div className="cart-item-footer">
+                                            <div className="cart-item-price">
+                                                <p className="sec-txt-color">{item.price}</p>
+                                            </div>
+                                            <div className="cart-item-controls">
+                                                <div className="cart-item-decrease-qty">
+                                                    <button>–</button>
+                                                </div>
+                                                <div className="cart-item-quantity prim-txt-color">
+                                                    <p>1</p>
+                                                </div>
+                                                <div className="cart-item-increase-qty">
+                                                    <button>+</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cart-item-area">
-                        <div class="cart-item-img-area">
-                            <img src="https://i.dell.com/is/image/DellContent/content/dam/images/products/electronics-and-accessories/dell/keyboards/aw510k/aw510k-ckb-3060rf-gy.psd?fmt=pjpg&pscan=auto&scl=1&wid=3724&hei=2419&qlt=100,1&resMode=sharp2&size=3724,2419&chrss=full&imwidth=5000"/>
-                        </div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-title">
-                                <p class="sec-txt-color">Teclado Gamer Mecânico Low Profile RGB AW510K 580</p>
-                            </div>
-                            <div class="cart-item-footer">
-                                <div class="cart-item-price">
-                                    <p class="sec-txt-color">R$1.002,00</p>
-                                </div>
-                                <div class="cart-item-controls">
-                                    <div class="cart-item-decrease-qty">
-                                        <button>–</button>
-                                    </div>
-                                    <div class="cart-item-quantity prim-txt-color">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="cart-item-increase-qty">
-                                        <button>+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cart-item-area">
-                        <div class="cart-item-img-area">
-                            <img src="https://cdn.awsli.com.br/800x800/404/404053/produto/292107871/headset-mancer-8ah9toj075.jpg"/>
-                        </div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-title">
-                                <p class="sec-txt-color">Headset Gamer RGB Preto</p>
-                            </div>
-                            <div class="cart-item-footer">
-                                <div class="cart-item-price">
-                                    <p class="sec-txt-color">R$99,90</p>
-                                </div>
-                                <div class="cart-item-controls">
-                                    <div class="cart-item-decrease-qty">
-                                        <button>–</button>
-                                    </div>
-                                    <div class="cart-item-quantity prim-txt-color">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="cart-item-increase-qty">
-                                        <button>+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cart-item-area">
-                        <div class="cart-item-img-area">
-                            <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lx7m2unl0zwf5e"/>
-                        </div>
-                        <div class="cart-item-info">
-                            <div class="cart-item-title">
-                                <p class="sec-txt-color">Patinho De Borracha Para Banho</p>
-                            </div>
-                            <div class="cart-item-footer">
-                                <div class="cart-item-price">
-                                    <p class="sec-txt-color">R$19,90</p>
-                                </div>
-                                <div class="cart-item-controls">
-                                    <div class="cart-item-decrease-qty">
-                                        <button>–</button>
-                                    </div>
-                                    <div class="cart-item-quantity prim-txt-color">
-                                        <p>1</p>
-                                    </div>
-                                    <div class="cart-item-increase-qty">
-                                        <button>+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            )
+                        })
+                    }
                 </div>
                 <div id="cart-tab-footer">
                     <div id="cart-tab-total-value">
-                        <p class="sec-txt-color">Total:</p><p class="prim-txt-color"><strong>R$10.681,60</strong></p>
+                        <p className="sec-txt-color">Total:</p><p className="prim-txt-color"><strong>R${" "}{
+                                cartItems?.length > 0
+                                ? cartItems
+                                    .reduce((total, item) => total + item.price, 0)
+                                    .toFixed(2)
+                                    .replace(".", ",")
+                                : "0,00"
+                            }</strong></p>
                     </div>
                     <div id="cart-tab-add-coupon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 9.5V2H9.5L22 14.5L14.5 22L2 9.5Z" stroke="#9333EA" stroke-width="2" stroke-linejoin="round"/>
-                            <circle cx="6" cy="6" r="1.5" stroke="#9333EA" stroke-width="2"/>
-                        </svg>
-                        <button href="">Adicionar cupom</button>
+                        <HiOutlineTicket size={24}/>
+                        <button href="null">Adicionar cupom</button>
                     </div>
                     <div id="cart-tab-checkout">
-                        <button id="cart-tab-checkout-button">Finalizar compra</button>
+                        <button id="cart-tab-checkout-button" onClick={() => setCartItems([])}>Finalizar compra</button>
                     </div>
                 </div>
             </div>
-        </body>
+        </div>
     )
 }
