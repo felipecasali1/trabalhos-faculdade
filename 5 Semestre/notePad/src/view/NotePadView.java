@@ -47,6 +47,11 @@ public class NotePadView extends javax.swing.JFrame {
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -118,6 +123,10 @@ public class NotePadView extends javax.swing.JFrame {
             ArquivoController.save(chooser.getSelectedFile(), jTextArea1.getText());
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jTextArea1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyReleased
+        jLabel1.setText("Quantidade de caracteres: " + jTextArea1.getText().length());
+    }//GEN-LAST:event_jTextArea1KeyReleased
 
     /**
      * @param args the command line arguments
