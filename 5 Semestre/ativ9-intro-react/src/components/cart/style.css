@@ -148,7 +148,7 @@
 .cart-item-img-area img {
     height: 100px;
     width: 100px;
-    border-radius: 5px;
+    border-radius: 10px;
     object-fit: cover;
     object-position: center;
 }
@@ -193,7 +193,7 @@
     border: 2px solid #3F3F46;
     height: 40px;
     width: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: transparent;
     color: #A855F7;
     font-size: 1.5rem;
@@ -215,7 +215,7 @@
     border: 2px solid #A855F7;
     height: 40px;
     width: 40px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: transparent;
     color: #A855F7;
     font-size: 1.5rem;
