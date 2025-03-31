@@ -186,6 +186,10 @@
 }
 
 .cart-item-decrease-qty button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4px;
     border: 2px solid #3F3F46;
     height: 40px;
     width: 40px;
@@ -204,6 +208,10 @@
 }
 
 .cart-item-increase-qty button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 4px;
     border: 2px solid #A855F7;
     height: 40px;
     width: 40px;
