@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { HiOutlineChip } from "react-icons/hi";
 import { HiMenu } from "react-icons/hi";
+import { HiPlus } from "react-icons/hi";
 
 export default function Products() {
     const [cartItems, setCartItems] = React.useState([]);
@@ -14,19 +15,11 @@ export default function Products() {
         setCartItems((prev) => [...prev, item]);
     }
 
-    function fillCart() {
-        setCartItems((prev) => [...prev, ...products]);
-    }
-    
-    useEffect(() => {
-        fillCart();
-    }, []);
-
     return (
         <div id="store-container">
             <div id="store-navbar">
                 <div id="store-menu">
-                    <button><HiMenu size={45}/></button>
+                    <button><HiMenu size={35}/></button>
                 </div>
                 <div id="store-logo-name">
                     <div id="store-logo">
@@ -45,6 +38,20 @@ export default function Products() {
                             <div className="product-area" key={index}>
                                 <div className="product-image">
                                     <img src={item.image}/>
+                                </div>
+                                <div className="product-info">
+                                    <div className="product-name">
+                                        <p>{item.name}</p>
+                                    </div>
+                                    <div className="product-price-button">
+                                        <div className="product-price">
+                                            <h5>R$ {(item.price * 1.25).toFixed(2)}</h5>
+                                            <p>R$ {item.price}</p>
+                                        </div>
+                                        <div className="product-add-to-cart">
+                                            <button onClick={() => addItem(item)}><HiPlus size={18}/><HiOutlineShoppingCart size={20}/></button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )})
