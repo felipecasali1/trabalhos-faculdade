@@ -39,6 +39,60 @@ $$ LANGUAGE plpgsql;
 
 select fn_valor_faturado_data('2025-03-25');
 
--- QUESTÃO 3 (STORED PROCEDURE) - 
+-- QUESTÃO 3 (STORED PROCEDURE) - REALIZA PEDIDOS, CALCULA E FAZ VERIFICAÇÕES
 
+CREATE OR REPLACE PROCEDURE sp_realizar_pedido(IN nome_cliente VARCHAR(100), IN valor_entrega FLOAT, IN nome_sabor_1 VARCHAR(100), IN nome_sabor_2 VARCHAR(100), IN qntd_pedido INTEGER)
+AS $$
+DECLARE
+	saborExiste INTEGER;
+	clienteId INTEGER;
+	pedidoId INTEGER;
+	sabor1Id INTEGER;
+	sabor2Id INTEGER;
+	totalPizzas FLOAT;
+BEGIN
+	IF qntd_pedido IS NULL OR qntd_pedido < 1 THEN
+    	RAISE EXCEPTION 'Erro: Quantidade de pedidos inválida!';
+	END IF;
 
+	IF valor_entrega IS NULL OR valor_entrega < 0 THEN
+		RAISE EXCEPTION 'Erro: Valor da entrega inválido!';
+	END IF;
+	
+	SELECT COUNT(*) INTO saborExiste
+	FROM tb_sabor
+	WHERE UPPER(tb_sabor.nome) = UPPER(nome_sabor_1) OR tb_sabor.nome = UPPER(nome_sabor_2);
+		
+	IF saborExiste < 2 THEN
+		RAISE EXCEPTION 'Erro: Sabor inexistente!';
+	END IF;
+	
+	IF EXISTS (SELECT 1 FROM tb_cliente WHERE tb_cliente.nome = nome_cliente) THEN
+		SELECT id_cliente INTO clienteId FROM tb_cliente WHERE tb_cliente.nome = nome_cliente;
+	ELSE 
+		INSERT INTO tb_cliente(nome) VALUES (nome_cliente) RETURNING id_cliente INTO clienteId;
+	END IF;
+
+	INSERT INTO tb_pedido(id_cliente, data_pedido, preco_entrega) VALUES (clienteId, NOW(), valor_entrega) RETURNING id_pedido INTO pedidoId;
+	
+	SELECT id_sabor INTO sabor1Id FROM tb_sabor WHERE UPPER(tb_sabor.nome) = UPPER(nome_sabor_1);
+	SELECT id_sabor INTO sabor2Id FROM tb_sabor WHERE UPPER(tb_sabor.nome) = UPPER(nome_sabor_2);
+	SELECT SUM(tb_sabor.preco/2) * qntd_pedido INTO totalPizzas FROM tb_sabor WHERE tb_sabor.id_sabor = sabor1Id OR tb_sabor.id_sabor = sabor2Id;
+	
+	INSERT INTO rl_pedido_pizza(id_pedido, id_sabor_1, id_sabor_2, qntd, preco_pizza) VALUES (pedidoId, sabor1Id, sabor2Id, qntd_pedido, totalPizzas);
+END;
+$$ LANGUAGE plpgsql;
+ 
+CALL sp_realizar_pedido('FELIPE', 14, 'FRANGO CATUPIRY', 'CALABACON', 2);
+
+-- EXTRA (TESTES)
+
+select tb_cliente.nome, tb_pedido.data_pedido, tb_pedido.preco_entrega, pizza.id_pedido, pizza.qntd, pizza.preco_pizza, (tb_pedido.preco_entrega + pizza.preco_pizza) AS total from rl_pedido_pizza AS pizza
+inner join tb_pedido on tb_pedido.id_pedido = pizza.id_pedido
+inner join tb_cliente on tb_pedido.id_cliente = tb_cliente.id_cliente
+where tb_cliente.nome = 'FELIPE';
+
+DELETE FROM rl_pedido_pizza AS pizza
+USING tb_pedido
+WHERE pizza.id_pedido = tb_pedido.id_pedido
+AND pizza.qntd = 0;
