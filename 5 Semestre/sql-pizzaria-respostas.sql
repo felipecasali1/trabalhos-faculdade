@@ -6,9 +6,17 @@ select * from tb_sabor;
 -- QUESTÃO 1 (VIEW) - MOSTRA OS SABORES, QUANTIDADE DE PEDIDOS POR SABOR E O VALOR UNITÁRIO
 
 CREATE OR REPLACE VIEW vw_mostrar_itens AS
-SELECT 
-	sabor1.nome AS nome_sabor1, 
-	sabor2.nome AS nome_sabor2, 
+SELECT
+	CASE 
+		WHEN pizza.id_sabor_1 < pizza.id_sabor_2
+		THEN sabor1.nome
+		ELSE sabor2.nome
+	END AS nome_sabor1, 
+	CASE 
+		WHEN pizza.id_sabor_1 < pizza.id_sabor_2
+		THEN sabor2.nome
+		ELSE sabor1.nome
+	END AS nome_sabor2, 
 	SUM(pizza.qntd) AS qntd_pizzas_vendidas, 
 	AVG((sabor1.preco + sabor2.preco)/2) AS preco_por_pizza
 FROM rl_pedido_pizza pizza
@@ -83,16 +91,14 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
  
-CALL sp_realizar_pedido('FELIPE', 14, 'FRANGO CATUPIRY', 'CALABACON', 2);
+CALL sp_realizar_pedido('FELIPE', 24, 'CALABACON', 'FRANGO CATUPIRY', 3);
 
 -- EXTRA (TESTES)
 
-select tb_cliente.nome, tb_pedido.data_pedido, tb_pedido.preco_entrega, pizza.id_pedido, pizza.qntd, pizza.preco_pizza, (tb_pedido.preco_entrega + pizza.preco_pizza) AS total from rl_pedido_pizza AS pizza
+select tb_cliente.nome, tb_pedido.data_pedido, sabor1.nome, sabor2.nome, tb_pedido.preco_entrega, pizza.id_pedido, pizza.qntd, pizza.preco_pizza, (tb_pedido.preco_entrega + pizza.preco_pizza) AS total 
+from rl_pedido_pizza AS pizza
 inner join tb_pedido on tb_pedido.id_pedido = pizza.id_pedido
 inner join tb_cliente on tb_pedido.id_cliente = tb_cliente.id_cliente
+inner join tb_sabor sabor1 on sabor1.id_sabor = pizza.id_sabor_1
+inner join tb_sabor sabor2 on sabor2.id_sabor = pizza.id_sabor_2
 where tb_cliente.nome = 'FELIPE';
-
-DELETE FROM rl_pedido_pizza AS pizza
-USING tb_pedido
-WHERE pizza.id_pedido = tb_pedido.id_pedido
-AND pizza.qntd = 0;
