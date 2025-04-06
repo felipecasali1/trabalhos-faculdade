@@ -41,7 +41,7 @@ public class ConnectionJBDC {
             List<Veiculo> list = new LinkedList<>();
             Connection con = createConnection();
             PreparedStatement prepStatement = con.prepareStatement(sql);
-            ResultSet res = prepStatement.executeQuery(sql);  
+            ResultSet res = prepStatement.executeQuery();  
 
             con.close();
 
@@ -81,5 +81,18 @@ public class ConnectionJBDC {
         }
     }
     
-    
+    public void deleteVeiculo (Integer id) {
+        String sql = "DELETE * FROM public.tb_veiculo WHERE id = ?";
+        try {
+            Connection con = createConnection();
+            PreparedStatement prepStatement = con.prepareStatement(sql);
+            
+            prepStatement.setInt(1, id);
+            
+            prepStatement.executeUpdate();
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionJBDC.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

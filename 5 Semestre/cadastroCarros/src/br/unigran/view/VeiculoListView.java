@@ -78,7 +78,15 @@ public class VeiculoListView extends javax.swing.JDialog {
             new String [] {
                 "Id", "Nome", "Marca", "Cor", "Km", "Valor"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jtTabela);
 
         javax.swing.GroupLayout jpTabelaLayout = new javax.swing.GroupLayout(jpTabela);
