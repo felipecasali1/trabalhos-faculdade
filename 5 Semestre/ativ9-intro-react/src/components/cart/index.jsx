@@ -1,5 +1,5 @@
 import React from "react";
-import "./style.css"
+import "./style.css";
 import { HiX } from "react-icons/hi";
 import { HiOutlineTicket } from "react-icons/hi";
 

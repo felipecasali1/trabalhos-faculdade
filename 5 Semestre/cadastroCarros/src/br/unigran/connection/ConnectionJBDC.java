@@ -20,7 +20,7 @@ public class ConnectionJBDC {
         String sql = "INSERT INTO  public.tb_veiculo(nome, marca, cor, km, valor) VALUES(?,?,?,?,?)";
         try {
             Connection con = createConnection();
-            PreparedStatement prepStatement = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement prepStatement = con.prepareStatement(sql);
             
             prepStatement.setString(1, veiculo.getNome());
             prepStatement.setString(2, veiculo.getMarca());
@@ -82,7 +82,7 @@ public class ConnectionJBDC {
     }
     
     public void deleteVeiculo (Integer id) {
-        String sql = "DELETE * FROM public.tb_veiculo WHERE id = ?";
+        String sql = "DELETE FROM public.tb_veiculo WHERE id = ?";
         try {
             Connection con = createConnection();
             PreparedStatement prepStatement = con.prepareStatement(sql);

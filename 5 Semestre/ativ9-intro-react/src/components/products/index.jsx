@@ -34,7 +34,7 @@ export default function Products() {
             <div id="products-section">
                 <div id="products">
                     {
-                        products.map((item, index) => { return (
+                        products?.map((item, index) => { return (
                             <div className="product-area" key={index}>
                                 <div className="product-image">
                                     <img src={item.image}/>
