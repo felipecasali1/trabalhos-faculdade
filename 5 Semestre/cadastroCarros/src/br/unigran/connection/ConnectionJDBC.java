@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ConnectionJBDC {
+public class ConnectionJDBC {
     private final String url = "jdbc:postgresql://localhost:5432/bancoveiculos";
     private final String user = "postgres";
     private final String password = "1234";
@@ -31,7 +31,7 @@ public class ConnectionJBDC {
             prepStatement.executeUpdate();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionJBDC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -56,7 +56,7 @@ public class ConnectionJBDC {
             }
             return list;
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionJBDC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -77,7 +77,7 @@ public class ConnectionJBDC {
             prepStatement.executeUpdate();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionJBDC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -92,7 +92,7 @@ public class ConnectionJBDC {
             prepStatement.executeUpdate();
             con.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ConnectionJBDC.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectionJDBC.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
