@@ -9,14 +9,16 @@ public class Pedido {
     private Carrinho carrinho;
     private StatusPedido status;
     private Entrega entrega;
+    private Reembolso reembolso;
 
-    public Pedido(int id, LocalDateTime data, Cliente cliente, Carrinho carrinho, StatusPedido status, Entrega entrega) {
+    public Pedido(int id, LocalDateTime data, Cliente cliente, Carrinho carrinho, StatusPedido status, Entrega entrega, Reembolso reembolso) {
         this.id = id;
         this.data = data;
         this.cliente = cliente;
         this.carrinho = carrinho;
         this.status = status;
         this.entrega = entrega;
+        this.reembolso = reembolso;
     }
 
     public int getId() {
@@ -65,5 +67,13 @@ public class Pedido {
 
     public void setEntrega(Entrega entrega) {
         this.entrega = entrega;
+    }
+
+    public Reembolso getReembolso() {
+        return reembolso;
+    }
+
+    public void setReembolso(Reembolso reembolso) {
+        this.reembolso = reembolso;
     }
 }

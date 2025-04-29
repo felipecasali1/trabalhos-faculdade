@@ -6,15 +6,13 @@ public class Entrega {
     private TipoEntrega tipo;
     private Delivery delivery;
     private Pedido pedido;
-    private StatusEntrega status;
 
-    public Entrega(int id, Cliente cliente, TipoEntrega tipo, Delivery delivery, Pedido pedido, StatusEntrega status) {
+    public Entrega(int id, Cliente cliente, TipoEntrega tipo, Delivery delivery, Pedido pedido) {
         this.id = id;
         this.cliente = cliente;
         this.tipo = tipo;
         this.delivery = delivery;
         this.pedido = pedido;
-        this.status = status;
     }
 
     public int getId() {
@@ -55,13 +53,5 @@ public class Entrega {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
-    }
-
-    public StatusEntrega getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusEntrega status) {
-        this.status = status;
     }
 }
