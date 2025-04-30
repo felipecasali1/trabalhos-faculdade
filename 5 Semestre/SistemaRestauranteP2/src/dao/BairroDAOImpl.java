@@ -101,25 +101,16 @@ public class BairroDAOImpl implements BairroDAO {
 
     @Override
     public void delete(Bairro bairro) {
-        String sqlEnder = "DELETE FROM public.endereco WHERE bairro_id = ?";
-        String sqlBairro = "DELETE FROM public.bairro WHERE id = ?";
+        String sql = "DELETE FROM public.bairro WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
-            c.setAutoCommit(false);
             
-            PreparedStatement psEnder = c.prepareStatement(sqlEnder);
-            psEnder.setInt(1, bairro.getId());
-            psEnder.executeUpdate();
+            PreparedStatement ps = c.prepareStatement(sqlBairro);
+            ps.setInt(1, bairro.getId());
+            ps.executeUpdate();
             
-            PreparedStatement psBairro = c.prepareStatement(sqlBairro);
-            psBairro.setInt(1, bairro.getId());
-            psBairro.executeUpdate();
-            
-            c.commit();
-            
-            psEnder.close();
-            psBairro.close();
+            ps.close();
             c.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
