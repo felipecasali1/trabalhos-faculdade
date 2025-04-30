@@ -103,9 +103,10 @@ public class BairroDAOImpl implements BairroDAO {
     public void delete(Bairro bairro) {
         String sqlEnder = "DELETE FROM public.endereco WHERE bairro_id = ?";
         String sqlBairro = "DELETE FROM public.bairro WHERE id = ?";
+        Connection c = null;
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            c = jdbc.createConnection();
             c.setAutoCommit(false);
             
             PreparedStatement psEnder = c.prepareStatement(sqlEnder);
@@ -122,6 +123,7 @@ public class BairroDAOImpl implements BairroDAO {
             psBairro.close();
             c.close();
         } catch (SQLException ex) {
+            
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
