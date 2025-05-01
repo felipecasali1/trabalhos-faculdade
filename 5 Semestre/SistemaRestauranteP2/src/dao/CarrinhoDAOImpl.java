@@ -12,16 +12,18 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
 
     @Override
     public void insert(Carrinho carrinho) {
-        String sql = "INSERT INTO public.carrinho(quantidade, ) VALUES (?)";
+        String sql = "INSERT INTO public.carrinho() VALUES (?)";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
+            
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, carrinho.getId());
             ps.executeUpdate();
+            ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -34,42 +36,82 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             Connection c = jdbc.createConnection();
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            c.close();
+            
+            CarrinhoProdutoDAOImpl cpDAO = new CarrinhoProdutoDAOImpl();
             while(rs.next()) {
                 int id = rs.getInt("id");
-                list.add(new Carrinho(id));
+                list.add(new Carrinho(id, cpDAO.listByCarrinhoId(id)));
             }
+            
+            rs.close();
+            ps.close();
+            c.close();
             return list;
         } catch (SQLException ex) {
-            Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
     
     @Override
     public Carrinho getById(Integer id) {
-        
+        String sql = "SELECT * FROM public.carrinho WHERE id = ?";        
+        try {
+            ConnectionJDBC jdbc = new ConnectionJDBC();
+            Connection c = jdbc.createConnection();
+            
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            Carrinho carrinho = null;
+            CarrinhoProdutoDAOImpl cpDAO = new CarrinhoProdutoDAOImpl();
+            if(rs.next()) {
+                int idRes = rs.getInt("id");
+                carrinho = new Carrinho(idRes, cpDAO.listByCarrinhoId(idRes));
+            }
+            
+            rs.close();
+            ps.close();
+            c.close();
+            return carrinho;
+        } catch (SQLException ex) {
+            Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Override
     public void update(Carrinho carrinho) {
-        String sql = "UPDATE public.carrinho SET nome = ? WHERE id = ?";
-        try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
-            PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, bairro.getNome());
-            ps.setInt(2, bairro.getId());
-            ps.executeUpdate();
-            ps.close();
-            c.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        // A tabela só tem id
+//        String sql = "UPDATE public.carrinho SET  = ? WHERE id = ?";
+//        try {
+//            ConnectionJDBC jdbc = new ConnectionJDBC();
+//            Connection c = jdbc.createConnection();
+//            PreparedStatement ps = c.prepareStatement(sql);
+//            ps.set(1, carrinho.);
+//            ps.setInt(2, carrinho.getId());
+//            ps.executeUpdate();
+//            ps.close();
+//            c.close();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     @Override
     public void delete(Carrinho carrinho) {
-        
+        String sql = "DELETE FROM public.carrinho WHERE id = ?";
+        try {
+            ConnectionJDBC jdbc = new ConnectionJDBC();
+            Connection c = jdbc.createConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            
+            ps.setInt(1, carrinho.getId());
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 }
