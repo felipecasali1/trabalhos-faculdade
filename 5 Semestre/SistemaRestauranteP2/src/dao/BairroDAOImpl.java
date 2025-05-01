@@ -31,7 +31,7 @@ public class BairroDAOImpl implements BairroDAO {
     @Override
     public List<Bairro> list() {
         List<Bairro> list = new LinkedList<>();
-        String sql = "SELECT * FROM public.bairro";
+        String sql = "SELECT id, nome FROM public.bairro";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -40,9 +40,7 @@ public class BairroDAOImpl implements BairroDAO {
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                list.add(new Bairro(id, nome));
+                list.add(new Bairro(rs.getInt("id"), rs.getString("nome")));
             }
             
             rs.close();
@@ -57,7 +55,7 @@ public class BairroDAOImpl implements BairroDAO {
     
     @Override
     public Bairro getById(Integer id) {
-        String sql = "SELECT * FROM public.bairro WHERE id = ?";        
+        String sql = "SELECT id, nome FROM public.bairro WHERE id = ?";        
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();

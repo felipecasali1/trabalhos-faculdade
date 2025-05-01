@@ -12,13 +12,12 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
 
     @Override
     public void insert(Carrinho carrinho) {
-        String sql = "INSERT INTO public.carrinho() VALUES (?)";
+        String sql = "INSERT INTO public.carrinho DEFAULT VALUES";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, carrinho.getId());
             ps.executeUpdate();
             ps.close();
             c.close();
@@ -108,8 +107,10 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             
             ps.setInt(1, carrinho.getId());
+            ps.executeUpdate();
             
-            
+            ps.close();
+            c.close();          
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
