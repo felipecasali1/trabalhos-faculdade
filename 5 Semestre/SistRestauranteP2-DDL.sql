@@ -96,10 +96,10 @@ CREATE TABLE carrinho_produto (
 	carrinho_id INTEGER NOT NULL,
     produto_id INTEGER NOT NULL,
     quantidade INTEGER NOT NULL,
-    ingrediente_escolha_id INTEGER,
+    ing_escolha_id INTEGER,
     FOREIGN KEY (carrinho_id) REFERENCES carrinho(id),
     FOREIGN KEY (produto_id) REFERENCES produto(id),
-    FOREIGN KEY (ingrediente_escolha_id) REFERENCES ingrediente_escolha(id)
+    FOREIGN KEY (ing_escolha_id) REFERENCES ingrediente_escolha(id)
 );
 
 CREATE TABLE reembolso (

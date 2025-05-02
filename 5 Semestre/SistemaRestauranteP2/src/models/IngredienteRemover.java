@@ -3,10 +3,12 @@ package models;
 public class IngredienteRemover {
     private int id;
     private String nome;
+    private IngredienteEscolha escolha;
 
-    public IngredienteRemover(int id, String nome) {
+    public IngredienteRemover(int id, String nome, IngredienteEscolha escolha) {
         this.id = id;
         this.nome = nome;
+        this.escolha = escolha;
     }
 
     public int getId() {
@@ -23,5 +25,13 @@ public class IngredienteRemover {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public IngredienteEscolha getEscolha() {
+        return escolha;
+    }
+
+    public void setEscolha(IngredienteEscolha escolha) {
+        this.escolha = escolha;
     }
 }

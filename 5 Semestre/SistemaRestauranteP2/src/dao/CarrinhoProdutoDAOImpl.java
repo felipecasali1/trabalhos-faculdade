@@ -15,7 +15,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
 
     @Override
     public void insert(CarrinhoProduto carrinhoProduto) {
-        String sql = "INSERT INTO public.carrinho_produto(carrinho_id, produto_id, quantidade, ingrediente_escolha_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO public.carrinho_produto(carrinho_id, produto_id, quantidade, ing_escolha_id) VALUES (?, ?, ?, ?)";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -37,18 +37,21 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     @Override
     public List<CarrinhoProduto> list() {
         List<CarrinhoProduto> list = new LinkedList<>();
-        String sql = "SELECT id, carrinho_id, produto_id, quantidade, ingrediente_escolha_id FROM public.carrinho_produto";
+        String sql = "SELECT id, carrinho_id, produto_id, quantidade, ing_escolha_id FROM public.carrinho_produto";
         try {    
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            
+
+            Carrinho carrinho = null;
+            Produto produto = null;
+            IngredienteEscolha ingEscolha = null;
             while(rs.next()) {
-                Carrinho carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
-                Produto produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
-                IngredienteEscolha ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ingrediente_escolha_id"));
+                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
+                produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
+                ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 list.add(new CarrinhoProduto(rs.getInt("id"), carrinho, produto, rs.getInt("quantidade"), ingEscolha));
             }
             
@@ -64,7 +67,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
 
     @Override
     public CarrinhoProduto getById(Integer id) {
-        String sql = "SELECT id, carrinho_id, produto_id, quantidade, ingrediente_escolha_id FROM public.carrinho_produto WHERE id = ?";
+        String sql = "SELECT id, carrinho_id, produto_id, quantidade, ing_escolha_id FROM public.carrinho_produto WHERE id = ?";
         try {    
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -74,10 +77,13 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ResultSet rs = ps.executeQuery();
             
             CarrinhoProduto cp = null;
+            Carrinho carrinho = null;
+            Produto produto = null;
+            IngredienteEscolha ingEscolha = null;
             if(rs.next()) {
-                Carrinho carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
-                Produto produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
-                IngredienteEscolha ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ingrediente_escolha_id"));
+                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
+                produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
+                ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 cp = new CarrinhoProduto(rs.getInt("id"), carrinho, produto, rs.getInt("quantidade"), ingEscolha);
             }
             
@@ -94,7 +100,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     @Override
     public List<CarrinhoProduto> listByCarrinhoId(Integer carrinhoId) {
         List<CarrinhoProduto> list = new LinkedList<>();
-        String sql = "SELECT id, carrinho_id, produto_id, quantidade, ingrediente_escolha_id FROM public.carrinho_produto WHERE carrinho_id = ?";
+        String sql = "SELECT id, carrinho_id, produto_id, quantidade, ing_escolha_id FROM public.carrinho_produto WHERE carrinho_id = ?";
         try {    
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -104,10 +110,13 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ResultSet rs = ps.executeQuery();
             
             CarrinhoProduto cp = null;
+            Carrinho carrinho = null;
+            Produto produto = null;
+            IngredienteEscolha ingEscolha = null;
             if(rs.next()) {
-                Carrinho carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
-                Produto produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
-                IngredienteEscolha ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ingrediente_escolha_id"));
+                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
+                produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
+                ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 list.add(new CarrinhoProduto(rs.getInt("id"), carrinho, produto, rs.getInt("quantidade"), ingEscolha));
             }
             
@@ -123,7 +132,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
 
     @Override
     public void update(CarrinhoProduto carrinhoProduto) {
-        String sql = "UPDATE public.carrinho_produto SET carrinho_id = ?, produto_id = ?, quantidade = ?, ingrediente_escolha_id = ? WHERE id = ?";
+        String sql = "UPDATE public.carrinho_produto SET carrinho_id = ?, produto_id = ?, quantidade = ?, ing_escolha_id = ? WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();

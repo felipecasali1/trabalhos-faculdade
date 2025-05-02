@@ -39,7 +39,8 @@ public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
             IngredienteAdicionarDAOImpl ingAdd = new IngredienteAdicionarDAOImpl();
             IngredienteRemoverDAOImpl ingRem = new IngredienteRemoverDAOImpl();
             while(rs.next()) {
-                list.add(new IngredienteEscolha(rs.getInt("id"), ingAdd.listByEscolhaId(), ingRem.listByEscolhaId()));
+                int resId = rs.getInt("id");
+                list.add(new IngredienteEscolha(resId, ingAdd.listByEscolhaId(resId), ingRem.listByEscolhaId(resId)));
             }
             
             rs.close();
@@ -83,12 +84,25 @@ public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
 
     @Override
     public void update(IngredienteEscolha ingEscolha) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // A TABELA TEM APENAS ID
     }
 
     @Override
     public void delete(IngredienteEscolha ingEscolha) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "DELETE FROM public.ingrediente_escolha WHERE id = ?";
+        try {
+            ConnectionJDBC jdbc = new ConnectionJDBC();
+            Connection c = jdbc.createConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            
+            ps.setInt(1, ingEscolha.getId());
+            ps.executeUpdate();
+            
+            ps.close();
+            c.close();          
+        } catch (SQLException ex) {
+            Logger.getLogger(IngredienteEscolhaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
