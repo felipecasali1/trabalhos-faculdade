@@ -29,7 +29,7 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
     @Override
     public List<Carrinho> list() {
         List<Carrinho> list = new LinkedList<>();
-        String sql = "SELECT * FROM public.carrinho";
+        String sql = "SELECT id FROM public.carrinho";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -54,7 +54,7 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
     
     @Override
     public Carrinho getById(Integer id) {
-        String sql = "SELECT * FROM public.carrinho WHERE id = ?";        
+        String sql = "SELECT id FROM public.carrinho WHERE id = ?";        
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -82,20 +82,7 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
 
     @Override
     public void update(Carrinho carrinho) {
-//        // A tabela só tem id
-//        String sql = "UPDATE public.carrinho SET  = ? WHERE id = ?";
-//        try {
-//            ConnectionJDBC jdbc = new ConnectionJDBC();
-//            Connection c = jdbc.createConnection();
-//            PreparedStatement ps = c.prepareStatement(sql);
-//            ps.set(1, carrinho.);
-//            ps.setInt(2, carrinho.getId());
-//            ps.executeUpdate();
-//            ps.close();
-//            c.close();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        // A TABELA TEM APENAS ID
     }
 
     @Override

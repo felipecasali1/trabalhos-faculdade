@@ -5,12 +5,14 @@ public class CarrinhoProduto {
     private Carrinho carrinho;
     private Produto produto;
     private int quantidade;
+    private IngredienteEscolha ingEscolha;
 
-    public CarrinhoProduto(int id, Carrinho carrinho, Produto produto, int quantidade) {
+    public CarrinhoProduto(int id, Carrinho carrinho, Produto produto, int quantidade, IngredienteEscolha ingEscolha) {
         this.id = id;
         this.carrinho = carrinho;
         this.produto = produto;
         this.quantidade = quantidade;
+        this.ingEscolha = ingEscolha;
     }
 
     public int getId() {
@@ -43,6 +45,14 @@ public class CarrinhoProduto {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public IngredienteEscolha getIngEscolha() {
+        return ingEscolha;
+    }
+
+    public void setIngEscolha(IngredienteEscolha ingEscolha) {
+        this.ingEscolha = ingEscolha;
     }
 }
 

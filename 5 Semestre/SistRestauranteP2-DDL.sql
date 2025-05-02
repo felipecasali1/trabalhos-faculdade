@@ -64,21 +64,21 @@ CREATE TABLE status_pedido (
 
 CREATE TABLE ingrediente_remover (
 	id SERIAL PRIMARY KEY NOT NULL,
-	nome varchar(50) NOT NULL
+	nome varchar(50) NOT NULL,
+	ing_escolha_id INTEGER NOT NULL,
+	FOREIGN KEY (ing_escolha_id) REFERENCES ingrediente_escolha(id)
 );
 
 CREATE TABLE ingrediente_adicionar (
 	id SERIAL PRIMARY KEY NOT NULL,
 	nome varchar(50) NOT NULL,
-	valor NUMERIC(12,2) NOT NULL
+	valor NUMERIC(12,2) NOT NULL,
+	ing_escolha_id INTEGER NOT NULL,
+	FOREIGN KEY (ing_escolha_id) REFERENCES ingrediente_escolha(id)
 );
 
 CREATE TABLE ingrediente_escolha (
-	id SERIAL PRIMARY KEY NOT NULL,
-	ing_add_id INTEGER NOT NULL,
-	ing_rem_id INTEGER NOT NULL,
-	FOREIGN KEY (ing_add_id) REFERENCES ingrediente_adicionar(id),
-	FOREIGN KEY (ing_rem_id) REFERENCES ingrediente_remover(id)
+	id SERIAL PRIMARY KEY NOT NULL
 );
 
 CREATE TABLE produto (
@@ -175,5 +175,3 @@ CREATE TABLE pagamento (
 	FOREIGN KEY (cupom_id) REFERENCES cupom(id),
 	FOREIGN KEY (pedido_id) REFERENCES pedido(id)
 );
-
-
