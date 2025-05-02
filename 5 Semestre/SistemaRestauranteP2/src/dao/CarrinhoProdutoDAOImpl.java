@@ -49,7 +49,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             Produto produto = null;
             IngredienteEscolha ingEscolha = null;
             while(rs.next()) {
-                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
+                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("carrinho_id"));
                 produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
                 ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 list.add(new CarrinhoProduto(rs.getInt("id"), carrinho, produto, rs.getInt("quantidade"), ingEscolha));
@@ -81,7 +81,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             Produto produto = null;
             IngredienteEscolha ingEscolha = null;
             if(rs.next()) {
-                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
+                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("carrinho_id"));
                 produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
                 ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 cp = new CarrinhoProduto(rs.getInt("id"), carrinho, produto, rs.getInt("quantidade"), ingEscolha);
@@ -108,13 +108,12 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, carrinhoId);
             ResultSet rs = ps.executeQuery();
-            
-            CarrinhoProduto cp = null;
+
             Carrinho carrinho = null;
             Produto produto = null;
             IngredienteEscolha ingEscolha = null;
             if(rs.next()) {
-                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("id"));
+                carrinho = new CarrinhoDAOImpl().getById(rs.getInt("carrinho_id"));
                 produto = new ProdutoDAOImpl().getById(rs.getInt("produto_id"));
                 ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 list.add(new CarrinhoProduto(rs.getInt("id"), carrinho, produto, rs.getInt("quantidade"), ingEscolha));

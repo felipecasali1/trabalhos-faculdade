@@ -92,7 +92,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
     @Override
     public List<IngredienteAdicionar> listByEscolhaId(Integer escolhaId) {
         List<IngredienteAdicionar> list = new LinkedList<>();
-        String sql = "SELECT id, nome, valor, ing_escolha_id FROM public.ingrediente_adicionar WHERE id = ?";
+        String sql = "SELECT id, nome, valor, ing_escolha_id FROM public.ingrediente_adicionar WHERE ing_escolha_id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -119,7 +119,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
 
     @Override
     public void update(IngredienteAdicionar ingAdd) {
-        String sql = "UPDATE public.ingrediente_adicionar SET nome = ?, valor = ?, ing_escolha_id = ?) WHERE id = ?";
+        String sql = "UPDATE public.ingrediente_adicionar SET nome = ?, valor = ?, ing_escolha_id = ? WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -155,5 +155,4 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

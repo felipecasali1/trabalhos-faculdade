@@ -36,7 +36,11 @@ CREATE TABLE login (
 CREATE TABLE telefone (
 	id SERIAL PRIMARY KEY NOT NULL,
 	numero varchar(20) NOT NULL,
-	ddd char(2) NOT NULL
+	ddd char(2) NOT NULL,
+	cliente_id INTEGER,
+	funcionario_id INTEGER,
+	FOREIGN KEY (cliente_id) REFERENCES cliente(id),
+	FOREIGN KEY (funcionario_id) REFERENCES funcionario(id)
 );
 
 CREATE TABLE funcionario (
@@ -45,16 +49,12 @@ CREATE TABLE funcionario (
 	cpf varchar(14) NOT NULL,
 	rg varchar(12) NOT NULL,
 	login_id INTEGER NOT NULL,
-	telefone_id INTEGER NOT NULL,
 	FOREIGN KEY (login_id) REFERENCES login(id),
-	FOREIGN KEY (telefone_id) REFERENCES telefone(id)
 );
 
 CREATE TABLE cliente (
 	id SERIAL PRIMARY KEY NOT NULL,
-	nome varchar(100) NOT NULL,
-	telefone_id INTEGER NOT NULL,
-	FOREIGN KEY (telefone_id) REFERENCES telefone(id)
+	nome varchar(100) NOT NULL
 );
 
 CREATE TABLE status_pedido (

@@ -7,15 +7,15 @@ public class Funcionario {
     private String nome;
     private String cpf;
     private String rg;
-    private List<Login> logins;
+    private Login login;
     private List<Telefone> telefones;
 
-    public Funcionario(int id, String nome, String cpf, String rg, List<Login> logins, List<Telefone> telefones) {
+    public Funcionario(int id, String nome, String cpf, String rg, Login login, List<Telefone> telefones) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
-        this.logins = logins;
+        this.login = login;
         this.telefones = telefones;
     }
 
@@ -51,12 +51,12 @@ public class Funcionario {
         this.rg = rg;
     }
 
-    public List<Login> getLogins() {
-        return logins;
+    public Login getLogin() {
+        return login;
     }
 
-    public void setLogins(List<Login> logins) {
-        this.logins = logins;
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
     public List<Telefone> getTelefones() {
@@ -66,6 +66,4 @@ public class Funcionario {
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
     }
-    
-    
 }
