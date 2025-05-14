@@ -102,7 +102,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
             ResultSet rs = ps.executeQuery();
 
             IngredienteEscolha ingEscolha = null;
-            if(rs.next()) {
+            while (rs.next()) {
                 ingEscolha = new IngredienteEscolhaDAOImpl().getById(rs.getInt("ing_escolha_id"));
                 list.add(new IngredienteRemover(rs.getInt("id"), rs.getString("nome"), ingEscolha));
             }

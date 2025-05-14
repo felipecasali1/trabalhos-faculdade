@@ -1,8 +1,7 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Login;
-import models.Telefone;
+import models.Reembolso;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,29 +12,28 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginDAOImpl implements LoginDAO {
+public class ReembolsoDAOImpl implements ReembolsoDAO {
     @Override
-    public void insert(Login login) {
-        String sql = "INSERT INTO public.login(usuario, senha) VALUES (?, ?)";
+    public void insert(Reembolso reembolso) {
+        String sql = "INSERT INTO public.reembolso(motivo) VALUES (?)";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
+            ps.setString(1, reembolso.getMotivo());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Login> list() {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
+    public List<Reembolso> list() {
+        List<Reembolso> list = new LinkedList<>();
+        String sql = "SELECT id, motivo FROM public.reembolso";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -43,9 +41,9 @@ public class LoginDAOImpl implements LoginDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                int idRes = rs.getInt("id");
-                list.add(new Login(idRes, rs.getString("usuario"), rs.getString("senha")));
+            Reembolso reembolso = null;
+            while(rs.next()) {
+                list.add(new Reembolso(rs.getInt("id"), rs.getString("motivo")));
             }
 
             rs.close();
@@ -53,71 +51,70 @@ public class LoginDAOImpl implements LoginDAO {
             c.close();
             return list;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public Login getById(Integer id) {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone WHERE id = ?";
+    public Reembolso getById(Integer id) {
+        String sql = "SELECT id, status FROM public.reembolso WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            Login login = null;
-            if(rs.next()) {
-                int idRes = rs.getInt("id");
-                login = new Login(idRes, rs.getString("usuario"), rs.getString("senha"));
+            Reembolso reembolso = null;
+            if (rs.next()) {
+                reembolso = new Reembolso(rs.getInt("id"), rs.getString("motivo"));
             }
 
             rs.close();
             ps.close();
             c.close();
-            return null;
+            return reembolso;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void update(Login login) {
-        String sql = "UPDATE public.login SET usuario = ?, senha = ? WHERE id = ?";
+    public void update(Reembolso reembolso) {
+        String sql = "UPDATE public.reembolso SET motivo = ? WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
-            ps.setInt(3, login.getId());
+            ps.setString(1, reembolso.getMotivo());
+            ps.setInt(2, reembolso.getId());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void delete(Login login) {
-        String sql = "DELETE FROM public.login WHERE id = ?";
+    public void delete(Reembolso reembolso) {
+        String sql = "DELETE FROM public.reembolso WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
-
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, login.getId());
+
+            ps.setInt(1, reembolso.getId());
             ps.executeUpdate();
+
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -1,23 +1,21 @@
 package models;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class Pedido {
     private int id;
-    private LocalDateTime data;
+    private Timestamp data;
     private Cliente cliente;
     private Carrinho carrinho;
     private StatusPedido status;
-    private Entrega entrega;
     private Reembolso reembolso;
 
-    public Pedido(int id, LocalDateTime data, Cliente cliente, Carrinho carrinho, StatusPedido status, Entrega entrega, Reembolso reembolso) {
+    public Pedido(int id, Timestamp data, Cliente cliente, Carrinho carrinho, StatusPedido status, Reembolso reembolso) {
         this.id = id;
         this.data = data;
         this.cliente = cliente;
         this.carrinho = carrinho;
         this.status = status;
-        this.entrega = entrega;
         this.reembolso = reembolso;
     }
 
@@ -29,11 +27,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public LocalDateTime getData() {
+    public Timestamp getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(Timestamp data) {
         this.data = data;
     }
 
@@ -59,14 +57,6 @@ public class Pedido {
 
     public void setStatus(StatusPedido status) {
         this.status = status;
-    }
-
-    public Entrega getEntrega() {
-        return entrega;
-    }
-
-    public void setEntrega(Entrega entrega) {
-        this.entrega = entrega;
     }
 
     public Reembolso getReembolso() {

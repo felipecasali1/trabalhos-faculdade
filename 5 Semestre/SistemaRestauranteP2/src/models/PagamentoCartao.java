@@ -1,31 +1,10 @@
 package models;
 
-public class PagamentoCartao extends MetodoPagamento {
-    private String numero;
-    private String cvv;
+public class PagamentoCartao {
     private TipoPagamentoCartao tipo;
 
-    public PagamentoCartao(String numero, String cvv, TipoPagamentoCartao tipo, int id) {
-        super(id);
-        this.numero = numero;
-        this.cvv = cvv;
+    public PagamentoCartao(TipoPagamentoCartao tipo) {
         this.tipo = tipo;
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
     }
 
     public TipoPagamentoCartao getTipo() {

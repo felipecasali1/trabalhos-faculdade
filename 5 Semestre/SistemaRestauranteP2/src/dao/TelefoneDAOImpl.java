@@ -46,7 +46,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 
             ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
             FuncionarioDAOImpl funcionarioDAO = new FuncionarioDAOImpl();
-            if(rs.next()) {
+            while (rs.next()) {
                 int idRes = rs.getInt("id");
                 list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), clienteDAO.getById(rs.getInt("cliente_id")), funcionarioDAO.getById(rs.getInt("funcionario_id"))));
             }
@@ -74,7 +74,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ResultSet rs = ps.executeQuery();
 
             ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
-            if(rs.next()) {
+            while (rs.next()) {
                 int idRes = rs.getInt("id");
                 list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), clienteDAO.getById(rs.getInt("cliente_id")), null));
             }
@@ -102,7 +102,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ResultSet rs = ps.executeQuery();
 
             FuncionarioDAOImpl funcionarioDAO = new FuncionarioDAOImpl();
-            if(rs.next()) {
+            while (rs.next()) {
                 int idRes = rs.getInt("id");
                 list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), null, funcionarioDAO.getById(rs.getInt("funcionario_id"))));
             }

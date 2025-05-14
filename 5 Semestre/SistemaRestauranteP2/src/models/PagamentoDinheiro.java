@@ -1,11 +1,10 @@
 package models;
 
-public class PagamentoDinheiro extends MetodoPagamento {
+public class PagamentoDinheiro {
     private float valorRecebido;
     private float valorTroco;
 
     public PagamentoDinheiro(int id, float valorRecebido, float valorTroco) {
-        super(id);
         this.valorRecebido = valorRecebido;
         this.valorTroco = valorTroco;
     }

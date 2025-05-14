@@ -1,8 +1,7 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Login;
-import models.Telefone;
+import models.TaxaEntrega;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,29 +12,29 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginDAOImpl implements LoginDAO {
+public class TaxaEntregaDAOImpl implements TaxaEntregaDAO {
     @Override
-    public void insert(Login login) {
-        String sql = "INSERT INTO public.login(usuario, senha) VALUES (?, ?)";
+    public void insert(TaxaEntrega taxaEntrega) {
+        String sql = "INSERT INTO public.taxa_entrega(taxa, entrega_id) VALUES (?, ?)";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
+            ps.setFloat(1, taxaEntrega.getTaxa());
+            ps.setInt(2, taxaEntrega.getEntrega().getId());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Login> list() {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
+    public List<TaxaEntrega> list() {
+        List<TaxaEntrega> list = new LinkedList<>();
+        String sql = "SELECT id, taxa, entrega_id FROM public.taxa_entrega";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -43,9 +42,11 @@ public class LoginDAOImpl implements LoginDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
+            TaxaEntrega taxaEntrega = null;
+            EntregaDAOImpl entregaDAO = new EntregaDAOImpl();
             while (rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Login(idRes, rs.getString("usuario"), rs.getString("senha")));
+                list.add(new TaxaEntrega(idRes, rs.getFloat("taxa"), entregaDAO.getById(rs.getInt("entrega_id"))));
             }
 
             rs.close();
@@ -53,71 +54,72 @@ public class LoginDAOImpl implements LoginDAO {
             c.close();
             return list;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public Login getById(Integer id) {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone WHERE id = ?";
+    public TaxaEntrega getByEntregaId(Integer entregaId) {
+        String sql = "SELECT id, taxa, entrega_id FROM public.taxa_entrega WHERE entrega_id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, entregaId);
             ResultSet rs = ps.executeQuery();
 
-            Login login = null;
+            TaxaEntrega taxaEntrega = null;
+            EntregaDAOImpl entregaDAO = new EntregaDAOImpl();
             if(rs.next()) {
                 int idRes = rs.getInt("id");
-                login = new Login(idRes, rs.getString("usuario"), rs.getString("senha"));
+                taxaEntrega = new TaxaEntrega(idRes, rs.getFloat("taxa"), entregaDAO.getById(entregaId));
             }
 
             rs.close();
             ps.close();
             c.close();
-            return null;
+            return taxaEntrega;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void update(Login login) {
-        String sql = "UPDATE public.login SET usuario = ?, senha = ? WHERE id = ?";
+    public void update(TaxaEntrega taxaEntrega) {
+        String sql = "UPDATE public.taxa_entrega SET taxa = ?, entrega_id = ? WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
-            ps.setInt(3, login.getId());
+            ps.setFloat(1, taxaEntrega.getTaxa());
+            ps.setInt(2, taxaEntrega.getEntrega().getId());
+            ps.setInt(3, taxaEntrega.getId());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void delete(Login login) {
-        String sql = "DELETE FROM public.login WHERE id = ?";
+    public void delete(TaxaEntrega taxaEntrega) {
+        String sql = "DELETE FROM public.taxa_entrega WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, login.getId());
+            ps.setInt(1, taxaEntrega.getId());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

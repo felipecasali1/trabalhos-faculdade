@@ -47,7 +47,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 
             LoginDAOImpl loginDAO = new LoginDAOImpl();
             TelefoneDAOImpl telefoneDAO = new TelefoneDAOImpl();
-            if(rs.next()) {
+            while (rs.next()) {
                 int idRes = rs.getInt("id");
                 list.add(new Funcionario(idRes, rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), loginDAO.getById(rs.getInt("login_id")), telefoneDAO.listByFuncionarioId(rs.getInt(idRes))));
             }

@@ -1,8 +1,7 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Login;
-import models.Telefone;
+import models.Cupom;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,29 +12,31 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginDAOImpl implements LoginDAO {
+public class CupomDAOImpl implements CupomDAO {
     @Override
-    public void insert(Login login) {
-        String sql = "INSERT INTO public.login(usuario, senha) VALUES (?, ?)";
+    public void insert(Cupom cupom) {
+        String sql = "INSERT INTO public.cupom(porcentagem, codigo, validade, ativo) VALUES (?, ?, ?, ?)";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
+            ps.setFloat(1, cupom.getPorcentagem());
+            ps.setString(2, cupom.getCodigo());
+            ps.setTimestamp(3, cupom.getValidade());
+            ps.setBoolean(4, cupom.isAtivo());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Login> list() {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
+    public List<Cupom> list() {
+        List<Cupom> list = new LinkedList<>();
+        String sql = "SELECT id, porcentagem, codigo, validade, ativo FROM public.cupom";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -43,9 +44,9 @@ public class LoginDAOImpl implements LoginDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            while(rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Login(idRes, rs.getString("usuario"), rs.getString("senha")));
+                list.add(new Cupom(idRes, rs.getFloat("portcentagem"), rs.getString("codigo"), rs.getTimestamp("validade"), rs.getBoolean("ativo")));
             }
 
             rs.close();
@@ -53,71 +54,74 @@ public class LoginDAOImpl implements LoginDAO {
             c.close();
             return list;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public Login getById(Integer id) {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone WHERE id = ?";
+    public Cupom getById(Integer id) {
+        String sql = "SELECT id, porcentagem, codigo, validade, ativo FROM public.cupom WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            Login login = null;
-            if(rs.next()) {
+            Cupom cupom = null;
+            while(rs.next()) {
                 int idRes = rs.getInt("id");
-                login = new Login(idRes, rs.getString("usuario"), rs.getString("senha"));
+                cupom = new Cupom(idRes, rs.getFloat("portcentagem"), rs.getString("codigo"), rs.getTimestamp("validade"), rs.getBoolean("ativo"));
             }
 
             rs.close();
             ps.close();
             c.close();
-            return null;
+            return cupom;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void update(Login login) {
-        String sql = "UPDATE public.login SET usuario = ?, senha = ? WHERE id = ?";
+    public void update(Cupom cupom) {
+        String sql = "UPDATE public.cupom SET porcentagem = ?, codigo = ?, validade = ?, ativo = ? WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
-            ps.setInt(3, login.getId());
+            ps.setFloat(1, cupom.getPorcentagem());
+            ps.setString(2, cupom.getCodigo());
+            ps.setTimestamp(3, cupom.getValidade());
+            ps.setBoolean(4, cupom.isAtivo());
+            ps.setInt(5, cupom.getId());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void delete(Login login) {
-        String sql = "DELETE FROM public.login WHERE id = ?";
+    public void delete(Cupom cupom) {
+        String sql = "DELETE FROM public.cupom WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
-
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, login.getId());
+
+            ps.setInt(1, cupom.getId());
             ps.executeUpdate();
+
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

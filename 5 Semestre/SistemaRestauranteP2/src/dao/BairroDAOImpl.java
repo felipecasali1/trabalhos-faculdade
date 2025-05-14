@@ -65,7 +65,7 @@ public class BairroDAOImpl implements BairroDAO {
             ResultSet rs = ps.executeQuery();
             
             Bairro bairro = null;
-            if(rs.next()) {
+            if (rs.next()) {
                 bairro = new Bairro(rs.getInt("id"), rs.getString("nome"));
             }
             

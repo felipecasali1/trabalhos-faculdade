@@ -3,10 +3,12 @@ package models;
 public class TaxaEntrega {
     private int id;
     private float taxa;
+    private Entrega entrega;
 
-    public TaxaEntrega(int id, float taxa) {
+    public TaxaEntrega(int id, float taxa, Entrega entrega) {
         this.id = id;
         this.taxa = taxa;
+        this.entrega = entrega;
     }
 
     public int getId() {
@@ -23,5 +25,13 @@ public class TaxaEntrega {
 
     public void setTaxa(float taxa) {
         this.taxa = taxa;
+    }
+
+    public Entrega getEntrega() {
+        return entrega;
+    }
+
+    public void setEntrega(Entrega entrega) {
+        this.entrega = entrega;
     }
 }

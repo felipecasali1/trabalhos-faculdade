@@ -2,9 +2,9 @@ package models;
 
 public class StatusPedido {
     private int id;
-    private String status;
+    private Status status;
 
-    public StatusPedido(int id, String status) {
+    public StatusPedido(int id, Status status) {
         this.id = id;
         this.status = status;
     }
@@ -17,11 +17,11 @@ public class StatusPedido {
         this.id = id;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

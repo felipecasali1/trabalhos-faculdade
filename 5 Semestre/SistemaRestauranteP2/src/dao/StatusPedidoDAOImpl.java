@@ -1,8 +1,8 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Login;
-import models.Telefone;
+import models.Status;
+import models.StatusPedido;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,29 +13,28 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginDAOImpl implements LoginDAO {
+public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     @Override
-    public void insert(Login login) {
-        String sql = "INSERT INTO public.login(usuario, senha) VALUES (?, ?)";
+    public void insert(StatusPedido statusPedido) {
+        String sql = "INSERT INTO public.status_pedido(status) VALUES (?)";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
+            ps.setString(1, statusPedido.getStatus().toString());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public List<Login> list() {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
+    public List<StatusPedido> list() {
+        List<StatusPedido> list = new LinkedList<>();
+        String sql = "SELECT id, status FROM public.status_pedido";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
@@ -43,9 +42,11 @@ public class LoginDAOImpl implements LoginDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            Status status = null;
+            while(rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Login(idRes, rs.getString("usuario"), rs.getString("senha")));
+                status = Status.valueOf(rs.getString(rs.getString("status")).toUpperCase());
+                list.add(new StatusPedido(idRes, status));
             }
 
             rs.close();
@@ -53,71 +54,72 @@ public class LoginDAOImpl implements LoginDAO {
             c.close();
             return list;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public Login getById(Integer id) {
-        List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone WHERE id = ?";
+    public StatusPedido getById(Integer id) {
+        String sql = "SELECT id, status FROM public.status_pedido WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
-            Login login = null;
-            if(rs.next()) {
-                int idRes = rs.getInt("id");
-                login = new Login(idRes, rs.getString("usuario"), rs.getString("senha"));
+            StatusPedido statusPedido = null;
+            Status status = null;
+            if (rs.next()) {
+                status = Status.valueOf(rs.getString(rs.getString("status")).toUpperCase());
+                statusPedido = new StatusPedido(rs.getInt("id"), status);
             }
 
             rs.close();
             ps.close();
             c.close();
-            return null;
+            return statusPedido;
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    public void update(Login login) {
-        String sql = "UPDATE public.login SET usuario = ?, senha = ? WHERE id = ?";
+    public void update(StatusPedido statusPedido) {
+        String sql = "UPDATE public.status_pedido SET status = ? WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setString(1, login.getUsuario());
-            ps.setString(2, login.getSenha());
-            ps.setInt(3, login.getId());
+            ps.setString(1, statusPedido.getStatus().toString());
+            ps.setInt(2, statusPedido.getId());
             ps.executeUpdate();
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    public void delete(Login login) {
-        String sql = "DELETE FROM public.login WHERE id = ?";
+    public void delete(StatusPedido statusPedido) {
+        String sql = "DELETE FROM public.status_pedido WHERE id = ?";
         try {
             ConnectionJDBC jdbc = new ConnectionJDBC();
             Connection c = jdbc.createConnection();
-
             PreparedStatement ps = c.prepareStatement(sql);
-            ps.setInt(1, login.getId());
+
+            ps.setInt(1, statusPedido.getId());
             ps.executeUpdate();
+
             ps.close();
             c.close();
         } catch (SQLException ex) {
-            Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

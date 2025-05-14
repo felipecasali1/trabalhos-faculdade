@@ -1,10 +1,9 @@
 package models;
 
-public class PagamentoPix extends MetodoPagamento {
+public class PagamentoPix {
     private String chavePix;
 
-    public PagamentoPix(String chavePix, int id) {
-        super(id);
+    public PagamentoPix(String chavePix) {
         this.chavePix = chavePix;
     }
 
