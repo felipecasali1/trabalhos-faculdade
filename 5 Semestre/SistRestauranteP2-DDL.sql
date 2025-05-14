@@ -7,7 +7,9 @@ CREATE TABLE bairro (
 
 CREATE TABLE taxa_entrega (
 	id SERIAL PRIMARY KEY NOT NULL,
-	taxa FLOAT NOT NULL
+	taxa FLOAT NOT NULL,
+	entrega_id INTEGER NOT NULL,
+	FOREIGN KEY (entrega_id) REFERENCES entrega(id)
 );
 
 CREATE TABLE endereco (
@@ -72,7 +74,7 @@ CREATE TABLE ingrediente_remover (
 CREATE TABLE ingrediente_adicionar (
 	id SERIAL PRIMARY KEY NOT NULL,
 	nome varchar(50) NOT NULL,
-	valor NUMERIC(12,2) NOT NULL,
+	valor NUMERIC(10,2) NOT NULL,
 	ing_escolha_id INTEGER NOT NULL,
 	FOREIGN KEY (ing_escolha_id) REFERENCES ingrediente_escolha(id)
 );
@@ -83,7 +85,7 @@ CREATE TABLE ingrediente_escolha (
 
 CREATE TABLE produto (
 	id SERIAL PRIMARY KEY NOT NULL,
-	valor NUMERIC(12,2) NOT NULL,
+	valor NUMERIC(10,2) NOT NULL,
 	nome varchar(50) NOT NULL
 );
 
@@ -131,47 +133,23 @@ CREATE TABLE entrega (
 	FOREIGN KEY (pedido_id) REFERENCES pedido(id)
 );
 
-CREATE TABLE pagamento_dinheiro (
-	id SERIAL PRIMARY KEY NOT NULL,
-	valor_recebido NUMERIC(12,2) NOT NULL,
-	valor_troco NUMERIC(12,2) NOT NULL
-);
-
-CREATE TABLE pagamento_cartao (
-	id SERIAL PRIMARY KEY NOT NULL,
-	numero varchar(20) NOT NULL,
-	cvv varchar(4) NOT NULL,
-	tipo varchar(20) NOT NULL
-);
-
-CREATE TABLE pagamento_pix (
-	id SERIAL PRIMARY KEY NOT NULL,
-	chave varchar(255) NOT NULL
-);
-
-CREATE TABLE metodo_pagamento (
-	id SERIAL PRIMARY KEY NOT NULL,
-	pix_id INTEGER,
-	cartao_id INTEGER,
-	dinheiro_id INTEGER,
-	FOREIGN KEY (pix_id) REFERENCES pagamento_pix(id),
-	FOREIGN KEY (cartao_id) REFERENCES pagamento_cartao(id),
-	FOREIGN KEY (dinheiro_id) REFERENCES pagamento_dinheiro(id)
-);
-
 CREATE TABLE cupom (
 	id SERIAL PRIMARY KEY NOT NULL,
 	porcentagem FLOAT NOT NULL,
 	codigo varchar(25) NOT NULL,
-	validade TIMESTAMP NOT NULL
+	validade TIMESTAMP NOT NULL,
+	ativo BOOLEAN NOT NULL
 );
 
 CREATE TABLE pagamento (
-	id SERIAL PRIMARY KEY NOT NULL,
-	metodo_id INTEGER NOT NULL,
-	cupom_id INTEGER NOT NULL,
-	pedido_id INTEGER NOT NULL,
-	FOREIGN KEY (metodo_id) REFERENCES metodo_pagamento(id),
-	FOREIGN KEY (cupom_id) REFERENCES cupom(id),
-	FOREIGN KEY (pedido_id) REFERENCES pedido(id)
+    id SERIAL PRIMARY KEY,
+    tipo VARCHAR(20) NOT NULL,
+    chave_pix VARCHAR(100),
+    tipo_cartao VARCHAR(10),
+    valor_recebido NUMERIC(10,2),
+    valor_troco NUMERIC(10,2),
+    cupom_id INTEGER,
+    pedido_id INTEGER NOT NULL,
+    FOREIGN KEY (cupom_id) REFERENCES cupom(id),
+    FOREIGN KEY (pedido_id) REFERENCES pedido(id)
 );
