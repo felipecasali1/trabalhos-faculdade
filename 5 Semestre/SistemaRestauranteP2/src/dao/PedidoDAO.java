@@ -5,9 +5,9 @@ import models.Pedido;
 import java.util.List;
 
 public interface PedidoDAO {
-    public abstract void insert(Pedido pedido);
-    public abstract List<Pedido> list();
-    public abstract Pedido getById(Integer id);
-    public abstract void update(Pedido pedido);
-    public abstract void delete(Pedido pedido);
+    void insert(Pedido pedido);
+    List<Pedido> list();
+    Pedido getById(Integer id);
+    void update(Pedido pedido);
+    void delete(Pedido pedido);
 }

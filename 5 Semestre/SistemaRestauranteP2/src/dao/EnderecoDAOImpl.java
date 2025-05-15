@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Delivery;
 import models.Endereco;
 
 import java.sql.Connection;

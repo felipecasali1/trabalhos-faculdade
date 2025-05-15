@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.IngredienteAdicionar;
 import models.IngredienteEscolha;
 import models.IngredienteRemover;
 

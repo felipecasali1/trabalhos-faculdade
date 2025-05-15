@@ -67,13 +67,16 @@ public class PagamentoDAOImpl implements PagamentoDAO {
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()) {
+            CupomDAOImpl cupomDAO = new CupomDAOImpl();
+            PedidoDAOImpl pedidoDAO = new PedidoDAOImpl();
+            TipoPagamento tipo = null;
+            Pagamento pagamento = null;
+            Pedido pedido = null;
+
+            while (rs.next()) {
                 int idRes = rs.getInt("id");
-                CupomDAOImpl cupomDAO = new CupomDAOImpl();
-                PedidoDAOImpl pedidoDAO = new PedidoDAOImpl();
-                TipoPagamento tipo = TipoPagamento.valueOf(rs.getString("tipo").toUpperCase());
-                Pagamento pagamento = null;
-                Pedido pedido = pedidoDAO.getById(rs.getInt("pedido_id"));
+                tipo = TipoPagamento.valueOf(rs.getString("tipo").toUpperCase());
+                pedido = pedidoDAO.getById(rs.getInt("pedido_id"));
 
                 int cupomId = rs.getInt("cupom_id");
                 Cupom cupom = null;
@@ -109,6 +112,53 @@ public class PagamentoDAOImpl implements PagamentoDAO {
 
     @Override
     public Pagamento getByPedidoId(Integer pedidoId) {
+        String sql = "SELECT id, tipo, chave_pix, tipo_cartao, valor_recebido, valor_troco, cupom_id, pedido_id FROM public.pagamento WHERE pedido_id = ?";
+        try {
+            ConnectionJDBC jdbc = new ConnectionJDBC();
+            Connection c = jdbc.createConnection();
+
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, pedidoId);
+            ResultSet rs = ps.executeQuery();
+
+            CupomDAOImpl cupomDAO = new CupomDAOImpl();
+            PedidoDAOImpl pedidoDAO = new PedidoDAOImpl();
+            TipoPagamento tipo = null;
+            Pagamento pagamento = null;
+            Pedido pedido = null;
+
+            if (rs.next()) {
+                int idRes = rs.getInt("id");
+                tipo = TipoPagamento.valueOf(rs.getString("tipo").toUpperCase());
+                pedido = pedidoDAO.getById(rs.getInt("pedido_id"));
+
+                int cupomId = rs.getInt("cupom_id");
+                Cupom cupom = null;
+                if (!rs.wasNull()) {
+                    cupom = cupomDAO.getById(cupomId);
+                }
+
+                switch (tipo) {
+                    case PIX:
+                        pagamento = new Pagamento(idRes, pedido, cupom, tipo, new PagamentoPix(rs.getString("chave_pix")), null, null);
+                        break;
+                    case CARTAO:
+                        TipoPagamentoCartao tipoCartao = TipoPagamentoCartao.valueOf(rs.getString("tipo_cartao").toUpperCase());
+                        pagamento = new Pagamento(idRes, pedido, cupom, tipo, null, new PagamentoCartao(tipoCartao), null);
+                        break;
+                    case DINHEIRO:
+                        pagamento = new Pagamento(idRes, pedido, cupom, tipo, null, null, new PagamentoDinheiro(idRes, rs.getFloat("valor_recebido"), rs.getFloat("valor_troco")));
+                        break;
+                }
+            }
+
+            rs.close();
+            ps.close();
+            c.close();
+            return pagamento;
+        } catch (SQLException ex) {
+            Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return null;
     }
 
@@ -161,6 +211,19 @@ public class PagamentoDAOImpl implements PagamentoDAO {
 
     @Override
     public void delete(Pagamento pagamento) {
+        String sql = "DELETE FROM public.pagamento WHERE id = ?";
+        try {
+            ConnectionJDBC jdbc = new ConnectionJDBC();
+            Connection c = jdbc.createConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
 
+            ps.setInt(1, pagamento.getId());
+            ps.executeUpdate();
+
+            ps.close();
+            c.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -1,8 +1,6 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Bairro;
-import models.Carrinho;
 import models.Cliente;
 
 import java.sql.Connection;

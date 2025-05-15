@@ -2,7 +2,6 @@ package dao;
 
 import connection.ConnectionJDBC;
 import models.Funcionario;
-import models.Telefone;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -2,7 +2,6 @@ package dao;
 
 import connection.ConnectionJDBC;
 import models.Login;
-import models.Telefone;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,7 +77,7 @@ public class LoginDAOImpl implements LoginDAO {
             rs.close();
             ps.close();
             c.close();
-            return null;
+            return login;
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

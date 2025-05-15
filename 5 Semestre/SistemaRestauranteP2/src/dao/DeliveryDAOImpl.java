@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Cupom;
 import models.Delivery;
 
 import java.sql.Connection;

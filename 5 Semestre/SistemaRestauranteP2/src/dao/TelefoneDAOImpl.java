@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionJDBC;
-import models.Cliente;
 import models.Telefone;
 
 import java.sql.Connection;

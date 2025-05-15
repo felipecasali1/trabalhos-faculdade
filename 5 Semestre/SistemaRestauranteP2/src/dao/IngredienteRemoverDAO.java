@@ -5,10 +5,10 @@ import models.IngredienteRemover;
 import java.util.List;
 
 public interface IngredienteRemoverDAO {
-    public abstract void insert(IngredienteRemover ingRem);
-    public abstract List<IngredienteRemover> list();
-    public abstract IngredienteRemover getById(Integer id);
-    public abstract List<IngredienteRemover> listByEscolhaId(Integer escolhaId);
-    public abstract void update(IngredienteRemover ingRem);
-    public abstract void delete(IngredienteRemover ingRem);
+    void insert(IngredienteRemover ingRem);
+    List<IngredienteRemover> list();
+    IngredienteRemover getById(Integer id);
+    List<IngredienteRemover> listByEscolhaId(Integer escolhaId);
+    void update(IngredienteRemover ingRem);
+    void delete(IngredienteRemover ingRem);
 }
