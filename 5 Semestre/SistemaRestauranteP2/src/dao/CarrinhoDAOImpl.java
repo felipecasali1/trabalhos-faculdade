@@ -14,13 +14,11 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
     public void insert(Carrinho carrinho) {
         String sql = "INSERT INTO public.carrinho DEFAULT VALUES";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -31,8 +29,8 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
         List<Carrinho> list = new LinkedList<>();
         String sql = "SELECT id FROM public.carrinho";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+            
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             
@@ -44,7 +42,6 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,8 +53,7 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
     public Carrinho getById(Integer id) {
         String sql = "SELECT id FROM public.carrinho WHERE id = ?";        
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();            
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -72,7 +68,6 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return carrinho;
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,15 +84,14 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
     public void delete(Carrinho carrinho) {
         String sql = "DELETE FROM public.carrinho WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();            
+            
             PreparedStatement ps = c.prepareStatement(sql);
             
             ps.setInt(1, carrinho.getId());
             ps.executeUpdate();
             
             ps.close();
-            c.close();          
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

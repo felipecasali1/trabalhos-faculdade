@@ -15,14 +15,12 @@ public class BairroDAOImpl implements BairroDAO {
     public void insert(Bairro bairro) {
         String sql = "INSERT INTO public.bairro(nome) VALUES (?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, bairro.getNome());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -33,9 +31,8 @@ public class BairroDAOImpl implements BairroDAO {
         List<Bairro> list = new LinkedList<>();
         String sql = "SELECT id, nome FROM public.bairro";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
-            
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             
@@ -45,7 +42,6 @@ public class BairroDAOImpl implements BairroDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,13 +53,11 @@ public class BairroDAOImpl implements BairroDAO {
     public Bairro getById(Integer id) {
         String sql = "SELECT id, nome FROM public.bairro WHERE id = ?";        
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
-            
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            
             Bairro bairro = null;
             if (rs.next()) {
                 bairro = new Bairro(rs.getInt("id"), rs.getString("nome"));
@@ -71,7 +65,6 @@ public class BairroDAOImpl implements BairroDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return bairro;
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,15 +76,13 @@ public class BairroDAOImpl implements BairroDAO {
     public void update(Bairro bairro) {
         String sql = "UPDATE public.bairro SET nome = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
-            
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, bairro.getNome());
             ps.setInt(2, bairro.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,15 +92,13 @@ public class BairroDAOImpl implements BairroDAO {
     public void delete(Bairro bairro) {
         String sql = "DELETE FROM public.bairro WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
-            
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, bairro.getId());
             ps.executeUpdate();
             
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

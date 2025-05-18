@@ -17,7 +17,7 @@ public class CupomDAOImpl implements CupomDAO {
     public void insert(Cupom cupom) {
         String sql = "INSERT INTO public.cupom(porcentagem, codigo, validade, ativo) VALUES (?, ?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
+
             Connection c = jdbc.createConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
