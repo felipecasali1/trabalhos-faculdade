@@ -17,15 +17,13 @@ public class LoginDAOImpl implements LoginDAO {
     public void insert(Login login) {
         String sql = "INSERT INTO public.login(usuario, senha) VALUES (?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, login.getUsuario());
             ps.setString(2, login.getSenha());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,8 +34,7 @@ public class LoginDAOImpl implements LoginDAO {
         List<Login> list = new LinkedList<>();
         String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -49,7 +46,6 @@ public class LoginDAOImpl implements LoginDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,8 +58,7 @@ public class LoginDAOImpl implements LoginDAO {
         List<Login> list = new LinkedList<>();
         String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -76,7 +71,6 @@ public class LoginDAOImpl implements LoginDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return login;
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,8 +82,7 @@ public class LoginDAOImpl implements LoginDAO {
     public void update(Login login) {
         String sql = "UPDATE public.login SET usuario = ?, senha = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, login.getUsuario());
@@ -97,7 +90,6 @@ public class LoginDAOImpl implements LoginDAO {
             ps.setInt(3, login.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -107,14 +99,12 @@ public class LoginDAOImpl implements LoginDAO {
     public void delete(Login login) {
         String sql = "DELETE FROM public.login WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, login.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

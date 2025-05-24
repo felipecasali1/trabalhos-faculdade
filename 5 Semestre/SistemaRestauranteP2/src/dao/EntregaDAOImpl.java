@@ -18,8 +18,7 @@ public class EntregaDAOImpl implements EntregaDAO {
     public void insert(Entrega entrega) {
         String sql = "INSERT INTO public.entrega(cliente_id, delivery_id, pedido_id, tipo) VALUES (?, ?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, entrega.getCliente().getId());
@@ -28,7 +27,6 @@ public class EntregaDAOImpl implements EntregaDAO {
             ps.setString(4, entrega.getTipo().toString());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,8 +37,7 @@ public class EntregaDAOImpl implements EntregaDAO {
         List<Entrega> list = new LinkedList<>();
         String sql = "SELECT id, cliente_id, delivery_id, pedido_id, tipo FROM public.entrega";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -57,7 +54,6 @@ public class EntregaDAOImpl implements EntregaDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,8 +65,7 @@ public class EntregaDAOImpl implements EntregaDAO {
     public Entrega getById(Integer id) {
         String sql = "SELECT id, cliente_id, delivery_id, pedido_id, tipo FROM public.entrega WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -89,7 +84,6 @@ public class EntregaDAOImpl implements EntregaDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return entrega;
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,8 +95,7 @@ public class EntregaDAOImpl implements EntregaDAO {
     public void update(Entrega entrega) {
         String sql = "UPDATE public.entrega SET cliente_id = ?, delivery_id = ?, pedido_id = ?, tipo = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, entrega.getCliente().getId());
@@ -112,7 +105,6 @@ public class EntregaDAOImpl implements EntregaDAO {
             ps.setInt(5, entrega.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -122,15 +114,13 @@ public class EntregaDAOImpl implements EntregaDAO {
     public void delete(Entrega entrega) {
         String sql = "DELETE FROM public.entrega WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, entrega.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

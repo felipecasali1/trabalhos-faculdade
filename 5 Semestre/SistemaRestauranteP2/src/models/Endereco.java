@@ -7,6 +7,9 @@ public class Endereco {
     private Bairro bairro;
     private float distancia;
 
+    public Endereco() {
+    }
+
     public Endereco(int id, String rua, String cep, Bairro bairro, float distancia) {
         this.id = id;
         this.rua = rua;

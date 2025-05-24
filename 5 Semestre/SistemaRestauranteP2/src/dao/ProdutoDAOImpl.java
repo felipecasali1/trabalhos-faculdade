@@ -14,15 +14,13 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public void insert(Produto produto) {
         String sql = "INSERT INTO public.produto(valor, nome) VALUES (?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setFloat(1, produto.getValorUnitario());
             ps.setString(2, produto.getNome());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -33,8 +31,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
         List<Produto> list = new LinkedList<>();
         String sql = "SELECT id, valor, nome FROM public.produto";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             
@@ -44,7 +41,6 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -55,9 +51,8 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     @Override
     public Produto getById(Integer id) {
         String sql = "SELECT id, valor, nome FROM public.produto WHERE id = ?";
-        try {    
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -70,7 +65,6 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return p;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,8 +76,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public void update(Produto produto) {
         String sql = "UPDATE public.produto SET valor = ?, nome = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setFloat(1, produto.getValorUnitario());
@@ -91,7 +84,6 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             ps.setInt(3, produto.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,15 +93,13 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     public void delete(Produto produto) {
         String sql = "DELETE FROM public.produto WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
             
             ps.setInt(1, produto.getId());
             ps.executeUpdate();
             
             ps.close();
-            c.close();          
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

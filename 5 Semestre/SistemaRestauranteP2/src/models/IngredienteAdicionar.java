@@ -6,6 +6,9 @@ public class IngredienteAdicionar {
     private float valor;
     private IngredienteEscolha ingEscolha;
 
+    public IngredienteAdicionar() {
+    }
+
     public IngredienteAdicionar(int id, String nome, float valor, IngredienteEscolha ingEscolha) {
         this.id = id;
         this.nome = nome;

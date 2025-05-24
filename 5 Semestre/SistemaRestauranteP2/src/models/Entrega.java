@@ -7,6 +7,9 @@ public class Entrega {
     private Delivery delivery;
     private Pedido pedido;
 
+    public Entrega() {
+    }
+
     public Entrega(int id, Cliente cliente, TipoEntrega tipo, Delivery delivery, Pedido pedido) {
         this.id = id;
         this.cliente = cliente;

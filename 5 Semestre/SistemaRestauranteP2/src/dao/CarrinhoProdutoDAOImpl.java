@@ -17,8 +17,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     public void insert(CarrinhoProduto carrinhoProduto) {
         String sql = "INSERT INTO public.carrinho_produto(carrinho_id, produto_id, quantidade, ing_escolha_id) VALUES (?, ?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, carrinhoProduto.getCarrinho().getId());
@@ -28,7 +27,6 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ps.executeUpdate();
             
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,9 +36,8 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     public List<CarrinhoProduto> list() {
         List<CarrinhoProduto> list = new LinkedList<>();
         String sql = "SELECT id, carrinho_id, produto_id, quantidade, ing_escolha_id FROM public.carrinho_produto";
-        try {    
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -57,7 +54,6 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,9 +64,8 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     @Override
     public CarrinhoProduto getById(Integer id) {
         String sql = "SELECT id, carrinho_id, produto_id, quantidade, ing_escolha_id FROM public.carrinho_produto WHERE id = ?";
-        try {    
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -89,7 +84,6 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return cp;
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -101,9 +95,8 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     public List<CarrinhoProduto> listByCarrinhoId(Integer carrinhoId) {
         List<CarrinhoProduto> list = new LinkedList<>();
         String sql = "SELECT id, carrinho_id, produto_id, quantidade, ing_escolha_id FROM public.carrinho_produto WHERE carrinho_id = ?";
-        try {    
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, carrinhoId);
@@ -121,7 +114,6 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,8 +125,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     public void update(CarrinhoProduto carrinhoProduto) {
         String sql = "UPDATE public.carrinho_produto SET carrinho_id = ?, produto_id = ?, quantidade = ?, ing_escolha_id = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, carrinhoProduto.getCarrinho().getId());
@@ -145,7 +136,6 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ps.executeUpdate();
             
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -155,15 +145,13 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     public void delete(CarrinhoProduto carrinhoProduto) {
         String sql = "DELETE FROM public.carrinho_produto WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
             
             ps.setInt(1, carrinhoProduto.getId());
             ps.executeUpdate();
             
             ps.close();
-            c.close();          
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

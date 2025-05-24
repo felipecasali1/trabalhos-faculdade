@@ -7,6 +7,9 @@ public class CarrinhoProduto {
     private int quantidade;
     private IngredienteEscolha ingEscolha;
 
+    public CarrinhoProduto() {
+    }
+
     public CarrinhoProduto(int id, Carrinho carrinho, Produto produto, int quantidade, IngredienteEscolha ingEscolha) {
         this.id = id;
         this.carrinho = carrinho;

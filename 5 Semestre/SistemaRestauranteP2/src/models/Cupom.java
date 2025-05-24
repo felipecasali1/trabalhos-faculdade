@@ -10,6 +10,9 @@ public class Cupom {
     private Timestamp validade;
     private boolean ativo;
 
+    public Cupom() {
+    }
+
     public Cupom(int id, float porcentagem, String codigo, Timestamp validade, boolean ativo) {
         this.id = id;
         this.porcentagem = porcentagem;

@@ -17,8 +17,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
     public void insert(Telefone telefone) {
         String sql = "INSERT INTO public.cliente(numero, ddd, cliente_id) VALUES (?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, telefone.getNumero());
@@ -26,7 +25,6 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ps.setInt(3, telefone.getCliente().getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -37,8 +35,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
         List<Telefone> list = new LinkedList<>();
         String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -52,7 +49,6 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,8 +61,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
         List<Telefone> list = new LinkedList<>();
         String sql = "SELECT id, numero, ddd, cliente_id FROM public.telefone WHERE cliente_id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, clienteId);
@@ -80,7 +75,6 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,8 +87,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
         List<Telefone> list = new LinkedList<>();
         String sql = "SELECT id, numero, ddd, funcionario_id FROM public.telefone WHERE funcionario_id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, funcionarioId);
@@ -108,7 +101,6 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,8 +112,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
     public Telefone getById(Integer id) {
         String sql = "SELECT id, numero, ddd, cliente_id FROM public.telefone WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -137,7 +128,6 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return telefone;
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -149,8 +139,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
     public void update(Telefone telefone) {
         String sql = "UPDATE public.telefone SET numero = ?, ddd = ?, cliente_id = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, telefone.getNumero());
@@ -159,7 +148,6 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ps.setInt(4, telefone.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -169,14 +157,12 @@ public class TelefoneDAOImpl implements TelefoneDAO {
     public void delete(Telefone telefone) {
         String sql = "DELETE FROM public.telefone WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, telefone.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

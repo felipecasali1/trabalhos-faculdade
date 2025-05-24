@@ -17,8 +17,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     public void insert(Pedido pedido) {
         String sql = "INSERT INTO public.pedido(data, cliente_id, carrinho_id, status_pedido_id, reembolso_id) VALUES (?, ?, ?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setTimestamp(1, pedido.getData());
@@ -28,7 +27,6 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.setInt(5, pedido.getReembolso().getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,8 +37,7 @@ public class PedidoDAOImpl implements PedidoDAO {
         List<Pedido> list = new LinkedList<>();
         String sql = "SELECT id, data, cliente_id, carrinho_id, status_pedido_id, reembolso_id FROM public.pedido";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -63,7 +60,6 @@ public class PedidoDAOImpl implements PedidoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,8 +71,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     public Pedido getById(Integer id) {
         String sql = "SELECT id, data, cliente_id, carrinho_id, status_pedido_id, reembolso_id FROM public.pedido WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -100,7 +95,6 @@ public class PedidoDAOImpl implements PedidoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return pedido;
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -112,8 +106,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     public void update(Pedido pedido) {
         String sql = "UPDATE public.pedido SET data = ?, cliente_id = ?, carrinho_id = ?, status_pedido_id = ?, reembolso_id = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setTimestamp(1, pedido.getData());
@@ -124,7 +117,6 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.setInt(6, pedido.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,15 +126,13 @@ public class PedidoDAOImpl implements PedidoDAO {
     public void delete(Pedido pedido) {
         String sql = "DELETE FROM public.pedido WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, pedido.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

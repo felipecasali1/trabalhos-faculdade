@@ -6,6 +6,9 @@ public class Carrinho {
     private int id;
     private List<CarrinhoProduto> itens;
 
+    public Carrinho() {
+    }
+
     public Carrinho(int id, List<CarrinhoProduto> itens) {
         this.id = id;
         this.itens = itens;
@@ -26,6 +29,4 @@ public class Carrinho {
     public void setItens(List<CarrinhoProduto> itens) {
         this.itens = itens;
     }
-    
-    
 }

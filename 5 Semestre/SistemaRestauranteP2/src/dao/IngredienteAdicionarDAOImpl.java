@@ -18,8 +18,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
     public void insert(IngredienteAdicionar ingAdd) {
         String sql = "INSERT INTO public.ingrediente_adicionar(nome, valor, ing_escolha_id) VALUES (?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, ingAdd.getNome());
@@ -28,7 +27,6 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -39,8 +37,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
         List<IngredienteAdicionar> list = new LinkedList<>();
         String sql = "SELECT id, nome, valor, ing_escolha_id FROM public.ingrediente_adicionar";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -53,7 +50,6 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,8 +61,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
     public IngredienteAdicionar getById(Integer id) {
         String sql = "SELECT id, nome, valor, ing_escolha_id FROM public.ingrediente_adicionar WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -81,7 +76,6 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return ia;
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -94,8 +88,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
         List<IngredienteAdicionar> list = new LinkedList<>();
         String sql = "SELECT id, nome, valor, ing_escolha_id FROM public.ingrediente_adicionar WHERE ing_escolha_id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, escolhaId);
@@ -109,7 +102,6 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -121,8 +113,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
     public void update(IngredienteAdicionar ingAdd) {
         String sql = "UPDATE public.ingrediente_adicionar SET nome = ?, valor = ?, ing_escolha_id = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, ingAdd.getNome());
@@ -132,7 +123,6 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -142,15 +132,13 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
     public void delete(IngredienteAdicionar ingAdd) {
         String sql = "DELETE FROM public.ingrediente_adicionar WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, ingAdd.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

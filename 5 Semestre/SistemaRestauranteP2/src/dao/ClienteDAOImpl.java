@@ -18,14 +18,12 @@ public class ClienteDAOImpl implements ClienteDAO {
     public void insert(Cliente cliente) {
         String sql = "INSERT INTO public.cliente(nome) VALUES (?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,8 +34,7 @@ public class ClienteDAOImpl implements ClienteDAO {
         List<Cliente> list = new LinkedList<>();
         String sql = "SELECT id, nome FROM public.cliente";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -50,7 +47,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,8 +58,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     public Cliente getById(Integer id) {
         String sql = "SELECT id, nome FROM public.cliente WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -78,7 +73,6 @@ public class ClienteDAOImpl implements ClienteDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return cliente;
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,15 +84,13 @@ public class ClienteDAOImpl implements ClienteDAO {
     public void update(Cliente cliente) {
         String sql = "UPDATE public.cliente SET nome = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, cliente.getNome());
             ps.setInt(2, cliente.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,15 +100,13 @@ public class ClienteDAOImpl implements ClienteDAO {
     public void delete(Cliente cliente) {
         String sql = "DELETE FROM public.cliente WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, cliente.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -17,8 +17,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     public void insert(Endereco endereco) {
         String sql = "INSERT INTO public.endereco(rua, cep, bairro_id, distancia) VALUES (?, ?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, endereco.getRua());
@@ -27,7 +26,6 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             ps.setFloat(4, endereco.getDistancia());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,8 +36,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         List<Endereco> list = new LinkedList<>();
         String sql = "SELECT id, rua, cep, bairro_id, distancia FROM public.cupom";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -52,7 +49,6 @@ public class EnderecoDAOImpl implements EnderecoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,8 +61,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
         List<Endereco> list = new LinkedList<>();
         String sql = "SELECT id, rua, cep, bairro_id, distancia FROM public.cupom WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -81,7 +76,6 @@ public class EnderecoDAOImpl implements EnderecoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return endereco;
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,8 +87,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     public void update(Endereco endereco) {
         String sql = "UPDATE public.endereco SET rua = ?, cep = ?, bairro_id = ?, distancia = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, endereco.getRua());
@@ -104,7 +97,6 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             ps.setInt(5, endereco.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -114,15 +106,13 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     public void delete(Endereco endereco) {
         String sql = "DELETE FROM public.endereco WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, endereco.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

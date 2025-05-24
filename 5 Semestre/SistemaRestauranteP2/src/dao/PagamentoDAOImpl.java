@@ -14,8 +14,7 @@ public class PagamentoDAOImpl implements PagamentoDAO {
     public void insert(Pagamento pagamento) {
         String sql = "INSERT INTO public.pagamento(tipo, chave_pix, tipo_cartao, valor_recebido, valor_troco, cupom_id, pedido_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, pagamento.getTipo().toString());
@@ -50,7 +49,6 @@ public class PagamentoDAOImpl implements PagamentoDAO {
 
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -61,8 +59,7 @@ public class PagamentoDAOImpl implements PagamentoDAO {
         List<Pagamento> list = new LinkedList<>();
         String sql = "SELECT id, tipo, chave_pix, tipo_cartao, valor_recebido, valor_troco, cupom_id, pedido_id FROM public.pagamento";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -102,7 +99,6 @@ public class PagamentoDAOImpl implements PagamentoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,8 +110,7 @@ public class PagamentoDAOImpl implements PagamentoDAO {
     public Pagamento getByPedidoId(Integer pedidoId) {
         String sql = "SELECT id, tipo, chave_pix, tipo_cartao, valor_recebido, valor_troco, cupom_id, pedido_id FROM public.pagamento WHERE pedido_id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, pedidoId);
@@ -154,7 +149,6 @@ public class PagamentoDAOImpl implements PagamentoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return pagamento;
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -166,8 +160,7 @@ public class PagamentoDAOImpl implements PagamentoDAO {
     public void update(Pagamento pagamento) {
         String sql = "UPDATE public.pagamento SET tipo = ?, chave_pix = ?, tipo_cartao = ?, valor_recebido = ?, valor_troco = ?, cupom_id = ?, pedido_id = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, pagamento.getTipo().toString());
@@ -203,7 +196,6 @@ public class PagamentoDAOImpl implements PagamentoDAO {
 
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -213,15 +205,13 @@ public class PagamentoDAOImpl implements PagamentoDAO {
     public void delete(Pagamento pagamento) {
         String sql = "DELETE FROM public.pagamento WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, pagamento.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

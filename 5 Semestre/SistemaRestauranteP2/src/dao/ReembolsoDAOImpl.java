@@ -17,14 +17,12 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
     public void insert(Reembolso reembolso) {
         String sql = "INSERT INTO public.reembolso(motivo) VALUES (?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, reembolso.getMotivo());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -35,8 +33,7 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
         List<Reembolso> list = new LinkedList<>();
         String sql = "SELECT id, motivo FROM public.reembolso";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -48,7 +45,6 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,8 +56,7 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
     public Reembolso getById(Integer id) {
         String sql = "SELECT id, status FROM public.reembolso WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -74,7 +69,6 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return reembolso;
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,15 +80,13 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
     public void update(Reembolso reembolso) {
         String sql = "UPDATE public.reembolso SET motivo = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, reembolso.getMotivo());
             ps.setInt(2, reembolso.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -104,15 +96,13 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
     public void delete(Reembolso reembolso) {
         String sql = "DELETE FROM public.reembolso WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, reembolso.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

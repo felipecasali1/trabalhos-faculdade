@@ -18,14 +18,12 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     public void insert(StatusPedido statusPedido) {
         String sql = "INSERT INTO public.status_pedido(status) VALUES (?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, statusPedido.getStatus().toString());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -36,8 +34,7 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
         List<StatusPedido> list = new LinkedList<>();
         String sql = "SELECT id, status FROM public.status_pedido";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -51,7 +48,6 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,8 +59,7 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     public StatusPedido getById(Integer id) {
         String sql = "SELECT id, status FROM public.status_pedido WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -79,7 +74,6 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return statusPedido;
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,15 +85,13 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     public void update(StatusPedido statusPedido) {
         String sql = "UPDATE public.status_pedido SET status = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, statusPedido.getStatus().toString());
             ps.setInt(2, statusPedido.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,15 +101,13 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     public void delete(StatusPedido statusPedido) {
         String sql = "DELETE FROM public.status_pedido WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, statusPedido.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

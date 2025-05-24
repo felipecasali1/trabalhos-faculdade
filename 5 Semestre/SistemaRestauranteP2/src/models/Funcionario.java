@@ -10,6 +10,9 @@ public class Funcionario {
     private Login login;
     private List<Telefone> telefones;
 
+    public Funcionario() {
+    }
+
     public Funcionario(int id, String nome, String cpf, String rg, Login login, List<Telefone> telefones) {
         this.id = id;
         this.nome = nome;

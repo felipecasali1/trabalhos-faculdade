@@ -17,8 +17,7 @@ public class CupomDAOImpl implements CupomDAO {
     public void insert(Cupom cupom) {
         String sql = "INSERT INTO public.cupom(porcentagem, codigo, validade, ativo) VALUES (?, ?, ?, ?)";
         try {
-
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setFloat(1, cupom.getPorcentagem());
@@ -27,7 +26,6 @@ public class CupomDAOImpl implements CupomDAO {
             ps.setBoolean(4, cupom.isAtivo());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -38,8 +36,7 @@ public class CupomDAOImpl implements CupomDAO {
         List<Cupom> list = new LinkedList<>();
         String sql = "SELECT id, porcentagem, codigo, validade, ativo FROM public.cupom";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -51,7 +48,6 @@ public class CupomDAOImpl implements CupomDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,8 +59,7 @@ public class CupomDAOImpl implements CupomDAO {
     public Cupom getById(Integer id) {
         String sql = "SELECT id, porcentagem, codigo, validade, ativo FROM public.cupom WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -78,7 +73,6 @@ public class CupomDAOImpl implements CupomDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return cupom;
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,8 +84,7 @@ public class CupomDAOImpl implements CupomDAO {
     public void update(Cupom cupom) {
         String sql = "UPDATE public.cupom SET porcentagem = ?, codigo = ?, validade = ?, ativo = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setFloat(1, cupom.getPorcentagem());
@@ -101,7 +94,6 @@ public class CupomDAOImpl implements CupomDAO {
             ps.setInt(5, cupom.getId());
             ps.executeUpdate();
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -111,15 +103,13 @@ public class CupomDAOImpl implements CupomDAO {
     public void delete(Cupom cupom) {
         String sql = "DELETE FROM public.cupom WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, cupom.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

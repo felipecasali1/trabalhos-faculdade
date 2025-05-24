@@ -6,6 +6,9 @@ public class Delivery {
     private String complemento;
     private Endereco endereco;
 
+    public Delivery() {
+    }
+
     public Delivery(int id, String numero, String complemento, Endereco endereco) {
         this.id = id;
         this.numero = numero;

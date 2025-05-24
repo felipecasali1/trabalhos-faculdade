@@ -7,6 +7,9 @@ public class Cliente {
     private String nome;
     private List<Telefone> telefones;
 
+    public Cliente() {
+    }
+
     public Cliente(int id, String nome, List<Telefone> telefones) {
         this.id = id;
         this.nome = nome;

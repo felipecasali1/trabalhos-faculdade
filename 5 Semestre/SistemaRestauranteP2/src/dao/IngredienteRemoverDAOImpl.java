@@ -18,8 +18,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
     public void insert(IngredienteRemover ingRem) {
         String sql = "INSERT INTO public.ingrediente_remover(nome, ing_escolha_id) VALUES (?, ?)";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, ingRem.getNome());
@@ -38,8 +37,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
         List<IngredienteRemover> list = new LinkedList<>();
         String sql = "SELECT id, nome, ing_escolha_id FROM public.ingrediente_remover";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -52,7 +50,6 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,8 +61,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
     public IngredienteRemover getById(Integer id) {
         String sql = "SELECT id, nome, ing_escolha_id FROM public.ingrediente_remover WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, id);
@@ -80,7 +76,6 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return ir;
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,8 +88,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
         List<IngredienteRemover> list = new LinkedList<>();
         String sql = "SELECT id, nome, ing_escolha_id FROM public.ingrediente_remover WHERE ing_escolha_id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setInt(1, escolhaId);
@@ -108,7 +102,6 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
 
             rs.close();
             ps.close();
-            c.close();
             return list;
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,8 +113,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
     public void update(IngredienteRemover ingRem) {
         String sql = "UPDATE public.ingrediente_remover SET nome = ?, ing_escolha_id = ? WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, ingRem.getNome());
@@ -130,7 +122,6 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -140,15 +131,13 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
     public void delete(IngredienteRemover ingRem) {
         String sql = "DELETE FROM public.ingrediente_remover WHERE id = ?";
         try {
-            ConnectionJDBC jdbc = new ConnectionJDBC();
-            Connection c = jdbc.createConnection();
+            Connection c = ConnectionJDBC.getInstance().getConnection();
             PreparedStatement ps = c.prepareStatement(sql);
 
             ps.setInt(1, ingRem.getId());
             ps.executeUpdate();
 
             ps.close();
-            c.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
