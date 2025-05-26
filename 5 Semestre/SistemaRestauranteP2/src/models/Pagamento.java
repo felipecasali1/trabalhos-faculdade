@@ -9,6 +9,9 @@ public class Pagamento {
     private PagamentoCartao pagamentoCartao;
     private PagamentoDinheiro pagamentoDinheiro;
 
+    public Pagamento() {
+    }
+
     public Pagamento(int id, Pedido pedido, Cupom cupom, TipoPagamento tipo, PagamentoPix pagamentoPix, PagamentoCartao pagamentoCartao, PagamentoDinheiro pagamentoDinheiro) {
         this.id = id;
         this.pedido = pedido;

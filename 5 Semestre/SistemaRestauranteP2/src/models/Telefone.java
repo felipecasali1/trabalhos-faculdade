@@ -7,6 +7,9 @@ public class Telefone {
     private Cliente cliente;
     private Funcionario funcionario;
 
+    public Telefone() {
+    }
+
     public Telefone(int id, String numero, String ddd, Cliente cliente, Funcionario funcionario) {
         this.id = id;
         this.numero = numero;

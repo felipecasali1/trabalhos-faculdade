@@ -5,6 +5,9 @@ public class Login {
     private String usuario;
     private String senha;
 
+    public Login() {
+    }
+
     public Login(int id, String usuario, String senha) {
         this.id = id;
         this.usuario = usuario;

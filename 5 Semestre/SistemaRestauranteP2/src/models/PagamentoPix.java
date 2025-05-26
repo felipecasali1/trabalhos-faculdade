@@ -3,6 +3,9 @@ package models;
 public class PagamentoPix {
     private String chavePix;
 
+    public PagamentoPix() {
+    }
+
     public PagamentoPix(String chavePix) {
         this.chavePix = chavePix;
     }

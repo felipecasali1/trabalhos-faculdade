@@ -5,6 +5,9 @@ public class IngredienteRemover {
     private String nome;
     private IngredienteEscolha escolha;
 
+    public IngredienteRemover() {
+    }
+
     public IngredienteRemover(int id, String nome, IngredienteEscolha escolha) {
         this.id = id;
         this.nome = nome;

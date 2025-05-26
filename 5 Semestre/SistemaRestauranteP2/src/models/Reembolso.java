@@ -4,6 +4,9 @@ public class Reembolso {
     private int id;
     private String motivo;
 
+    public Reembolso() {
+    }
+
     public Reembolso(int id, String motivo) {
         this.id = id;
         this.motivo = motivo;

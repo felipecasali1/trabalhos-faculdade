@@ -5,6 +5,9 @@ public class Produto {
     private float valorUnitario;
     private String nome;
 
+    public Produto() {
+    }
+
     public Produto(int id, float valorUnitario, String nome) {
         this.id = id;
         this.valorUnitario = valorUnitario;

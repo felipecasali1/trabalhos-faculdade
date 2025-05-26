@@ -5,6 +5,9 @@ public class TaxaEntrega {
     private float taxa;
     private Entrega entrega;
 
+    public TaxaEntrega() {
+    }
+
     public TaxaEntrega(int id, float taxa, Entrega entrega) {
         this.id = id;
         this.taxa = taxa;

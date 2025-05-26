@@ -10,6 +10,9 @@ public class Pedido {
     private StatusPedido status;
     private Reembolso reembolso;
 
+    public Pedido() {
+    }
+
     public Pedido(int id, Timestamp data, Cliente cliente, Carrinho carrinho, StatusPedido status, Reembolso reembolso) {
         this.id = id;
         this.data = data;

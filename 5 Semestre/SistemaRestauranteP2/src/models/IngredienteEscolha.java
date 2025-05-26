@@ -7,6 +7,9 @@ public class IngredienteEscolha {
     private List<IngredienteAdicionar> ingAdd;
     private List<IngredienteRemover> ingRemover;
 
+    public IngredienteEscolha() {
+    }
+
     public IngredienteEscolha(int id, List<IngredienteAdicionar> ingAdd, List<IngredienteRemover> ingRemover) {
         this.id = id;
         this.ingAdd = ingAdd;

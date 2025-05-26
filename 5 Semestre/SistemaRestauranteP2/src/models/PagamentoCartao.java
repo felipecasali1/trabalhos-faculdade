@@ -3,6 +3,9 @@ package models;
 public class PagamentoCartao {
     private TipoPagamentoCartao tipo;
 
+    public PagamentoCartao() {
+    }
+
     public PagamentoCartao(TipoPagamentoCartao tipo) {
         this.tipo = tipo;
     }

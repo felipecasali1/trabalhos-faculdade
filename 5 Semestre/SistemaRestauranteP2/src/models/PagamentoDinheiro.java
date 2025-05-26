@@ -4,6 +4,9 @@ public class PagamentoDinheiro {
     private float valorRecebido;
     private float valorTroco;
 
+    public PagamentoDinheiro() {
+    }
+
     public PagamentoDinheiro(int id, float valorRecebido, float valorTroco) {
         this.valorRecebido = valorRecebido;
         this.valorTroco = valorTroco;

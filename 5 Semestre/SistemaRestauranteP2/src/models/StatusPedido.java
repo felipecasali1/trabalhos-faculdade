@@ -4,6 +4,9 @@ public class StatusPedido {
     private int id;
     private Status status;
 
+    public StatusPedido() {
+    }
+
     public StatusPedido(int id, Status status) {
         this.id = id;
         this.status = status;

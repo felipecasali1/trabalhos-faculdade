@@ -54,7 +54,7 @@ public class IngredienteAdicionarDTO extends InterfaceDTO {
         IngredienteAdicionar ingredienteAdicionar = new IngredienteAdicionar();
         ingredienteAdicionar.setId(Integer.parseInt(id));
         ingredienteAdicionar.setNome(nome);
-        ingredienteAdicionar.setValor(valor);
+        ingredienteAdicionar.setValor(Float.parseFloat(valor));
         ingredienteAdicionar.setIngEscolha(ingredienteEscolhaDTO.builder());
         return ingredienteAdicionar;
     }
