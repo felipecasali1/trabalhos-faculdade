@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.IngredienteAdicionar;
 
 public class IngredienteAdicionarDTO extends InterfaceDTO {
@@ -8,54 +9,31 @@ public class IngredienteAdicionarDTO extends InterfaceDTO {
     public String valor;
     public IngredienteEscolhaDTO ingredienteEscolhaDTO;
 
-    public IngredienteAdicionarDTO() {
+    public static IngredienteAdicionarDTO buildDTO(IngredienteAdicionar ingredienteAdicionar) {
+        IngredienteAdicionarDTO iaDTO = new IngredienteAdicionarDTO();
+        iaDTO.id = ingredienteAdicionar.getId() + "";
+        iaDTO.nome = ingredienteAdicionar.getNome();
+        iaDTO.valor = ingredienteAdicionar.getValor() + "";
+        iaDTO.ingredienteEscolhaDTO = IngredienteEscolhaDTO.buildDTO(ingredienteAdicionar.getIngEscolha());
+        return  iaDTO;
     }
 
-    public IngredienteAdicionarDTO(String id, String nome, String valor, IngredienteEscolhaDTO ingredienteEscolhaDTO) {
-        this.id = id;
-        this.nome = nome;
-        this.valor = valor;
-        this.ingredienteEscolhaDTO = ingredienteEscolhaDTO;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getValor() {
-        return valor;
-    }
-
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
-    public IngredienteEscolhaDTO getIngredienteEscolhaDTO() {
-        return ingredienteEscolhaDTO;
-    }
-
-    public void setIngredienteEscolhaDTO(IngredienteEscolhaDTO ingredienteEscolhaDTO) {
-        this.ingredienteEscolhaDTO = ingredienteEscolhaDTO;
-    }
-
-    public IngredienteAdicionar builder() {
+    public IngredienteAdicionar buildEntity() {
         IngredienteAdicionar ingredienteAdicionar = new IngredienteAdicionar();
         ingredienteAdicionar.setId(Integer.parseInt(id));
         ingredienteAdicionar.setNome(nome);
         ingredienteAdicionar.setValor(Float.parseFloat(valor));
-        ingredienteAdicionar.setIngEscolha(ingredienteEscolhaDTO.builder());
+        ingredienteAdicionar.setIngEscolha(ingredienteEscolhaDTO.buildEntity());
         return ingredienteAdicionar;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

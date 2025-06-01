@@ -1,39 +1,31 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Bairro;
 
 public class BairroDTO extends InterfaceDTO {
     public String id;
     public String nome;
 
-    public BairroDTO() {
+    public static BairroDTO buildDTO(Bairro bairro) {
+        BairroDTO bDTO = new BairroDTO();
+        bDTO.id = bairro.getId() + "";
+        bDTO.nome = bairro.getNome();
+        return bDTO;
     }
 
-    public BairroDTO(String id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    public Bairro buildEntity() {
+        Bairro b = new Bairro();
+        b.setId(Integer.parseInt(id));
+        b.setNome(nome);
+        return b;
     }
 
-    public String getId() {
-        return id;
+    public String[] getTableHeader() {
+        return new String[]{"Nome"};
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Bairro builder() {
-        Bairro bairro = new Bairro();
-        bairro.setId(Integer.parseInt(id));
-        bairro.setNome(nome);
-        return bairro;
+    public Object[] getTableData() {
+        return new Object[]{nome};
     }
 }

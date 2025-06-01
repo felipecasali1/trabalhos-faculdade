@@ -1,30 +1,37 @@
 package controller;
 
+import interfaces.InterfaceController;
 import dao.IngredienteRemoverDAO;
 import dao.IngredienteRemoverDAOImpl;
 import dto.IngredienteRemoverDTO;
+import interfaces.InterfaceDTO;
 import models.IngredienteRemover;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class IngredienteRemoverController extends InterfaceController {
     public void insert(IngredienteRemoverDTO ingredienteRemoverDTO) {
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        dao.insert(ingredienteRemoverDTO.builder());
+        dao.insert(ingredienteRemoverDTO.buildEntity());
     }
 
     public void update(IngredienteRemoverDTO ingredienteRemoverDTO) {
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        dao.update(ingredienteRemoverDTO.builder());
+        dao.update(ingredienteRemoverDTO.buildEntity());
     }
 
     public void delete(IngredienteRemoverDTO ingredienteRemoverDTO) {
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        dao.delete(ingredienteRemoverDTO.builder());
+        dao.delete(ingredienteRemoverDTO.buildEntity());
     }
 
-    public List<IngredienteRemover> list() {
+    public List<InterfaceDTO> list() {
+        List<InterfaceDTO> listDTO = new LinkedList<>();
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        return dao.list();
+        for (IngredienteRemover ir : dao.list()) {
+            listDTO.add(IngredienteRemoverDTO.buildDTO(ir));
+        }
+        return listDTO;
     }
 }

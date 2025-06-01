@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import dao.ProdutoDAO;
 import models.Carrinho;
 import models.CarrinhoProduto;
@@ -7,69 +8,38 @@ import models.Produto;
 
 public class CarrinhoProdutoDTO extends InterfaceDTO {
     private String id;
-    private CarrinhoDTO carrinho;
-    private ProdutoDTO produto;
+    private CarrinhoDTO carrinhoDTO;
+    private ProdutoDTO produtoDTO;
     private String quantidade;
     private IngredienteEscolhaDTO ingEscolha;
 
-    public CarrinhoProdutoDTO() {
+    public static CarrinhoProdutoDTO buildDTO(CarrinhoProduto cp) {
+        CarrinhoProdutoDTO cpDTO = new CarrinhoProdutoDTO();
+        cpDTO.id = cp.getId() + "";
+        cpDTO.carrinhoDTO = CarrinhoDTO.buildDTO(cp.getCarrinho());
+        cpDTO.produtoDTO = ProdutoDTO.buildDTO(cp.getProduto());
+        cpDTO.quantidade = cp.getQuantidade() + "";
+        cpDTO.ingEscolha = IngredienteEscolhaDTO.buildDTO(cp.getIngEscolha());
+        return cpDTO;
     }
 
-    public CarrinhoProdutoDTO(String id, CarrinhoDTO carrinho, ProdutoDTO produto, String quantidade, IngredienteEscolhaDTO ingEscolha) {
-        this.id = id;
-        this.carrinho = carrinho;
-        this.produto = produto;
-        this.quantidade = quantidade;
-        this.ingEscolha = ingEscolha;
+    public CarrinhoProduto buildEntity() {
+        CarrinhoProduto cp = new CarrinhoProduto();
+        cp.setId(Integer.parseInt(id));
+        cp.setCarrinho(carrinhoDTO.buildEntity());
+        cp.setProduto(produtoDTO.buildEntity());
+        cp.setQuantidade(Integer.parseInt(quantidade));
+        cp.setIngEscolha(ingEscolha.buildEntity());
+        return cp;
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public CarrinhoDTO getCarrinho() {
-        return carrinho;
-    }
-
-    public void setCarrinho(CarrinhoDTO carrinho) {
-        this.carrinho = carrinho;
-    }
-
-    public ProdutoDTO getProduto() {
-        return produto;
-    }
-
-    public void setProduto(ProdutoDTO produto) {
-        this.produto = produto;
-    }
-
-    public String getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(String quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public IngredienteEscolhaDTO getIngEscolha() {
-        return ingEscolha;
-    }
-
-    public void setIngEscolha(IngredienteEscolhaDTO ingEscolha) {
-        this.ingEscolha = ingEscolha;
-    }
-
-    public CarrinhoProduto builder() {
-        CarrinhoProduto carrinhoProduto = new CarrinhoProduto();
-        carrinhoProduto.setId(Integer.parseInt(id));
-        carrinhoProduto.setCarrinho(carrinho.builder());
-        carrinhoProduto.setProduto(produto.builder());
-        carrinhoProduto.setQuantidade(Integer.parseInt(quantidade));
-        carrinhoProduto.setIngEscolha(ingEscolha.builder());
-        return carrinhoProduto;
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

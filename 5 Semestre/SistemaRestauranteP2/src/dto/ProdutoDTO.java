@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Produto;
 
 public class ProdutoDTO extends InterfaceDTO {
@@ -7,44 +8,29 @@ public class ProdutoDTO extends InterfaceDTO {
     public String valorUnitario;
     public String nome;
 
-    public ProdutoDTO() {
+    public static ProdutoDTO buildDTO(Produto produto) {
+        ProdutoDTO pDTO = new ProdutoDTO();
+        pDTO.id = produto.getId() + "";
+        pDTO.valorUnitario = produto.getValorUnitario() + "";
+        pDTO.nome = produto.getNome();
+        return pDTO;
     }
 
-    public ProdutoDTO(String id, String valorUnitario, String nome) {
-        this.id = id;
-        this.valorUnitario = valorUnitario;
-        this.nome = nome;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(String valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Produto builder() {
+    public Produto buildEntity() {
         Produto produto = new Produto();
         produto.setId(Integer.parseInt(id));
         produto.setValorUnitario(Float.parseFloat(valorUnitario));
         produto.setNome(nome);
         return produto;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

@@ -1,8 +1,10 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Cupom;
 
 import java.sql.Timestamp;
+import java.util.stream.Collectors;
 
 public class CupomDTO extends InterfaceDTO {
     public String id;
@@ -11,58 +13,17 @@ public class CupomDTO extends InterfaceDTO {
     public String validade;
     public String ativo;
 
-    public CupomDTO() {
+    public static CupomDTO buildDTO(Cupom cupom) {
+        CupomDTO cDTO = new CupomDTO();
+        cDTO.id = cupom.getId() + "";
+        cDTO.porcentagem = cupom.getPorcentagem() + "";
+        cDTO.codigo = cupom.getCodigo();
+        cDTO.validade = cupom.getValidade() + "";
+        cDTO.ativo = cupom.isAtivo() + "";
+        return cDTO;
     }
 
-    public CupomDTO(String id, String porcentagem, String codigo, String validade, String ativo) {
-        this.id = id;
-        this.porcentagem = porcentagem;
-        this.codigo = codigo;
-        this.validade = validade;
-        this.ativo = ativo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPorcentagem() {
-        return porcentagem;
-    }
-
-    public void setPorcentagem(String porcentagem) {
-        this.porcentagem = porcentagem;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getValidade() {
-        return validade;
-    }
-
-    public void setValidade(String validade) {
-        this.validade = validade;
-    }
-
-    public String getAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(String ativo) {
-        this.ativo = ativo;
-    }
-
-    public Cupom builder() {
+    public Cupom buildEntity() {
         Cupom cupom = new Cupom();
         cupom.setId(Integer.parseInt(id));
         cupom.setPorcentagem(Float.parseFloat(porcentagem));
@@ -70,5 +31,15 @@ public class CupomDTO extends InterfaceDTO {
         cupom.setValidade(Timestamp.valueOf(validade));
         cupom.setAtivo(Boolean.parseBoolean(ativo));
         return cupom;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

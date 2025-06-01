@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import java.util.List;
 import models.Cliente;
 
@@ -10,48 +11,36 @@ public class ClienteDTO extends InterfaceDTO {
     public String nome;
     public List<TelefoneDTO> telefones;
 
-    public ClienteDTO() {
-    }
+   public static ClienteDTO buildDTO(Cliente cliente) {
+       ClienteDTO cDTO = new ClienteDTO();
+       cDTO.id = cliente.getId() + "";
+       cDTO.nome = cliente.getNome();
+       cDTO.telefones = cliente.getTelefones()
+           .stream()
+           .map(TelefoneDTO::buildDTO)
+           .collect(Collectors.toList());
+       return cDTO;
+   }
 
-    public ClienteDTO(String id, String nome, List<TelefoneDTO> telefones) {
-        this.id = id;
-        this.nome = nome;
-        this.telefones = telefones;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public List<TelefoneDTO> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(List<TelefoneDTO> telefones) {
-        this.telefones = telefones;
-    }
-
-    public Cliente builder() {
+    public Cliente buildEntity() {
         Cliente cliente = new Cliente();
         cliente.setId(Integer.parseInt(id));
         cliente.setNome(nome);
         cliente.setTelefones(telefones
             .stream()
-            .map(TelefoneDTO::builder)
+            .map(TelefoneDTO::buildEntity)
             .collect(Collectors.toList())
         );
         return cliente;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

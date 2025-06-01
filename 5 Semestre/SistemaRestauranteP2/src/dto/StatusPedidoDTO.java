@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Status;
 import models.StatusPedido;
 
@@ -7,34 +8,27 @@ public class StatusPedidoDTO extends InterfaceDTO {
     public String id;
     public String status;
 
-    public StatusPedidoDTO() {
+    public static StatusPedidoDTO buildDTO(StatusPedido statusPedido) {
+        StatusPedidoDTO spDTO = new StatusPedidoDTO();
+        spDTO.id = statusPedido.getId() + "";
+        spDTO.status = statusPedido.getStatus().toString();
+        return spDTO;
     }
 
-    public StatusPedidoDTO(String id, String status) {
-        this.id = id;
-        this.status = status;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public StatusPedido builder() {
+    public StatusPedido buildEntity() {
         StatusPedido statusPedido = new StatusPedido();
         statusPedido.setId(Integer.parseInt(id));
         statusPedido.setStatus(Status.valueOf(status));
         return statusPedido;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

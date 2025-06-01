@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.IngredienteEscolha;
 
 import java.util.List;
@@ -10,52 +11,43 @@ public class IngredienteEscolhaDTO extends InterfaceDTO {
     public List<IngredienteAdicionarDTO> ingAdicionados;
     public List<IngredienteRemoverDTO> ingRemovidos;
 
-    public IngredienteEscolhaDTO() {
+    public static IngredienteEscolhaDTO buildDTO(IngredienteEscolha ingredienteEscolha) {
+        IngredienteEscolhaDTO ieDTO = new IngredienteEscolhaDTO();
+        ieDTO.id = ingredienteEscolha.getId() + "";
+        ieDTO.ingAdicionados = ingredienteEscolha.getIngAdd()
+                .stream()
+                .map(IngredienteAdicionarDTO::buildDTO)
+                .collect(Collectors.toList());
+        ieDTO.ingRemovidos = ingredienteEscolha.getIngRemover()
+                .stream()
+                .map(IngredienteRemoverDTO::buildDTO)
+                .collect(Collectors.toList());
+        return ieDTO;
     }
 
-    public IngredienteEscolhaDTO(String id, List<IngredienteAdicionarDTO> ingAdicionados, List<IngredienteRemoverDTO> ingRemovidos) {
-        this.id = id;
-        this.ingAdicionados = ingAdicionados;
-        this.ingRemovidos = ingRemovidos;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<IngredienteAdicionarDTO> getIngAdicionados() {
-        return ingAdicionados;
-    }
-
-    public void setIngAdicionados(List<IngredienteAdicionarDTO> ingAdicionados) {
-        this.ingAdicionados = ingAdicionados;
-    }
-
-    public List<IngredienteRemoverDTO> getIngRemovidos() {
-        return ingRemovidos;
-    }
-
-    public void setIngRemovidos(List<IngredienteRemoverDTO> ingRemovidos) {
-        this.ingRemovidos = ingRemovidos;
-    }
-
-    public IngredienteEscolha builder() {
+    public IngredienteEscolha buildEntity() {
         IngredienteEscolha ingredienteEscolha = new IngredienteEscolha();
         ingredienteEscolha.setId(Integer.parseInt(id));
         ingredienteEscolha.setIngAdd(ingAdicionados
             .stream()
-            .map(IngredienteAdicionarDTO::builder)
+            .map(IngredienteAdicionarDTO::buildEntity)
             .collect(Collectors.toList())
         );
         ingredienteEscolha.setIngRemover(ingRemovidos
             .stream()
-            .map(IngredienteRemoverDTO::builder)
+            .map(IngredienteRemoverDTO::buildEntity)
             .collect(Collectors.toList())
         );
         return ingredienteEscolha;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

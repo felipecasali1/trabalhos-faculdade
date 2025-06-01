@@ -1,39 +1,33 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Reembolso;
 
 public class ReembolsoDTO extends InterfaceDTO {
     public String id;
     public String motivo;
 
-    public ReembolsoDTO() {
+    public static ReembolsoDTO buildDTO(Reembolso reembolso) {
+        ReembolsoDTO rDTO = new ReembolsoDTO();
+        rDTO.id = reembolso.getId() + "";
+        rDTO.motivo = reembolso.getMotivo();
+        return rDTO;
     }
 
-    public ReembolsoDTO(String id, String motivo) {
-        this.id = id;
-        this.motivo = motivo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
-
-    public Reembolso builder() {
+    public Reembolso buildEntity() {
         Reembolso reembolso = new Reembolso();
         reembolso.setId(Integer.parseInt(id));
         reembolso.setMotivo(motivo);
         return reembolso;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Pagamento;
 import models.TipoPagamento;
 
@@ -12,84 +13,37 @@ public class PagamentoDTO extends InterfaceDTO {
     public PagamentoCartaoDTO pagamentoCartaoDTO;
     public PagamentoDinheiroDTO pagamentoDinheiroDTO;
 
-    public PagamentoDTO() {
+    public static PagamentoDTO buildDTO(Pagamento pagamento) {
+        PagamentoDTO pDTO = new PagamentoDTO();
+        pDTO.id = pagamento.getId() + "";
+        pDTO.pedidoDTO = PedidoDTO.buildDTO(pagamento.getPedido());
+        pDTO.cupomDTO = CupomDTO.buildDTO(pagamento.getCupom());
+        pDTO.tipoPagamento = pagamento.getTipo().toString();
+        pDTO.pagamentoPixDTO = PagamentoPixDTO.buildDTO(pagamento.getPagamentoPix());
+        pDTO.pagamentoCartaoDTO = PagamentoCartaoDTO.buildDTO(pagamento.getPagamentoCartao());
+        pDTO.pagamentoDinheiroDTO = PagamentoDinheiroDTO.buildDTO(pagamento.getPagamentoDinheiro());
+        return pDTO;
     }
 
-    public PagamentoDTO(String id, PedidoDTO pedidoDTO, CupomDTO cupomDTO, String tipoPagamento, PagamentoPixDTO pagamentoPixDTO, PagamentoCartaoDTO pagamentoCartaoDTO, PagamentoDinheiroDTO pagamentoDinheiroDTO) {
-        this.id = id;
-        this.pedidoDTO = pedidoDTO;
-        this.cupomDTO = cupomDTO;
-        this.tipoPagamento = tipoPagamento;
-        this.pagamentoPixDTO = pagamentoPixDTO;
-        this.pagamentoCartaoDTO = pagamentoCartaoDTO;
-        this.pagamentoDinheiroDTO = pagamentoDinheiroDTO;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public PedidoDTO getPedidoDTO() {
-        return pedidoDTO;
-    }
-
-    public void setPedidoDTO(PedidoDTO pedidoDTO) {
-        this.pedidoDTO = pedidoDTO;
-    }
-
-    public CupomDTO getCupomDTO() {
-        return cupomDTO;
-    }
-
-    public void setCupomDTO(CupomDTO cupomDTO) {
-        this.cupomDTO = cupomDTO;
-    }
-
-    public String getTipoPagamento() {
-        return tipoPagamento;
-    }
-
-    public void setTipoPagamento(String tipoPagamento) {
-        this.tipoPagamento = tipoPagamento;
-    }
-
-    public PagamentoPixDTO getPagamentoPixDTO() {
-        return pagamentoPixDTO;
-    }
-
-    public void setPagamentoPixDTO(PagamentoPixDTO pagamentoPixDTO) {
-        this.pagamentoPixDTO = pagamentoPixDTO;
-    }
-
-    public PagamentoCartaoDTO getPagamentoCartaoDTO() {
-        return pagamentoCartaoDTO;
-    }
-
-    public void setPagamentoCartaoDTO(PagamentoCartaoDTO pagamentoCartaoDTO) {
-        this.pagamentoCartaoDTO = pagamentoCartaoDTO;
-    }
-
-    public PagamentoDinheiroDTO getPagamentoDinheiroDTO() {
-        return pagamentoDinheiroDTO;
-    }
-
-    public void setPagamentoDinheiroDTO(PagamentoDinheiroDTO pagamentoDinheiroDTO) {
-        this.pagamentoDinheiroDTO = pagamentoDinheiroDTO;
-    }
-
-    public Pagamento builder() {
+    public Pagamento buildEntity() {
         Pagamento pagamento = new Pagamento();
         pagamento.setId(Integer.parseInt(id));
-        pagamento.setPedido(pedidoDTO.builder());
-        pagamento.setCupom(cupomDTO.builder());
+        pagamento.setPedido(pedidoDTO.buildEntity());
+        pagamento.setCupom(cupomDTO.buildEntity());
         pagamento.setTipo(TipoPagamento.valueOf(tipoPagamento));
-        pagamento.setPagamentoPix(pagamentoPixDTO.builder());
-        pagamento.setPagamentoCartao(pagamentoCartaoDTO.builder());
-        pagamento.setPagamentoDinheiro(pagamentoDinheiroDTO.builder());
+        pagamento.setPagamentoPix(pagamentoPixDTO.buildEntity());
+        pagamento.setPagamentoCartao(pagamentoCartaoDTO.buildEntity());
+        pagamento.setPagamentoDinheiro(pagamentoDinheiroDTO.buildEntity());
         return pagamento;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

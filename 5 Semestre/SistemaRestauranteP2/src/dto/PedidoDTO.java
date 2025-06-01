@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Pedido;
 
 import java.sql.Timestamp;
@@ -12,74 +13,35 @@ public class PedidoDTO extends InterfaceDTO {
     public StatusPedidoDTO statusPedidoDTO;
     public ReembolsoDTO reembolsoDTO;
 
-    public PedidoDTO() {
+    public static PedidoDTO buildDTO(Pedido pedido) {
+        PedidoDTO pDTO = new PedidoDTO();
+        pDTO.id = pedido.getId() + "";
+        pDTO.data = pedido.getData().toString();
+        pDTO.clienteDTO = ClienteDTO.buildDTO(pedido.getCliente());
+        pDTO.carrinhoDTO = CarrinhoDTO.buildDTO(pedido.getCarrinho());
+        pDTO.statusPedidoDTO = StatusPedidoDTO.buildDTO(pedido.getStatus());
+        pDTO.reembolsoDTO = ReembolsoDTO.buildDTO(pedido.getReembolso());
+        return pDTO;
     }
 
-    public PedidoDTO(String id, String data, ClienteDTO clienteDTO, CarrinhoDTO carrinhoDTO, StatusPedidoDTO statusPedidoDTO, ReembolsoDTO reembolsoDTO) {
-        this.id = id;
-        this.data = data;
-        this.clienteDTO = clienteDTO;
-        this.carrinhoDTO = carrinhoDTO;
-        this.statusPedidoDTO = statusPedidoDTO;
-        this.reembolsoDTO = reembolsoDTO;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public ClienteDTO getClienteDTO() {
-        return clienteDTO;
-    }
-
-    public void setClienteDTO(ClienteDTO clienteDTO) {
-        this.clienteDTO = clienteDTO;
-    }
-
-    public CarrinhoDTO getCarrinhoDTO() {
-        return carrinhoDTO;
-    }
-
-    public void setCarrinhoDTO(CarrinhoDTO carrinhoDTO) {
-        this.carrinhoDTO = carrinhoDTO;
-    }
-
-    public StatusPedidoDTO getStatusPedidoDTO() {
-        return statusPedidoDTO;
-    }
-
-    public void setStatusPedidoDTO(StatusPedidoDTO statusPedidoDTO) {
-        this.statusPedidoDTO = statusPedidoDTO;
-    }
-
-    public ReembolsoDTO getReembolsoDTO() {
-        return reembolsoDTO;
-    }
-
-    public void setReembolsoDTO(ReembolsoDTO reembolsoDTO) {
-        this.reembolsoDTO = reembolsoDTO;
-    }
-
-    public Pedido builder() {
+    public Pedido buildEntity() {
         Pedido pedido = new Pedido();
         pedido.setId(Integer.parseInt(id));
         pedido.setData(Timestamp.valueOf(data));
-        pedido.setCliente(clienteDTO.builder());
-        pedido.setCarrinho(carrinhoDTO.builder());
-        pedido.setStatus(statusPedidoDTO.builder());
-        pedido.setReembolso(reembolsoDTO.builder());
+        pedido.setCliente(clienteDTO.buildEntity());
+        pedido.setCarrinho(carrinhoDTO.buildEntity());
+        pedido.setStatus(statusPedidoDTO.buildEntity());
+        pedido.setReembolso(reembolsoDTO.buildEntity());
         return pedido;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

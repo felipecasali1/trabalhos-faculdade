@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Carrinho;
 
 import java.util.List;
@@ -9,38 +10,34 @@ public class CarrinhoDTO extends InterfaceDTO {
     public String id;
     public List<CarrinhoProdutoDTO> itens;
 
-    public CarrinhoDTO() {
-    }
-
-    public CarrinhoDTO(String id, List<CarrinhoProdutoDTO> itens) {
-        this.id = id;
-        this.itens = itens;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<CarrinhoProdutoDTO> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<CarrinhoProdutoDTO> itens) {
-        this.itens = itens;
-    }
-
-    public Carrinho builder() {
-        Carrinho carrinho = new Carrinho();
-        carrinho.setId(Integer.parseInt(id));
-        carrinho.setItens(itens
+    public static CarrinhoDTO buildDTO(Carrinho carrinho) {
+        CarrinhoDTO cDTO = new CarrinhoDTO();
+        cDTO.id = carrinho.getId() + "";
+        cDTO.itens = carrinho.getItens()
                 .stream()
-                .map(CarrinhoProdutoDTO::builder)
+                .map(CarrinhoProdutoDTO::buildDTO)
+                .collect(Collectors.toList());
+        return cDTO;
+    }
+
+    public Carrinho buildEntity() {
+        Carrinho c = new Carrinho();
+        c.setId(Integer.parseInt(id));
+        c.setItens(itens
+                .stream()
+                .map(CarrinhoProdutoDTO::buildEntity)
                 .collect(Collectors.toList())
         );
-        return carrinho;
+        return c;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

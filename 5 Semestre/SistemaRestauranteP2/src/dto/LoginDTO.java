@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.Login;
 
 public class LoginDTO extends InterfaceDTO {
@@ -7,44 +8,29 @@ public class LoginDTO extends InterfaceDTO {
     public String usuario;
     public String senha;
 
-    public LoginDTO() {
+    public static LoginDTO buildDTO(Login login) {
+        LoginDTO lDTO = new LoginDTO();
+        lDTO.id = login.getId() + "";
+        lDTO.usuario = login.getUsuario();
+        lDTO.senha = login.getSenha();
+        return lDTO;
     }
 
-    public LoginDTO(String id, String usuario, String senha) {
-        this.id = id;
-        this.usuario = usuario;
-        this.senha = senha;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Login builder() {
+    public Login buildEntity() {
         Login login = new Login();
         login.setId(Integer.parseInt(id));
         login.setUsuario(usuario);
         login.setSenha(senha);
         return login;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

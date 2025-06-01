@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.TaxaEntrega;
 
 public class TaxaEntregaDTO extends InterfaceDTO {
@@ -7,44 +8,29 @@ public class TaxaEntregaDTO extends InterfaceDTO {
     public String taxa;
     public EntregaDTO entregaDTO;
 
-    public TaxaEntregaDTO() {
+    public static TaxaEntregaDTO buildDTO(TaxaEntrega taxaEntrega) {
+        TaxaEntregaDTO teDTO = new TaxaEntregaDTO();
+        teDTO.id = taxaEntrega.getId() + "";
+        teDTO.taxa = taxaEntrega.getTaxa() + "";
+        teDTO.entregaDTO = EntregaDTO.buildDTO(taxaEntrega.getEntrega());
+        return teDTO;
     }
 
-    public TaxaEntregaDTO(String id, String taxa, EntregaDTO entregaDTO) {
-        this.id = id;
-        this.taxa = taxa;
-        this.entregaDTO = entregaDTO;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getTaxa() {
-        return taxa;
-    }
-
-    public void setTaxa(String taxa) {
-        this.taxa = taxa;
-    }
-
-    public EntregaDTO getEntregaDTO() {
-        return entregaDTO;
-    }
-
-    public void setEntregaDTO(EntregaDTO entregaDTO) {
-        this.entregaDTO = entregaDTO;
-    }
-
-    public TaxaEntrega builder() {
+    public TaxaEntrega buildEntity() {
         TaxaEntrega taxaEntrega = new TaxaEntrega();
         taxaEntrega.setId(Integer.parseInt(id));
         taxaEntrega.setTaxa(Float.parseFloat(taxa));
-        taxaEntrega.setEntrega(entregaDTO.builder());
+        taxaEntrega.setEntrega(entregaDTO.buildEntity());
         return taxaEntrega;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

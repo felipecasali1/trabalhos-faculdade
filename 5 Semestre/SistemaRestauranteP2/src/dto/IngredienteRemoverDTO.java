@@ -1,5 +1,6 @@
 package dto;
 
+import interfaces.InterfaceDTO;
 import models.IngredienteRemover;
 
 public class IngredienteRemoverDTO extends InterfaceDTO {
@@ -7,44 +8,29 @@ public class IngredienteRemoverDTO extends InterfaceDTO {
     public String nome;
     public IngredienteEscolhaDTO ingredienteEscolhaDTO;
 
-    public IngredienteRemoverDTO() {
+    public static IngredienteRemoverDTO buildDTO(IngredienteRemover ingredienteRemover) {
+        IngredienteRemoverDTO irDTO = new IngredienteRemoverDTO();
+        irDTO.id = ingredienteRemover.getId() + "";
+        irDTO.nome = ingredienteRemover.getNome();
+        irDTO.ingredienteEscolhaDTO = IngredienteEscolhaDTO.buildDTO(ingredienteRemover.getEscolha());
+        return irDTO;
     }
 
-    public IngredienteRemoverDTO(String id, String nome, IngredienteEscolhaDTO ingredienteEscolhaDTO) {
-        this.id = id;
-        this.nome = nome;
-        this.ingredienteEscolhaDTO = ingredienteEscolhaDTO;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public IngredienteEscolhaDTO getIngredienteEscolhaDTO() {
-        return ingredienteEscolhaDTO;
-    }
-
-    public void setIngredienteEscolhaDTO(IngredienteEscolhaDTO ingredienteEscolhaDTO) {
-        this.ingredienteEscolhaDTO = ingredienteEscolhaDTO;
-    }
-
-    public IngredienteRemover builder() {
+    public IngredienteRemover buildEntity() {
         IngredienteRemover ingredienteRemover = new IngredienteRemover();
         ingredienteRemover.setId(Integer.parseInt(id));
         ingredienteRemover.setNome(nome);
-        ingredienteRemover.setEscolha(ingredienteEscolhaDTO.builder());
+        ingredienteRemover.setEscolha(ingredienteEscolhaDTO.buildEntity());
         return ingredienteRemover;
+    }
+
+    @Override
+    public String[] getTableHeader() {
+        return new String[]{};
+    }
+
+    @Override
+    public Object[] getTableData() {
+        return new Object[]{};
     }
 }

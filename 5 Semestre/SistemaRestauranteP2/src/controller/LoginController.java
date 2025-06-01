@@ -1,30 +1,37 @@
 package controller;
 
+import interfaces.InterfaceController;
 import dao.LoginDAO;
 import dao.LoginDAOImpl;
 import dto.LoginDTO;
+import interfaces.InterfaceDTO;
 import models.Login;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class LoginController extends InterfaceController {
     public void insert(LoginDTO loginDTO) {
         LoginDAO dao = new LoginDAOImpl();
-        dao.insert(loginDTO.builder());
+        dao.insert(loginDTO.buildEntity());
     }
 
     public void update(LoginDTO loginDTO) {
         LoginDAO dao = new LoginDAOImpl();
-        dao.update(loginDTO.builder());
+        dao.update(loginDTO.buildEntity());
     }
 
     public void delete(LoginDTO loginDTO) {
         LoginDAO dao = new LoginDAOImpl();
-        dao.delete(loginDTO.builder());
+        dao.delete(loginDTO.buildEntity());
     }
 
-    public List<Login> list() {
+    public List<InterfaceDTO> list() {
+        List<InterfaceDTO> listDTO = new LinkedList<>();
         LoginDAO dao = new LoginDAOImpl();
-        return dao.list();
+        for (Login l : dao.list()) {
+            listDTO.add(LoginDTO.buildDTO(l));
+        }
+        return listDTO;
     }
 }
