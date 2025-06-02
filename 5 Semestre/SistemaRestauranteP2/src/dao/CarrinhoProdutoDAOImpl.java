@@ -14,7 +14,7 @@ import models.Produto;
 public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
 
     @Override
-    public void insert(CarrinhoProduto carrinhoProduto) {
+    public boolean insert(CarrinhoProduto carrinhoProduto) {
         String sql = "INSERT INTO public.carrinho_produto(carrinho_id, produto_id, quantidade, ing_escolha_id) VALUES (?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -29,7 +29,9 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -122,7 +124,7 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
     }
 
     @Override
-    public void update(CarrinhoProduto carrinhoProduto) {
+    public boolean update(CarrinhoProduto carrinhoProduto) {
         String sql = "UPDATE public.carrinho_produto SET carrinho_id = ?, produto_id = ?, quantidade = ?, ing_escolha_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -138,11 +140,13 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(CarrinhoProduto carrinhoProduto) {
+    public boolean delete(CarrinhoProduto carrinhoProduto) {
         String sql = "DELETE FROM public.carrinho_produto WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -154,6 +158,8 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

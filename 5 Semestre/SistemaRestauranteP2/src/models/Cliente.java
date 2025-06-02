@@ -1,8 +1,10 @@
 package models;
 
+import interfaces.InterfaceEntity;
+
 import java.util.List;
 
-public class Cliente {
+public class Cliente extends InterfaceEntity {
     private int id;
     private String nome;
     private List<Telefone> telefones;

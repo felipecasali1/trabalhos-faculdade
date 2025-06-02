@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BairroController extends InterfaceController {
-    public void insert(BairroDTO bairroDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        BairroDTO bairroDTO = (BairroDTO) interfaceDTO;
         BairroDAO dao = new BairroDAOImpl();
-        dao.insert(bairroDTO.buildEntity());
+        return dao.insert(bairroDTO.buildEntity());
     }
 
-    public void update(BairroDTO bairroDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        BairroDTO bairroDTO = (BairroDTO) interfaceDTO;
         BairroDAO dao = new BairroDAOImpl();
-        dao.update(bairroDTO.buildEntity());
+        return dao.update(bairroDTO.buildEntity());
     }
 
-    public void delete(BairroDTO bairroDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        BairroDTO bairroDTO = (BairroDTO) interfaceDTO;
         BairroDAO dao = new BairroDAOImpl();
-        dao.delete(bairroDTO.buildEntity());
+        return dao.delete(bairroDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         BairroDAO dao = new BairroDAOImpl();
         for (Bairro b : dao.list()) {
-            listDTO.add(BairroDTO.buildDTO(b));
+            listDTO.add(BairroDTO.toDTO(b));
         }
         return listDTO;
+    }
+    
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        BairroDAO dao = new BairroDAOImpl();
+        return BairroDTO.toDTO(dao.getById(id));
     }
 }

@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
 
     @Override
-    public void insert(IngredienteEscolha ingEscolha) {
+    public boolean insert(IngredienteEscolha ingEscolha) {
         String sql = "INSERT INTO public.produto DEFAULT VALUES";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -21,7 +21,9 @@ public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteEscolhaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -77,12 +79,13 @@ public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
     }
 
     @Override
-    public void update(IngredienteEscolha ingEscolha) {
+    public boolean update(IngredienteEscolha ingEscolha) {
         // A TABELA TEM APENAS ID
+        return false;
     }
 
     @Override
-    public void delete(IngredienteEscolha ingEscolha) {
+    public boolean delete(IngredienteEscolha ingEscolha) {
         String sql = "DELETE FROM public.ingrediente_escolha WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -94,7 +97,9 @@ public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteEscolhaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
     
 }

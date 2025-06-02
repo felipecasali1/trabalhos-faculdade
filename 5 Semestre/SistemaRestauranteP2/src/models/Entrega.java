@@ -1,6 +1,8 @@
 package models;
 
-public class Entrega {
+import interfaces.InterfaceEntity;
+
+public class Entrega extends InterfaceEntity {
     private int id;
     private Cliente cliente;
     private TipoEntrega tipo;

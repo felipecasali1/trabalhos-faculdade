@@ -1,9 +1,11 @@
 package models;
 
+import interfaces.InterfaceEntity;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-public class Cupom {
+public class Cupom extends InterfaceEntity {
     private int id;
     private float porcentagem;
     private String codigo;

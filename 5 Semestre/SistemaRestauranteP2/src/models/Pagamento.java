@@ -1,6 +1,8 @@
 package models;
 
-public class Pagamento {
+import interfaces.InterfaceEntity;
+
+public class Pagamento extends InterfaceEntity {
     private int id;
     private Pedido pedido;
     private Cupom cupom;

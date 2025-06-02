@@ -1,6 +1,8 @@
 package models;
 
-public class IngredienteRemover {
+import interfaces.InterfaceEntity;
+
+public class IngredienteRemover extends InterfaceEntity {
     private int id;
     private String nome;
     private IngredienteEscolha escolha;

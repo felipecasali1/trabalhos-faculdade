@@ -1,6 +1,8 @@
 package models;
 
-public class Delivery {
+import interfaces.InterfaceEntity;
+
+public class Delivery extends InterfaceEntity {
     private int id;
     private String numero;
     private String complemento;

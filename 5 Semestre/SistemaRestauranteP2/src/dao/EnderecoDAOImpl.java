@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class EnderecoDAOImpl implements EnderecoDAO {
     @Override
-    public void insert(Endereco endereco) {
+    public boolean insert(Endereco endereco) {
         String sql = "INSERT INTO public.endereco(rua, cep, bairro_id, distancia) VALUES (?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -28,7 +28,9 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -84,7 +86,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     }
 
     @Override
-    public void update(Endereco endereco) {
+    public boolean update(Endereco endereco) {
         String sql = "UPDATE public.endereco SET rua = ?, cep = ?, bairro_id = ?, distancia = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -99,11 +101,13 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Endereco endereco) {
+    public boolean delete(Endereco endereco) {
         String sql = "DELETE FROM public.endereco WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -115,6 +119,8 @@ public class EnderecoDAOImpl implements EnderecoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(EnderecoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

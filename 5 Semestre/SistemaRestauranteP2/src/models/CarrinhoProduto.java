@@ -1,6 +1,8 @@
 package models;
 
-public class CarrinhoProduto {
+import interfaces.InterfaceEntity;
+
+public class CarrinhoProduto extends InterfaceEntity {
     private int id;
     private Carrinho carrinho;
     private Produto produto;

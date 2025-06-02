@@ -1,6 +1,8 @@
 package models;
 
-public class Telefone {
+import interfaces.InterfaceEntity;
+
+public class Telefone extends InterfaceEntity {
     private int id;
     private String numero;
     private String ddd;

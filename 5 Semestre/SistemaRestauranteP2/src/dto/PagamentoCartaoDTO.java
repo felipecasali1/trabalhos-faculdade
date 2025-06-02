@@ -1,13 +1,19 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.PagamentoCartao;
 import models.TipoPagamentoCartao;
 
 public class PagamentoCartaoDTO extends InterfaceDTO {
     public String tipoPagamentoCartao;
 
-    public static PagamentoCartaoDTO buildDTO(PagamentoCartao pagamentoCartao) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((PagamentoCartao) e);
+    }
+
+    public static PagamentoCartaoDTO toDTO(PagamentoCartao pagamentoCartao) {
         PagamentoCartaoDTO pcDTO = new PagamentoCartaoDTO();
         pcDTO.tipoPagamentoCartao = pagamentoCartao.getTipo().toString();
         return pcDTO;
@@ -21,11 +27,11 @@ public class PagamentoCartaoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Tipo Pagamento Cartão"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{tipoPagamentoCartao};
     }
 }

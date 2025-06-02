@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EnderecoController extends InterfaceController {
-    public void insert(EnderecoDTO enderecoDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        EnderecoDTO enderecoDTO = (EnderecoDTO) interfaceDTO;
         EnderecoDAO dao = new EnderecoDAOImpl();
-        dao.insert(enderecoDTO.buildEntity());
+        return dao.insert(enderecoDTO.buildEntity());
     }
 
-    public void update(EnderecoDTO enderecoDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        EnderecoDTO enderecoDTO = (EnderecoDTO) interfaceDTO;
         EnderecoDAO dao = new EnderecoDAOImpl();
-        dao.update(enderecoDTO.buildEntity());
+        return dao.update(enderecoDTO.buildEntity());
     }
 
-    public void delete(EnderecoDTO enderecoDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        EnderecoDTO enderecoDTO = (EnderecoDTO) interfaceDTO;
         EnderecoDAO dao = new EnderecoDAOImpl();
-        dao.delete(enderecoDTO.buildEntity());
+        return dao.delete(enderecoDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         EnderecoDAO dao = new EnderecoDAOImpl();
         for (Endereco e : dao.list()) {
-            listDTO.add(EnderecoDTO.buildDTO(e));
+            listDTO.add(EnderecoDTO.toDTO(e));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        EnderecoDAO dao = new EnderecoDAOImpl();
+        return EnderecoDTO.toDTO(dao.getById(id));
     }
 }

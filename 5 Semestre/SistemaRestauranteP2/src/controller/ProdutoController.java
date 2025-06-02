@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ProdutoController extends InterfaceController {
-    public void insert(ProdutoDTO produtoDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        ProdutoDTO produtoDTO = (ProdutoDTO) interfaceDTO;
         ProdutoDAO dao = new ProdutoDAOImpl();
-        dao.insert(produtoDTO.buildEntity());
+        return dao.insert(produtoDTO.buildEntity());
     }
 
-    public void update(ProdutoDTO produtoDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        ProdutoDTO produtoDTO = (ProdutoDTO) interfaceDTO;
         ProdutoDAO dao = new ProdutoDAOImpl();
-        dao.update(produtoDTO.buildEntity());
+        return dao.update(produtoDTO.buildEntity());
     }
 
-    public void delete(ProdutoDTO produtoDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        ProdutoDTO produtoDTO = (ProdutoDTO) interfaceDTO;
         ProdutoDAO dao = new ProdutoDAOImpl();
-        dao.delete(produtoDTO.buildEntity());
+        return dao.delete(produtoDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         ProdutoDAO dao = new ProdutoDAOImpl();
         for (Produto p : dao.list()) {
-            listDTO.add(ProdutoDTO.buildDTO(p));
+            listDTO.add(ProdutoDTO.toDTO(p));
         }
         return listDTO;
+    }
+    
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        ProdutoDAO dao = new ProdutoDAOImpl();
+        return ProdutoDTO.toDTO(dao.getById(id));
     }
 }

@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class PagamentoDAOImpl implements PagamentoDAO {
     @Override
-    public void insert(Pagamento pagamento) {
+    public boolean insert(Pagamento pagamento) {
         String sql = "INSERT INTO public.pagamento(tipo, chave_pix, tipo_cartao, valor_recebido, valor_troco, cupom_id, pedido_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -51,7 +51,9 @@ public class PagamentoDAOImpl implements PagamentoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -157,7 +159,7 @@ public class PagamentoDAOImpl implements PagamentoDAO {
     }
 
     @Override
-    public void update(Pagamento pagamento) {
+    public boolean update(Pagamento pagamento) {
         String sql = "UPDATE public.pagamento SET tipo = ?, chave_pix = ?, tipo_cartao = ?, valor_recebido = ?, valor_troco = ?, cupom_id = ?, pedido_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -198,11 +200,13 @@ public class PagamentoDAOImpl implements PagamentoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Pagamento pagamento) {
+    public boolean delete(Pagamento pagamento) {
         String sql = "DELETE FROM public.pagamento WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -214,6 +218,8 @@ public class PagamentoDAOImpl implements PagamentoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PagamentoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

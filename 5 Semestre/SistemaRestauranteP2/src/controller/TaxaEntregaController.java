@@ -11,27 +11,39 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TaxaEntregaController extends InterfaceController {
-    public void insert(TaxaEntregaDTO taxaEntregaDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        TaxaEntregaDTO taxaEntregaDTO = (TaxaEntregaDTO) interfaceDTO;
         TaxaEntregaDAO dao = new TaxaEntregaDAOImpl();
-        dao.insert(taxaEntregaDTO.buildEntity());
+        return dao.insert(taxaEntregaDTO.buildEntity());
     }
 
-    public void update(TaxaEntregaDTO taxaEntregaDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        TaxaEntregaDTO taxaEntregaDTO = (TaxaEntregaDTO) interfaceDTO;
         TaxaEntregaDAO dao = new TaxaEntregaDAOImpl();
-        dao.update(taxaEntregaDTO.buildEntity());
+        return dao.update(taxaEntregaDTO.buildEntity());
     }
 
-    public void delete(TaxaEntregaDTO taxaEntregaDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        TaxaEntregaDTO taxaEntregaDTO = (TaxaEntregaDTO) interfaceDTO;
         TaxaEntregaDAO dao = new TaxaEntregaDAOImpl();
-        dao.delete(taxaEntregaDTO.buildEntity());
+        return dao.delete(taxaEntregaDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         TaxaEntregaDAO dao = new TaxaEntregaDAOImpl();
         for (TaxaEntrega te : dao.list()) {
-            listDTO.add(TaxaEntregaDTO.buildDTO(te));
+            listDTO.add(TaxaEntregaDTO.toDTO(te));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

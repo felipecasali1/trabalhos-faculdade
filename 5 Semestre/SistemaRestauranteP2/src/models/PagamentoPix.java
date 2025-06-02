@@ -1,6 +1,8 @@
 package models;
 
-public class PagamentoPix {
+import interfaces.InterfaceEntity;
+
+public class PagamentoPix extends InterfaceEntity {
     private String chavePix;
 
     public PagamentoPix() {

@@ -12,27 +12,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ClienteController extends InterfaceController {
-    public void insert(ClienteDTO clienteDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        ClienteDTO clienteDTO = (ClienteDTO) interfaceDTO;
         ClienteDAO dao = new ClienteDAOImpl();
-        dao.insert(clienteDTO.buildEntity());
+        return dao.insert(clienteDTO.buildEntity());
     }
 
-    public void update(ClienteDTO clienteDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        ClienteDTO clienteDTO = (ClienteDTO) interfaceDTO;
         ClienteDAO dao = new ClienteDAOImpl();
-        dao.update(clienteDTO.buildEntity());
+        return dao.update(clienteDTO.buildEntity());
     }
 
-    public void delete(ClienteDTO clienteDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        ClienteDTO clienteDTO = (ClienteDTO) interfaceDTO;
         ClienteDAO dao = new ClienteDAOImpl();
-        dao.delete(clienteDTO.buildEntity());
+        return dao.delete(clienteDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         ClienteDAO dao = new ClienteDAOImpl();
         for (Cliente c : dao.list()) {
-            listDTO.add(ClienteDTO.buildDTO(c));
+            listDTO.add(ClienteDTO.toDTO(c));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        ClienteDAO dao = new ClienteDAOImpl();
+        return ClienteDTO.toDTO(dao.getById(id));
     }
 }

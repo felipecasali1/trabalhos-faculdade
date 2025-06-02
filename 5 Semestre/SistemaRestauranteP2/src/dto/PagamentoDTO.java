@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Pagamento;
 import models.TipoPagamento;
 
@@ -13,18 +14,24 @@ public class PagamentoDTO extends InterfaceDTO {
     public PagamentoCartaoDTO pagamentoCartaoDTO;
     public PagamentoDinheiroDTO pagamentoDinheiroDTO;
 
-    public static PagamentoDTO buildDTO(Pagamento pagamento) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Pagamento) e);
+    }
+
+    public static PagamentoDTO toDTO(Pagamento pagamento) {
         PagamentoDTO pDTO = new PagamentoDTO();
         pDTO.id = pagamento.getId() + "";
-        pDTO.pedidoDTO = PedidoDTO.buildDTO(pagamento.getPedido());
-        pDTO.cupomDTO = CupomDTO.buildDTO(pagamento.getCupom());
+        pDTO.pedidoDTO = PedidoDTO.toDTO(pagamento.getPedido());
+        pDTO.cupomDTO = CupomDTO.toDTO(pagamento.getCupom());
         pDTO.tipoPagamento = pagamento.getTipo().toString();
-        pDTO.pagamentoPixDTO = PagamentoPixDTO.buildDTO(pagamento.getPagamentoPix());
-        pDTO.pagamentoCartaoDTO = PagamentoCartaoDTO.buildDTO(pagamento.getPagamentoCartao());
-        pDTO.pagamentoDinheiroDTO = PagamentoDinheiroDTO.buildDTO(pagamento.getPagamentoDinheiro());
+        pDTO.pagamentoPixDTO = PagamentoPixDTO.toDTO(pagamento.getPagamentoPix());
+        pDTO.pagamentoCartaoDTO = PagamentoCartaoDTO.toDTO(pagamento.getPagamentoCartao());
+        pDTO.pagamentoDinheiroDTO = PagamentoDinheiroDTO.toDTO(pagamento.getPagamentoDinheiro());
         return pDTO;
     }
 
+    @Override
     public Pagamento buildEntity() {
         Pagamento pagamento = new Pagamento();
         pagamento.setId(Integer.parseInt(id));
@@ -39,11 +46,11 @@ public class PagamentoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Pedido", "Cupom", "Tipo Pagamento"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, pedidoDTO.data, cupomDTO.codigo, tipoPagamento};
     }
 }

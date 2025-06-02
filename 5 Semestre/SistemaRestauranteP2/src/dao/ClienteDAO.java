@@ -4,9 +4,9 @@ import models.Cliente;
 import java.util.List;
 
 public interface ClienteDAO {
-    void insert(Cliente cliente);
+    boolean insert(Cliente cliente);
     List<Cliente> list();
     Cliente getById(Integer id);
-    void update(Cliente cliente);
-    void delete(Cliente cliente);
+    boolean update(Cliente cliente);
+    boolean delete(Cliente cliente);
 }

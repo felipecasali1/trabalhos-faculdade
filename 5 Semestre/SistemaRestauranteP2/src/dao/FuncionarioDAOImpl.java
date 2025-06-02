@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class FuncionarioDAOImpl implements FuncionarioDAO {
     @Override
-    public void insert(Funcionario funcionario) {
+    public boolean insert(Funcionario funcionario) {
         String sql = "INSERT INTO public.funcionario(nome, cpf, rg, login_id) VALUES (?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -28,7 +28,9 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -85,7 +87,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
     }
 
     @Override
-    public void update(Funcionario funcionario) {
+    public boolean update(Funcionario funcionario) {
         String sql = "UPDATE public.funcionario SET nome = ?, cpf = ?, rg = ?, login_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -100,11 +102,13 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Funcionario funcionario) {
+    public boolean delete(Funcionario funcionario) {
         String sql = "DELETE FROM public.funcionario WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -115,6 +119,8 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(FuncionarioDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

@@ -1,6 +1,8 @@
 package models;
 
-public class Endereco {
+import interfaces.InterfaceEntity;
+
+public class Endereco extends InterfaceEntity {
     private int id;
     private String rua;
     private String cep;

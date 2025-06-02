@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class ReembolsoDAOImpl implements ReembolsoDAO {
     @Override
-    public void insert(Reembolso reembolso) {
+    public boolean insert(Reembolso reembolso) {
         String sql = "INSERT INTO public.reembolso(motivo) VALUES (?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -25,7 +25,9 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -77,7 +79,7 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
     }
 
     @Override
-    public void update(Reembolso reembolso) {
+    public boolean update(Reembolso reembolso) {
         String sql = "UPDATE public.reembolso SET motivo = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -89,11 +91,13 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Reembolso reembolso) {
+    public boolean delete(Reembolso reembolso) {
         String sql = "DELETE FROM public.reembolso WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -105,6 +109,8 @@ public class ReembolsoDAOImpl implements ReembolsoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ReembolsoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

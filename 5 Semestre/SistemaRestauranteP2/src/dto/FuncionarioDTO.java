@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Funcionario;
 
 import java.util.List;
@@ -14,20 +15,26 @@ public class FuncionarioDTO extends InterfaceDTO {
     public LoginDTO loginDTO;
     public List<TelefoneDTO> telefones;
 
-   public static FuncionarioDTO buildDTO(Funcionario funcionario) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Funcionario) e);
+    }
+
+    public static FuncionarioDTO toDTO(Funcionario funcionario) {
        FuncionarioDTO fDTO = new FuncionarioDTO();
        fDTO.id = funcionario.getId() + "";
        fDTO.nome = funcionario.getNome();
        fDTO.cpf = funcionario.getCpf();
        fDTO.rg = funcionario.getRg();
-       fDTO.loginDTO = LoginDTO.buildDTO(funcionario.getLogin());
+       fDTO.loginDTO = LoginDTO.toDTO(funcionario.getLogin());
        fDTO.telefones = funcionario.getTelefones()
                .stream()
-               .map(TelefoneDTO::buildDTO)
+               .map(TelefoneDTO::toDTO)
                .collect(Collectors.toList());
        return fDTO;
    }
 
+   @Override
     public Funcionario buildEntity() {
         Funcionario funcionario = new Funcionario();
         funcionario.setId(Integer.parseInt(id));
@@ -45,11 +52,11 @@ public class FuncionarioDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Nome", "CPF", "RG"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, nome, cpf, rg};
     }
 }

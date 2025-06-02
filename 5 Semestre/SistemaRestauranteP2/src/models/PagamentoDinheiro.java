@@ -1,6 +1,8 @@
 package models;
 
-public class PagamentoDinheiro {
+import interfaces.InterfaceEntity;
+
+public class PagamentoDinheiro extends InterfaceEntity {
     private float valorRecebido;
     private float valorTroco;
 

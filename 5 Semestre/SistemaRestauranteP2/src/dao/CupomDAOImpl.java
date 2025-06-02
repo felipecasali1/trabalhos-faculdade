@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class CupomDAOImpl implements CupomDAO {
     @Override
-    public void insert(Cupom cupom) {
+    public boolean insert(Cupom cupom) {
         String sql = "INSERT INTO public.cupom(porcentagem, codigo, validade, ativo) VALUES (?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -28,7 +28,9 @@ public class CupomDAOImpl implements CupomDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class CupomDAOImpl implements CupomDAO {
     }
 
     @Override
-    public void update(Cupom cupom) {
+    public boolean update(Cupom cupom) {
         String sql = "UPDATE public.cupom SET porcentagem = ?, codigo = ?, validade = ?, ativo = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -96,11 +98,13 @@ public class CupomDAOImpl implements CupomDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Cupom cupom) {
+    public boolean delete(Cupom cupom) {
         String sql = "DELETE FROM public.cupom WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -112,6 +116,8 @@ public class CupomDAOImpl implements CupomDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CupomDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

@@ -4,9 +4,9 @@ import models.Cupom;
 import java.util.List;
 
 public interface CupomDAO {
-    void insert(Cupom cupom);
+    boolean insert(Cupom cupom);
     List<Cupom> list();
     Cupom getById(Integer id);
-    void update(Cupom cupom);
-    void delete(Cupom cupom);
+    boolean update(Cupom cupom);
+    boolean delete(Cupom cupom);
 }

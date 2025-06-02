@@ -1,6 +1,8 @@
 package models;
 
-public class PagamentoCartao {
+import interfaces.InterfaceEntity;
+
+public class PagamentoCartao extends InterfaceEntity {
     private TipoPagamentoCartao tipo;
 
     public PagamentoCartao() {

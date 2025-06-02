@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CarrinhoProdutoController extends InterfaceController {
-    public void insert(CarrinhoProdutoDTO carrinhoProdutoDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        CarrinhoProdutoDTO carrinhoProdutoDTO = (CarrinhoProdutoDTO) interfaceDTO;
         CarrinhoProdutoDAO dao = new CarrinhoProdutoDAOImpl();
-        dao.insert(carrinhoProdutoDTO.buildEntity());
+        return dao.insert(carrinhoProdutoDTO.buildEntity());
     }
 
-    public void update(CarrinhoProdutoDTO carrinhoProdutoDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        CarrinhoProdutoDTO carrinhoProdutoDTO = (CarrinhoProdutoDTO) interfaceDTO;
         CarrinhoProdutoDAO dao = new CarrinhoProdutoDAOImpl();
-        dao.update(carrinhoProdutoDTO.buildEntity());
+        return dao.update(carrinhoProdutoDTO.buildEntity());
     }
 
-    public void delete(CarrinhoProdutoDTO carrinhoProdutoDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        CarrinhoProdutoDTO carrinhoProdutoDTO = (CarrinhoProdutoDTO) interfaceDTO;
         CarrinhoProdutoDAO dao = new CarrinhoProdutoDAOImpl();
-        dao.delete(carrinhoProdutoDTO.buildEntity());
+        return dao.delete(carrinhoProdutoDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         CarrinhoProdutoDAO dao = new CarrinhoProdutoDAOImpl();
         for (CarrinhoProduto cp : dao.list()) {
-            listDTO.add(CarrinhoProdutoDTO.buildDTO(cp));
+            listDTO.add(CarrinhoProdutoDTO.toDTO(cp));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        CarrinhoProdutoDAO dao = new CarrinhoProdutoDAOImpl();
+        return CarrinhoProdutoDTO.toDTO(dao.getById(id));
     }
 }

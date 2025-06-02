@@ -1,6 +1,8 @@
 package models;
 
-public class Login {
+import interfaces.InterfaceEntity;
+
+public class Login extends InterfaceEntity {
     private int id;
     private String usuario;
     private String senha;

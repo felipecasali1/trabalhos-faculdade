@@ -1,6 +1,8 @@
 package models;
 
-public class IngredienteAdicionar {
+import interfaces.InterfaceEntity;
+
+public class IngredienteAdicionar extends InterfaceEntity {
     private int id;
     private String nome;
     private float valor;

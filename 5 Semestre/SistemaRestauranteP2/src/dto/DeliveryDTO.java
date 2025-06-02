@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Delivery;
 
 public class DeliveryDTO extends InterfaceDTO {
@@ -9,15 +10,21 @@ public class DeliveryDTO extends InterfaceDTO {
     public String complemento;
     public EnderecoDTO enderecoDTO;
 
-    public static DeliveryDTO buildDTO(Delivery delivery) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Delivery) e);
+    }
+
+    public static DeliveryDTO toDTO(Delivery delivery) {
         DeliveryDTO dDTO = new DeliveryDTO();
         dDTO.id = delivery.getId() + "";
         dDTO.numero = delivery.getNumero();
         dDTO.complemento = delivery.getComplemento();
-        dDTO.enderecoDTO = EnderecoDTO.buildDTO(delivery.getEndereco());
+        dDTO.enderecoDTO = EnderecoDTO.toDTO(delivery.getEndereco());
         return dDTO;
     }
 
+    @Override
     public Delivery buildEntity() {
         Delivery delivery = new Delivery();
         delivery.setId(Integer.parseInt(id));
@@ -29,11 +36,11 @@ public class DeliveryDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Numero", "Complemento", "Rua"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, numero, complemento, enderecoDTO.rua};
     }
 }

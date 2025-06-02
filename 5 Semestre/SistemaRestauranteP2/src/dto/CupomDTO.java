@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Cupom;
 
 import java.sql.Timestamp;
@@ -13,7 +14,12 @@ public class CupomDTO extends InterfaceDTO {
     public String validade;
     public String ativo;
 
-    public static CupomDTO buildDTO(Cupom cupom) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Cupom) e);
+    }
+
+    public static CupomDTO toDTO(Cupom cupom) {
         CupomDTO cDTO = new CupomDTO();
         cDTO.id = cupom.getId() + "";
         cDTO.porcentagem = cupom.getPorcentagem() + "";
@@ -23,6 +29,7 @@ public class CupomDTO extends InterfaceDTO {
         return cDTO;
     }
 
+    @Override
     public Cupom buildEntity() {
         Cupom cupom = new Cupom();
         cupom.setId(Integer.parseInt(id));
@@ -35,11 +42,11 @@ public class CupomDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Porcentagem", "Codigo", "Validade", "Status"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, porcentagem, codigo, validade, ativo};
     }
 }

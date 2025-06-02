@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class ClienteDAOImpl implements ClienteDAO {
 
     @Override
-    public void insert(Cliente cliente) {
+    public boolean insert(Cliente cliente) {
         String sql = "INSERT INTO public.cliente(nome) VALUES (?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -26,7 +26,9 @@ public class ClienteDAOImpl implements ClienteDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -81,7 +83,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
     @Override
-    public void update(Cliente cliente) {
+    public boolean update(Cliente cliente) {
         String sql = "UPDATE public.cliente SET nome = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -93,11 +95,13 @@ public class ClienteDAOImpl implements ClienteDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Cliente cliente) {
+    public boolean delete(Cliente cliente) {
         String sql = "DELETE FROM public.cliente WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -109,6 +113,8 @@ public class ClienteDAOImpl implements ClienteDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

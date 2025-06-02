@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IngredienteRemoverController extends InterfaceController {
-    public void insert(IngredienteRemoverDTO ingredienteRemoverDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        IngredienteRemoverDTO ingredienteRemoverDTO = (IngredienteRemoverDTO) interfaceDTO;
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        dao.insert(ingredienteRemoverDTO.buildEntity());
+        return dao.insert(ingredienteRemoverDTO.buildEntity());
     }
 
-    public void update(IngredienteRemoverDTO ingredienteRemoverDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        IngredienteRemoverDTO ingredienteRemoverDTO = (IngredienteRemoverDTO) interfaceDTO;
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        dao.update(ingredienteRemoverDTO.buildEntity());
+        return dao.update(ingredienteRemoverDTO.buildEntity());
     }
 
-    public void delete(IngredienteRemoverDTO ingredienteRemoverDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        IngredienteRemoverDTO ingredienteRemoverDTO = (IngredienteRemoverDTO) interfaceDTO;
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
-        dao.delete(ingredienteRemoverDTO.buildEntity());
+        return dao.delete(ingredienteRemoverDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
         for (IngredienteRemover ir : dao.list()) {
-            listDTO.add(IngredienteRemoverDTO.buildDTO(ir));
+            listDTO.add(IngredienteRemoverDTO.toDTO(ir));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        IngredienteRemoverDAO dao = new IngredienteRemoverDAOImpl();
+        return IngredienteRemoverDTO.toDTO(dao.getById(id));
     }
 }

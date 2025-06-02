@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Telefone;
 
 public class TelefoneDTO extends InterfaceDTO {
@@ -10,16 +11,22 @@ public class TelefoneDTO extends InterfaceDTO {
     public ClienteDTO clienteDTO;
     public FuncionarioDTO funcionarioDTO;
 
-    public static TelefoneDTO buildDTO(Telefone telefone) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Telefone) e);
+    }
+
+    public static TelefoneDTO toDTO(Telefone telefone) {
         TelefoneDTO tDTO = new TelefoneDTO();
         tDTO.id = telefone.getId() + "";
         tDTO.numero = telefone.getNumero();
         tDTO.ddd = telefone.getDdd();
-        tDTO.clienteDTO = ClienteDTO.buildDTO(telefone.getCliente());
-        tDTO.funcionarioDTO = FuncionarioDTO.buildDTO(telefone.getFuncionario());
+        tDTO.clienteDTO = ClienteDTO.toDTO(telefone.getCliente());
+        tDTO.funcionarioDTO = FuncionarioDTO.toDTO(telefone.getFuncionario());
         return tDTO;
     }
 
+    @Override
     public Telefone buildEntity() {
         Telefone telefone = new Telefone();
         telefone.setId(Integer.parseInt(id));
@@ -32,11 +39,11 @@ public class TelefoneDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Numero", "DDD", "Cliente", "Funcionario"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, numero, ddd, clienteDTO.nome, funcionarioDTO.nome};
     }
 }

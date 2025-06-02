@@ -1,6 +1,8 @@
 package models;
 
-public class StatusPedido {
+import interfaces.InterfaceEntity;
+
+public class StatusPedido extends InterfaceEntity {
     private int id;
     private Status status;
 

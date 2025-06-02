@@ -1,6 +1,8 @@
 package models;
 
-public class Reembolso {
+import interfaces.InterfaceEntity;
+
+public class Reembolso extends InterfaceEntity {
     private int id;
     private String motivo;
 

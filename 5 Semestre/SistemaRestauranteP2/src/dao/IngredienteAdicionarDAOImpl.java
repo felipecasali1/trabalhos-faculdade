@@ -15,7 +15,7 @@ import models.*;
 public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
 
     @Override
-    public void insert(IngredienteAdicionar ingAdd) {
+    public boolean insert(IngredienteAdicionar ingAdd) {
         String sql = "INSERT INTO public.ingrediente_adicionar(nome, valor, ing_escolha_id) VALUES (?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -29,7 +29,9 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -110,7 +112,7 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
     }
 
     @Override
-    public void update(IngredienteAdicionar ingAdd) {
+    public boolean update(IngredienteAdicionar ingAdd) {
         String sql = "UPDATE public.ingrediente_adicionar SET nome = ?, valor = ?, ing_escolha_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -125,11 +127,13 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(IngredienteAdicionar ingAdd) {
+    public boolean delete(IngredienteAdicionar ingAdd) {
         String sql = "DELETE FROM public.ingrediente_adicionar WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -141,6 +145,8 @@ public class IngredienteAdicionarDAOImpl implements IngredienteAdicionarDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteAdicionarDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

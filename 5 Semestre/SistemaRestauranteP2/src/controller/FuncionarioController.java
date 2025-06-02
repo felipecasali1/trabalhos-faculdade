@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FuncionarioController extends InterfaceController {
-    public void insert(FuncionarioDTO funcionarioDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        FuncionarioDTO funcionarioDTO = (FuncionarioDTO) interfaceDTO;
         FuncionarioDAO dao = new FuncionarioDAOImpl();
-        dao.insert(funcionarioDTO.buildEntity());
+        return dao.insert(funcionarioDTO.buildEntity());
     }
 
-    public void update(FuncionarioDTO funcionarioDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        FuncionarioDTO funcionarioDTO = (FuncionarioDTO) interfaceDTO;
         FuncionarioDAO dao = new FuncionarioDAOImpl();
-        dao.update(funcionarioDTO.buildEntity());
+        return dao.update(funcionarioDTO.buildEntity());
     }
 
-    public void delete(FuncionarioDTO funcionarioDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        FuncionarioDTO funcionarioDTO = (FuncionarioDTO) interfaceDTO;
         FuncionarioDAO dao = new FuncionarioDAOImpl();
-        dao.delete(funcionarioDTO.buildEntity());
+        return dao.delete(funcionarioDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         FuncionarioDAO dao = new FuncionarioDAOImpl();
         for (Funcionario f : dao.list()) {
-            listDTO.add(FuncionarioDTO.buildDTO(f));
+            listDTO.add(FuncionarioDTO.toDTO(f));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        FuncionarioDAO dao = new FuncionarioDAOImpl();
+        return FuncionarioDTO.toDTO(dao.getById(id));
     }
 }

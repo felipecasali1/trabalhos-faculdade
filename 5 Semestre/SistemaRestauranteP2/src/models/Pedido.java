@@ -1,8 +1,10 @@
 package models;
 
+import interfaces.InterfaceEntity;
+
 import java.sql.Timestamp;
 
-public class Pedido {
+public class Pedido extends InterfaceEntity {
     private int id;
     private Timestamp data;
     private Cliente cliente;

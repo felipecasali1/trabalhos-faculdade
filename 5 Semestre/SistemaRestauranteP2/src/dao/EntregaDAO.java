@@ -6,9 +6,9 @@ import models.Entrega;
 import java.util.List;
 
 public interface EntregaDAO {
-    void insert(Entrega entrega);
+    boolean insert(Entrega entrega);
     List<Entrega> list();
     Entrega getById(Integer id);
-    void update(Entrega entrega);
-    void delete(Entrega entrega);
+    boolean update(Entrega entrega);
+    boolean delete(Entrega entrega);
 }

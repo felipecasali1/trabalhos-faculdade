@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class TaxaEntregaDAOImpl implements TaxaEntregaDAO {
     @Override
-    public void insert(TaxaEntrega taxaEntrega) {
+    public boolean insert(TaxaEntrega taxaEntrega) {
         String sql = "INSERT INTO public.taxa_entrega(taxa, entrega_id) VALUES (?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -26,7 +26,9 @@ public class TaxaEntregaDAOImpl implements TaxaEntregaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class TaxaEntregaDAOImpl implements TaxaEntregaDAO {
     }
 
     @Override
-    public void update(TaxaEntrega taxaEntrega) {
+    public boolean update(TaxaEntrega taxaEntrega) {
         String sql = "UPDATE public.taxa_entrega SET taxa = ?, entrega_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -95,11 +97,13 @@ public class TaxaEntregaDAOImpl implements TaxaEntregaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(TaxaEntrega taxaEntrega) {
+    public boolean delete(TaxaEntrega taxaEntrega) {
         String sql = "DELETE FROM public.taxa_entrega WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -110,6 +114,8 @@ public class TaxaEntregaDAOImpl implements TaxaEntregaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(TaxaEntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

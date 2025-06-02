@@ -1,8 +1,10 @@
 package models;
 
+import interfaces.InterfaceEntity;
+
 import java.util.List;
 
-public class Carrinho {
+public class Carrinho extends InterfaceEntity {
     private int id;
     private List<CarrinhoProduto> itens;
 

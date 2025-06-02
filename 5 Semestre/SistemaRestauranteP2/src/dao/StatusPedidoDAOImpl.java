@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     @Override
-    public void insert(StatusPedido statusPedido) {
+    public boolean insert(StatusPedido statusPedido) {
         String sql = "INSERT INTO public.status_pedido(status) VALUES (?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -26,7 +26,9 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
     }
 
     @Override
-    public void update(StatusPedido statusPedido) {
+    public boolean update(StatusPedido statusPedido) {
         String sql = "UPDATE public.status_pedido SET status = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -94,11 +96,13 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(StatusPedido statusPedido) {
+    public boolean delete(StatusPedido statusPedido) {
         String sql = "DELETE FROM public.status_pedido WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -110,6 +114,8 @@ public class StatusPedidoDAOImpl implements StatusPedidoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(StatusPedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

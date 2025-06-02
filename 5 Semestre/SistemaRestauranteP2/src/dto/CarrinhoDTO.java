@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Carrinho;
 
 import java.util.List;
@@ -10,16 +11,22 @@ public class CarrinhoDTO extends InterfaceDTO {
     public String id;
     public List<CarrinhoProdutoDTO> itens;
 
-    public static CarrinhoDTO buildDTO(Carrinho carrinho) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Carrinho) e);
+    }
+
+    public static CarrinhoDTO toDTO(Carrinho carrinho) {
         CarrinhoDTO cDTO = new CarrinhoDTO();
         cDTO.id = carrinho.getId() + "";
         cDTO.itens = carrinho.getItens()
                 .stream()
-                .map(CarrinhoProdutoDTO::buildDTO)
+                .map(CarrinhoProdutoDTO::toDTO)
                 .collect(Collectors.toList());
         return cDTO;
     }
 
+    @Override
     public Carrinho buildEntity() {
         Carrinho c = new Carrinho();
         c.setId(Integer.parseInt(id));
@@ -33,11 +40,11 @@ public class CarrinhoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id};
     }
 }

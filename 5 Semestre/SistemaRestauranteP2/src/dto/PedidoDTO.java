@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Pedido;
 
 import java.sql.Timestamp;
@@ -13,17 +14,23 @@ public class PedidoDTO extends InterfaceDTO {
     public StatusPedidoDTO statusPedidoDTO;
     public ReembolsoDTO reembolsoDTO;
 
-    public static PedidoDTO buildDTO(Pedido pedido) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Pedido) e);
+    }
+
+    public static PedidoDTO toDTO(Pedido pedido) {
         PedidoDTO pDTO = new PedidoDTO();
         pDTO.id = pedido.getId() + "";
         pDTO.data = pedido.getData().toString();
-        pDTO.clienteDTO = ClienteDTO.buildDTO(pedido.getCliente());
-        pDTO.carrinhoDTO = CarrinhoDTO.buildDTO(pedido.getCarrinho());
-        pDTO.statusPedidoDTO = StatusPedidoDTO.buildDTO(pedido.getStatus());
-        pDTO.reembolsoDTO = ReembolsoDTO.buildDTO(pedido.getReembolso());
+        pDTO.clienteDTO = ClienteDTO.toDTO(pedido.getCliente());
+        pDTO.carrinhoDTO = CarrinhoDTO.toDTO(pedido.getCarrinho());
+        pDTO.statusPedidoDTO = StatusPedidoDTO.toDTO(pedido.getStatus());
+        pDTO.reembolsoDTO = ReembolsoDTO.toDTO(pedido.getReembolso());
         return pDTO;
     }
 
+    @Override
     public Pedido buildEntity() {
         Pedido pedido = new Pedido();
         pedido.setId(Integer.parseInt(id));
@@ -37,11 +44,11 @@ public class PedidoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Data", "Cliente", "Carrinho", "Status Pedido", "Reembolso"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, data, clienteDTO.nome, carrinhoDTO.id, statusPedidoDTO.status, reembolsoDTO.motivo};
     }
 }

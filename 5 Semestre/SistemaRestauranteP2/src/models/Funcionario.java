@@ -1,8 +1,10 @@
 package models;
 
+import interfaces.InterfaceEntity;
+
 import java.util.List;
 
-public class Funcionario {
+public class Funcionario extends InterfaceEntity {
     private int id;
     private String nome;
     private String cpf;

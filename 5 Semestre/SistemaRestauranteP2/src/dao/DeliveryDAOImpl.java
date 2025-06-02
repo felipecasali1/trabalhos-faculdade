@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class DeliveryDAOImpl implements DeliveryDAO {
     @Override
-    public void insert(Delivery delivery) {
+    public boolean insert(Delivery delivery) {
         String sql = "INSERT INTO public.cupom(numero, complemento, endereco_id) VALUES (?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -27,7 +27,9 @@ public class DeliveryDAOImpl implements DeliveryDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(DeliveryDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -82,7 +84,7 @@ public class DeliveryDAOImpl implements DeliveryDAO {
     }
 
     @Override
-    public void update(Delivery delivery) {
+    public boolean update(Delivery delivery) {
         String sql = "UPDATE public.delivery SET numero = ?, complemento = ?, endereco_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -96,11 +98,13 @@ public class DeliveryDAOImpl implements DeliveryDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(DeliveryDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Delivery delivery) {
+    public boolean delete(Delivery delivery) {
         String sql = "DELETE FROM public.delivery WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -112,6 +116,8 @@ public class DeliveryDAOImpl implements DeliveryDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(DeliveryDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

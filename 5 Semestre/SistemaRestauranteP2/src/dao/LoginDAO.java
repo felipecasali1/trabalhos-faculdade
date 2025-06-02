@@ -5,9 +5,9 @@ import models.Login;
 import java.util.List;
 
 public interface LoginDAO {
-    void insert(Login login);
+    boolean insert(Login login);
     List<Login> list();
     Login getById(Integer id);
-    void update(Login login);
-    void delete(Login login);
+    boolean update(Login login);
+    boolean delete(Login login);
 }

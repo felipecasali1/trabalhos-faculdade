@@ -4,9 +4,9 @@ import java.util.List;
 import models.Produto;
 
 public interface ProdutoDAO {
-    void insert(Produto produto);
+    boolean insert(Produto produto);
     List<Produto> list();
     Produto getById(Integer id);
-    void update(Produto produto);
-    void delete(Produto produto);
+    boolean update(Produto produto);
+    boolean delete(Produto produto);
 }

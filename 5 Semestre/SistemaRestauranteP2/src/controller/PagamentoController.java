@@ -11,28 +11,39 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PagamentoController extends InterfaceController {
-    public void insert(PagamentoDTO pagamentoDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        PagamentoDTO pagamentoDTO = (PagamentoDTO) interfaceDTO;
         PagamentoDAO dao = new PagamentoDAOImpl();
-        dao.insert(pagamentoDTO.buildEntity());
+        return dao.insert(pagamentoDTO.buildEntity());
     }
 
-    public void update(PagamentoDTO pagamentoDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        PagamentoDTO pagamentoDTO = (PagamentoDTO) interfaceDTO;
         PagamentoDAO dao = new PagamentoDAOImpl();
-        dao.update(pagamentoDTO.buildEntity());
+        return dao.update(pagamentoDTO.buildEntity());
     }
 
-    public void delete(PagamentoDTO pagamentoDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        PagamentoDTO pagamentoDTO = (PagamentoDTO) interfaceDTO;
         PagamentoDAO dao = new PagamentoDAOImpl();
-        dao.delete(pagamentoDTO.buildEntity());
+        return dao.delete(pagamentoDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         PagamentoDAO dao = new PagamentoDAOImpl();
         for (Pagamento p : dao.list()) {
-            listDTO.add(PagamentoDTO.buildDTO(p));
+            listDTO.add(PagamentoDTO.toDTO(p));
         }
         return listDTO;
     }
 
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

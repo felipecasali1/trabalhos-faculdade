@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IngredienteAdicionarController extends InterfaceController {
-    public void insert(IngredienteAdicionarDTO ingredienteAdicionarDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        IngredienteAdicionarDTO ingredienteAdicionarDTO = (IngredienteAdicionarDTO) interfaceDTO;
         IngredienteAdicionarDAO dao = new IngredienteAdicionarDAOImpl();
-        dao.insert(ingredienteAdicionarDTO.buildEntity());
+        return dao.insert(ingredienteAdicionarDTO.buildEntity());
     }
 
-    public void update(IngredienteAdicionarDTO ingredienteAdicionarDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        IngredienteAdicionarDTO ingredienteAdicionarDTO = (IngredienteAdicionarDTO) interfaceDTO;
         IngredienteAdicionarDAO dao = new IngredienteAdicionarDAOImpl();
-        dao.update(ingredienteAdicionarDTO.buildEntity());
+        return dao.update(ingredienteAdicionarDTO.buildEntity());
     }
 
-    public void delete(IngredienteAdicionarDTO ingredienteAdicionarDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        IngredienteAdicionarDTO ingredienteAdicionarDTO = (IngredienteAdicionarDTO) interfaceDTO;
         IngredienteAdicionarDAO dao = new IngredienteAdicionarDAOImpl();
-        dao.delete(ingredienteAdicionarDTO.buildEntity());
+        return dao.delete(ingredienteAdicionarDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         IngredienteAdicionarDAO dao = new IngredienteAdicionarDAOImpl();
         for (IngredienteAdicionar ia : dao.list()) {
-            listDTO.add(IngredienteAdicionarDTO.buildDTO(ia));
+            listDTO.add(IngredienteAdicionarDTO.toDTO(ia));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+       IngredienteAdicionarDAO dao = new IngredienteAdicionarDAOImpl();
+       return IngredienteAdicionarDTO.toDTO(dao.getById(id));
     }
 }

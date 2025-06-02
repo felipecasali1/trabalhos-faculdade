@@ -1,6 +1,8 @@
 package models;
 
-public class Produto {
+import interfaces.InterfaceEntity;
+
+public class Produto extends InterfaceEntity {
     private int id;
     private float valorUnitario;
     private String nome;

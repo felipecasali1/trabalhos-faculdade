@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CupomController extends InterfaceController {
-    public void insert(CupomDTO cupomDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        CupomDTO cupomDTO = (CupomDTO) interfaceDTO;
         CupomDAO dao = new CupomDAOImpl();
-        dao.insert(cupomDTO.buildEntity());
+        return dao.insert(cupomDTO.buildEntity());
     }
 
-    public void update(CupomDTO cupomDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        CupomDTO cupomDTO = (CupomDTO) interfaceDTO;
         CupomDAO dao = new CupomDAOImpl();
-        dao.update(cupomDTO.buildEntity());
+        return dao.update(cupomDTO.buildEntity());
     }
 
-    public void delete(CupomDTO cupomDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        CupomDTO cupomDTO = (CupomDTO) interfaceDTO;
         CupomDAO dao = new CupomDAOImpl();
-        dao.delete(cupomDTO.buildEntity());
+        return dao.delete(cupomDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         CupomDAO dao = new CupomDAOImpl();
         for (Cupom c : dao.list()) {
-            listDTO.add(CupomDTO.buildDTO(c));
+            listDTO.add(CupomDTO.toDTO(c));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        CupomDAO dao = new CupomDAOImpl();
+        return CupomDTO.toDTO(dao.getById(id));
     }
 }

@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Login;
 
 public class LoginDTO extends InterfaceDTO {
@@ -8,7 +9,12 @@ public class LoginDTO extends InterfaceDTO {
     public String usuario;
     public String senha;
 
-    public static LoginDTO buildDTO(Login login) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Login) e);
+    }
+
+    public static LoginDTO toDTO(Login login) {
         LoginDTO lDTO = new LoginDTO();
         lDTO.id = login.getId() + "";
         lDTO.usuario = login.getUsuario();
@@ -16,6 +22,7 @@ public class LoginDTO extends InterfaceDTO {
         return lDTO;
     }
 
+    @Override
     public Login buildEntity() {
         Login login = new Login();
         login.setId(Integer.parseInt(id));
@@ -26,11 +33,11 @@ public class LoginDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Usuario", "Senha"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, usuario, senha};
     }
 }

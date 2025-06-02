@@ -4,9 +4,9 @@ import models.Endereco;
 import java.util.List;
 
 public interface EnderecoDAO {
-    void insert(Endereco endereco);
+    boolean insert(Endereco endereco);
     List<Endereco> list();
     Endereco getById(Integer id);
-    void update(Endereco endereco);
-    void delete(Endereco endereco);
+    boolean update(Endereco endereco);
+    boolean delete(Endereco endereco);
 }

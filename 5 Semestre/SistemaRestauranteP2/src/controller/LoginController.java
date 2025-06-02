@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class LoginController extends InterfaceController {
-    public void insert(LoginDTO loginDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        LoginDTO loginDTO = (LoginDTO) interfaceDTO;
         LoginDAO dao = new LoginDAOImpl();
-        dao.insert(loginDTO.buildEntity());
+        return dao.insert(loginDTO.buildEntity());
     }
 
-    public void update(LoginDTO loginDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        LoginDTO loginDTO = (LoginDTO) interfaceDTO;
         LoginDAO dao = new LoginDAOImpl();
-        dao.update(loginDTO.buildEntity());
+        return dao.update(loginDTO.buildEntity());
     }
 
-    public void delete(LoginDTO loginDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        LoginDTO loginDTO = (LoginDTO) interfaceDTO;
         LoginDAO dao = new LoginDAOImpl();
-        dao.delete(loginDTO.buildEntity());
+        return dao.delete(loginDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         LoginDAO dao = new LoginDAOImpl();
         for (Login l : dao.list()) {
-            listDTO.add(LoginDTO.buildDTO(l));
+            listDTO.add(LoginDTO.toDTO(l));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        LoginDAO dao = new LoginDAOImpl();
+        return LoginDTO.toDTO(dao.getById(id));
     }
 }

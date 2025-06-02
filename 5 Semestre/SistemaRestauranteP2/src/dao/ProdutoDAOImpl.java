@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class ProdutoDAOImpl implements ProdutoDAO {
 
     @Override
-    public void insert(Produto produto) {
+    public boolean insert(Produto produto) {
         String sql = "INSERT INTO public.produto(valor, nome) VALUES (?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -23,7 +23,9 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ProdutoDAOImpl implements ProdutoDAO {
     }
 
     @Override
-    public void update(Produto produto) {
+    public boolean update(Produto produto) {
         String sql = "UPDATE public.produto SET valor = ?, nome = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -86,11 +88,13 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Produto produto) {
+    public boolean delete(Produto produto) {
         String sql = "DELETE FROM public.produto WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -102,7 +106,8 @@ public class ProdutoDAOImpl implements ProdutoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
-    
 }

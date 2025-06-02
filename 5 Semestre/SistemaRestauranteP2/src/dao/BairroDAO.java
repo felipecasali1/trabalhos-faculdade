@@ -4,9 +4,9 @@ import java.util.List;
 import models.Bairro;
 
 public interface BairroDAO {
-    void insert(Bairro bairro);
+    boolean insert(Bairro bairro);
     List<Bairro> list();
     Bairro getById(Integer id);
-    void update(Bairro bairro);
-    void delete(Bairro bairro);
+    boolean update(Bairro bairro);
+    boolean delete(Bairro bairro);
 }

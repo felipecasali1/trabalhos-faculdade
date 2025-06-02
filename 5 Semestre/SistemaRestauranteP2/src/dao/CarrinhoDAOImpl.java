@@ -11,7 +11,7 @@ import java.util.LinkedList;
 public class CarrinhoDAOImpl implements CarrinhoDAO {
 
     @Override
-    public void insert(Carrinho carrinho) {
+    public boolean insert(Carrinho carrinho) {
         String sql = "INSERT INTO public.carrinho DEFAULT VALUES";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -21,7 +21,9 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -76,12 +78,13 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
     }
 
     @Override
-    public void update(Carrinho carrinho) {
+    public boolean update(Carrinho carrinho) {
         // A TABELA TEM APENAS ID
+        return false;
     }
 
     @Override
-    public void delete(Carrinho carrinho) {
+    public boolean delete(Carrinho carrinho) {
         String sql = "DELETE FROM public.carrinho WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();            
@@ -94,6 +97,8 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(CarrinhoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }    
 }

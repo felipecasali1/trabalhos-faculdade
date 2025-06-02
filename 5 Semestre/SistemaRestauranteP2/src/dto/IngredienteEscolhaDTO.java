@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.IngredienteEscolha;
 
 import java.util.List;
@@ -11,20 +12,26 @@ public class IngredienteEscolhaDTO extends InterfaceDTO {
     public List<IngredienteAdicionarDTO> ingAdicionados;
     public List<IngredienteRemoverDTO> ingRemovidos;
 
-    public static IngredienteEscolhaDTO buildDTO(IngredienteEscolha ingredienteEscolha) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((IngredienteEscolha) e);
+    }
+
+    public static IngredienteEscolhaDTO toDTO(IngredienteEscolha ingredienteEscolha) {
         IngredienteEscolhaDTO ieDTO = new IngredienteEscolhaDTO();
         ieDTO.id = ingredienteEscolha.getId() + "";
         ieDTO.ingAdicionados = ingredienteEscolha.getIngAdd()
                 .stream()
-                .map(IngredienteAdicionarDTO::buildDTO)
+                .map(IngredienteAdicionarDTO::toDTO)
                 .collect(Collectors.toList());
         ieDTO.ingRemovidos = ingredienteEscolha.getIngRemover()
                 .stream()
-                .map(IngredienteRemoverDTO::buildDTO)
+                .map(IngredienteRemoverDTO::toDTO)
                 .collect(Collectors.toList());
         return ieDTO;
     }
 
+    @Override
     public IngredienteEscolha buildEntity() {
         IngredienteEscolha ingredienteEscolha = new IngredienteEscolha();
         ingredienteEscolha.setId(Integer.parseInt(id));
@@ -43,11 +50,11 @@ public class IngredienteEscolhaDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id};
     }
 }

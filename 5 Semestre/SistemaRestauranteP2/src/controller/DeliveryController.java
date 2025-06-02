@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DeliveryController extends InterfaceController {
-    public void insert(DeliveryDTO deliveryDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        DeliveryDTO deliveryDTO = (DeliveryDTO) interfaceDTO;
         DeliveryDAO dao = new DeliveryDAOImpl();
-        dao.insert(deliveryDTO.buildEntity());
+        return dao.insert(deliveryDTO.buildEntity());
     }
 
-    public void update(DeliveryDTO deliveryDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        DeliveryDTO deliveryDTO = (DeliveryDTO) interfaceDTO;
         DeliveryDAO dao = new DeliveryDAOImpl();
-        dao.update(deliveryDTO.buildEntity());
+        return dao.update(deliveryDTO.buildEntity());
     }
 
-    public void delete(DeliveryDTO deliveryDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        DeliveryDTO deliveryDTO = (DeliveryDTO) interfaceDTO;
         DeliveryDAO dao = new DeliveryDAOImpl();
-        dao.delete(deliveryDTO.buildEntity());
+        return dao.delete(deliveryDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         DeliveryDAO dao = new DeliveryDAOImpl();
         for (Delivery d : dao.list()) {
-            listDTO.add(DeliveryDTO.buildDTO(d));
+            listDTO.add(DeliveryDTO.toDTO(d));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        DeliveryDAO dao = new DeliveryDAOImpl();
+        return DeliveryDTO.toDTO(dao.getById(id));
     }
 }

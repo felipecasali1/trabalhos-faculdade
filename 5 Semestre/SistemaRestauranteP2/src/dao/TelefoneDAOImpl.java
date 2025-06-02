@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class TelefoneDAOImpl implements TelefoneDAO {
     @Override
-    public void insert(Telefone telefone) {
+    public boolean insert(Telefone telefone) {
         String sql = "INSERT INTO public.cliente(numero, ddd, cliente_id) VALUES (?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -27,7 +27,9 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -136,7 +138,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
     }
 
     @Override
-    public void update(Telefone telefone) {
+    public boolean update(Telefone telefone) {
         String sql = "UPDATE public.telefone SET numero = ?, ddd = ?, cliente_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -150,11 +152,13 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Telefone telefone) {
+    public boolean delete(Telefone telefone) {
         String sql = "DELETE FROM public.telefone WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -165,6 +169,8 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

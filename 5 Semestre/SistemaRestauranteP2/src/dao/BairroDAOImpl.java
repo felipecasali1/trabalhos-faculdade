@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class BairroDAOImpl implements BairroDAO {
 
     @Override
-    public void insert(Bairro bairro) {
+    public boolean insert(Bairro bairro) {
         String sql = "INSERT INTO public.bairro(nome) VALUES (?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -23,7 +23,9 @@ public class BairroDAOImpl implements BairroDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -73,7 +75,7 @@ public class BairroDAOImpl implements BairroDAO {
     }
 
     @Override
-    public void update(Bairro bairro) {
+    public boolean update(Bairro bairro) {
         String sql = "UPDATE public.bairro SET nome = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -85,11 +87,13 @@ public class BairroDAOImpl implements BairroDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Bairro bairro) {
+    public boolean delete(Bairro bairro) {
         String sql = "DELETE FROM public.bairro WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -101,6 +105,8 @@ public class BairroDAOImpl implements BairroDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(BairroDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }      
 }

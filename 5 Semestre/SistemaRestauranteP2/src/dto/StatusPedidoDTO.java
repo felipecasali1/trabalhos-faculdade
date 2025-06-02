@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Status;
 import models.StatusPedido;
 
@@ -8,13 +9,19 @@ public class StatusPedidoDTO extends InterfaceDTO {
     public String id;
     public String status;
 
-    public static StatusPedidoDTO buildDTO(StatusPedido statusPedido) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((StatusPedido) e);
+    }
+
+    public static StatusPedidoDTO toDTO(StatusPedido statusPedido) {
         StatusPedidoDTO spDTO = new StatusPedidoDTO();
         spDTO.id = statusPedido.getId() + "";
         spDTO.status = statusPedido.getStatus().toString();
         return spDTO;
     }
 
+    @Override
     public StatusPedido buildEntity() {
         StatusPedido statusPedido = new StatusPedido();
         statusPedido.setId(Integer.parseInt(id));
@@ -24,11 +31,11 @@ public class StatusPedidoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Status"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, status};
     }
 }

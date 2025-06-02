@@ -5,9 +5,9 @@ import models.StatusPedido;
 import java.util.List;
 
 public interface StatusPedidoDAO {
-    void insert(StatusPedido statusPedido);
+    boolean insert(StatusPedido statusPedido);
     List<StatusPedido> list();
     StatusPedido getById(Integer id);
-    void update(StatusPedido statusPedido);
-    void delete(StatusPedido statusPedido);
+    boolean update(StatusPedido statusPedido);
+    boolean delete(StatusPedido statusPedido);
 }

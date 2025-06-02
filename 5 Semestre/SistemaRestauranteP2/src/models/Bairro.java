@@ -1,6 +1,8 @@
 package models;
 
-public class Bairro {
+import interfaces.InterfaceEntity;
+
+public class Bairro extends InterfaceEntity {
     private int id;
     private String nome;
 

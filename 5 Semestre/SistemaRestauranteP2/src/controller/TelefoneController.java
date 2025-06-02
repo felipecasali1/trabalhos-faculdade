@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TelefoneController extends InterfaceController {
-    public void insert(TelefoneDTO telefoneDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        TelefoneDTO telefoneDTO = (TelefoneDTO) interfaceDTO;
         TelefoneDAO dao = new TelefoneDAOImpl();
-        dao.insert(telefoneDTO.buildEntity());
+        return dao.insert(telefoneDTO.buildEntity());
     }
 
-    public void update(TelefoneDTO telefoneDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        TelefoneDTO telefoneDTO = (TelefoneDTO) interfaceDTO;
         TelefoneDAO dao = new TelefoneDAOImpl();
-        dao.update(telefoneDTO.buildEntity());
+        return dao.update(telefoneDTO.buildEntity());
     }
 
-    public void delete(TelefoneDTO telefoneDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        TelefoneDTO telefoneDTO = (TelefoneDTO) interfaceDTO;
         TelefoneDAO dao = new TelefoneDAOImpl();
-        dao.delete(telefoneDTO.buildEntity());
+        return dao.delete(telefoneDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         TelefoneDAO dao = new TelefoneDAOImpl();
         for (Telefone t : dao.list()) {
-            listDTO.add(TelefoneDTO.buildDTO(t));
+            listDTO.add(TelefoneDTO.toDTO(t));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        TelefoneDAO dao = new TelefoneDAOImpl();
+        return TelefoneDTO.toDTO(dao.getById(id));
     }
 }

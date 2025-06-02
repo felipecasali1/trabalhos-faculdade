@@ -1,8 +1,10 @@
 package models;
 
+import interfaces.InterfaceEntity;
+
 import java.util.List;
 
-public class IngredienteEscolha {
+public class IngredienteEscolha extends InterfaceEntity {
     private int id;
     private List<IngredienteAdicionar> ingAdd;
     private List<IngredienteRemover> ingRemover;

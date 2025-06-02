@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class PedidoDAOImpl implements PedidoDAO {
     @Override
-    public void insert(Pedido pedido) {
+    public boolean insert(Pedido pedido) {
         String sql = "INSERT INTO public.pedido(data, cliente_id, carrinho_id, status_pedido_id, reembolso_id) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -29,7 +29,9 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -103,7 +105,7 @@ public class PedidoDAOImpl implements PedidoDAO {
     }
 
     @Override
-    public void update(Pedido pedido) {
+    public boolean update(Pedido pedido) {
         String sql = "UPDATE public.pedido SET data = ?, cliente_id = ?, carrinho_id = ?, status_pedido_id = ?, reembolso_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -119,11 +121,13 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Pedido pedido) {
+    public boolean delete(Pedido pedido) {
         String sql = "DELETE FROM public.pedido WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -135,6 +139,8 @@ public class PedidoDAOImpl implements PedidoDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

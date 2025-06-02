@@ -1,6 +1,8 @@
 package models;
 
-public class TaxaEntrega {
+import interfaces.InterfaceEntity;
+
+public class TaxaEntrega extends InterfaceEntity {
     private int id;
     private float taxa;
     private Entrega entrega;

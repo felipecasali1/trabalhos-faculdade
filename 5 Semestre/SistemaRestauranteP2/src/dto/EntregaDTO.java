@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Entrega;
 import models.TipoEntrega;
 
@@ -11,16 +12,22 @@ public class EntregaDTO extends InterfaceDTO {
     public DeliveryDTO deliveryDTO;
     public PedidoDTO pedidoDTO;
 
-    public static EntregaDTO buildDTO(Entrega entrega) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Entrega) e);
+    }
+
+    public static EntregaDTO toDTO(Entrega entrega) {
         EntregaDTO eDTO = new EntregaDTO();
         eDTO.id = entrega.getId() + "";
-        eDTO.clienteDTO = ClienteDTO.buildDTO(entrega.getCliente());
+        eDTO.clienteDTO = ClienteDTO.toDTO(entrega.getCliente());
         eDTO.tipoEntrega = entrega.getTipo().toString();
-        eDTO.deliveryDTO = DeliveryDTO.buildDTO(entrega.getDelivery());
-        eDTO.pedidoDTO = PedidoDTO.buildDTO(entrega.getPedido());
+        eDTO.deliveryDTO = DeliveryDTO.toDTO(entrega.getDelivery());
+        eDTO.pedidoDTO = PedidoDTO.toDTO(entrega.getPedido());
         return eDTO;
     }
 
+    @Override
     public Entrega buildEntity() {
         Entrega entrega = new Entrega();
         entrega.setId(Integer.parseInt(id));
@@ -33,11 +40,11 @@ public class EntregaDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Cliente", "Tipo Entrega", "Delivery", "Pedido"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, clienteDTO.nome, tipoEntrega, deliveryDTO.enderecoDTO.bairroDTO.nome, pedidoDTO.statusPedidoDTO.status};
     }
 }

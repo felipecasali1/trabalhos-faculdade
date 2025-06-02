@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EntregaController extends InterfaceController {
-    public void insert(EntregaDTO entregaDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        EntregaDTO entregaDTO = (EntregaDTO) interfaceDTO;
         EntregaDAO dao = new EntregaDAOImpl();
-        dao.insert(entregaDTO.buildEntity());
+        return dao.insert(entregaDTO.buildEntity());
     }
 
-    public void update(EntregaDTO entregaDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        EntregaDTO entregaDTO = (EntregaDTO) interfaceDTO;
         EntregaDAO dao = new EntregaDAOImpl();
-        dao.update(entregaDTO.buildEntity());
+        return dao.update(entregaDTO.buildEntity());
     }
 
-    public void delete(EntregaDTO entregaDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        EntregaDTO entregaDTO = (EntregaDTO) interfaceDTO;
         EntregaDAO dao = new EntregaDAOImpl();
-        dao.delete(entregaDTO.buildEntity());
+        return dao.delete(entregaDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         EntregaDAO dao = new EntregaDAOImpl();
         for (Entrega e : dao.list()) {
-            listDTO.add(EntregaDTO.buildDTO(e));
+            listDTO.add(EntregaDTO.toDTO(e));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        EntregaDAO dao = new EntregaDAOImpl();
+        return EntregaDTO.toDTO(dao.getById(id));
     }
 }

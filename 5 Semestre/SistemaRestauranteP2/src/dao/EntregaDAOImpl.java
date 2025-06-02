@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class EntregaDAOImpl implements EntregaDAO {
     @Override
-    public void insert(Entrega entrega) {
+    public boolean insert(Entrega entrega) {
         String sql = "INSERT INTO public.entrega(cliente_id, delivery_id, pedido_id, tipo) VALUES (?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -29,7 +29,9 @@ public class EntregaDAOImpl implements EntregaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -92,7 +94,7 @@ public class EntregaDAOImpl implements EntregaDAO {
     }
 
     @Override
-    public void update(Entrega entrega) {
+    public boolean update(Entrega entrega) {
         String sql = "UPDATE public.entrega SET cliente_id = ?, delivery_id = ?, pedido_id = ?, tipo = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -107,11 +109,13 @@ public class EntregaDAOImpl implements EntregaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Entrega entrega) {
+    public boolean delete(Entrega entrega) {
         String sql = "DELETE FROM public.entrega WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -123,6 +127,8 @@ public class EntregaDAOImpl implements EntregaDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(EntregaDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

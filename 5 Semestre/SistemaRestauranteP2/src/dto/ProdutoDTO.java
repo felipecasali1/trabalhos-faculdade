@@ -1,6 +1,7 @@
 package dto;
 
 import interfaces.InterfaceDTO;
+import interfaces.InterfaceEntity;
 import models.Produto;
 
 public class ProdutoDTO extends InterfaceDTO {
@@ -8,7 +9,12 @@ public class ProdutoDTO extends InterfaceDTO {
     public String valorUnitario;
     public String nome;
 
-    public static ProdutoDTO buildDTO(Produto produto) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((Produto) e);
+    }
+
+    public static ProdutoDTO toDTO(Produto produto) {
         ProdutoDTO pDTO = new ProdutoDTO();
         pDTO.id = produto.getId() + "";
         pDTO.valorUnitario = produto.getValorUnitario() + "";
@@ -16,6 +22,7 @@ public class ProdutoDTO extends InterfaceDTO {
         return pDTO;
     }
 
+    @Override
     public Produto buildEntity() {
         Produto produto = new Produto();
         produto.setId(Integer.parseInt(id));
@@ -26,11 +33,11 @@ public class ProdutoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Valor Unitário", "Nome"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, valorUnitario, nome};
     }
 }

@@ -2,6 +2,7 @@ package dto;
 
 import interfaces.InterfaceDTO;
 import dao.ProdutoDAO;
+import interfaces.InterfaceEntity;
 import models.Carrinho;
 import models.CarrinhoProduto;
 import models.Produto;
@@ -13,16 +14,22 @@ public class CarrinhoProdutoDTO extends InterfaceDTO {
     private String quantidade;
     private IngredienteEscolhaDTO ingEscolha;
 
-    public static CarrinhoProdutoDTO buildDTO(CarrinhoProduto cp) {
+    @Override
+    public InterfaceDTO buildDTO(InterfaceEntity e) {
+        return (InterfaceDTO) toDTO((CarrinhoProduto) e);
+    }
+
+    public static CarrinhoProdutoDTO toDTO(CarrinhoProduto cp) {
         CarrinhoProdutoDTO cpDTO = new CarrinhoProdutoDTO();
         cpDTO.id = cp.getId() + "";
-        cpDTO.carrinhoDTO = CarrinhoDTO.buildDTO(cp.getCarrinho());
-        cpDTO.produtoDTO = ProdutoDTO.buildDTO(cp.getProduto());
+        cpDTO.carrinhoDTO = CarrinhoDTO.toDTO(cp.getCarrinho());
+        cpDTO.produtoDTO = ProdutoDTO.toDTO(cp.getProduto());
         cpDTO.quantidade = cp.getQuantidade() + "";
-        cpDTO.ingEscolha = IngredienteEscolhaDTO.buildDTO(cp.getIngEscolha());
+        cpDTO.ingEscolha = IngredienteEscolhaDTO.toDTO(cp.getIngEscolha());
         return cpDTO;
     }
 
+    @Override
     public CarrinhoProduto buildEntity() {
         CarrinhoProduto cp = new CarrinhoProduto();
         cp.setId(Integer.parseInt(id));
@@ -35,11 +42,11 @@ public class CarrinhoProdutoDTO extends InterfaceDTO {
 
     @Override
     public String[] getTableHeader() {
-        return new String[]{};
+        return new String[]{"Id", "Carrinho", "Produto", "Quantidade", "Mudança de Ingredientes"};
     }
 
     @Override
     public Object[] getTableData() {
-        return new Object[]{};
+        return new Object[]{id, carrinhoDTO.id, produtoDTO.nome, quantidade, ingEscolha.id};
     }
 }

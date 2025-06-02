@@ -11,27 +11,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PedidoController extends InterfaceController {
-    public void insert(PedidoDTO pedidoDTO) {
+    @Override
+    public boolean insert(InterfaceDTO interfaceDTO) {
+        PedidoDTO pedidoDTO = (PedidoDTO) interfaceDTO;
         PedidoDAO dao = new PedidoDAOImpl();
-        dao.insert(pedidoDTO.buildEntity());
+        return dao.insert(pedidoDTO.buildEntity());
     }
 
-    public void update(PedidoDTO pedidoDTO) {
+    @Override
+    public boolean update(InterfaceDTO interfaceDTO) {
+        PedidoDTO pedidoDTO = (PedidoDTO) interfaceDTO;
         PedidoDAO dao = new PedidoDAOImpl();
-        dao.update(pedidoDTO.buildEntity());
+        return dao.update(pedidoDTO.buildEntity());
     }
 
-    public void delete(PedidoDTO pedidoDTO) {
+    @Override
+    public boolean delete(InterfaceDTO interfaceDTO) {
+        PedidoDTO pedidoDTO = (PedidoDTO) interfaceDTO;
         PedidoDAO dao = new PedidoDAOImpl();
-        dao.delete(pedidoDTO.buildEntity());
+        return dao.delete(pedidoDTO.buildEntity());
     }
 
+    @Override
     public List<InterfaceDTO> list() {
         List<InterfaceDTO> listDTO = new LinkedList<>();
         PedidoDAO dao = new PedidoDAOImpl();
         for (Pedido p : dao.list()) {
-            listDTO.add(PedidoDTO.buildDTO(p));
+            listDTO.add(PedidoDTO.toDTO(p));
         }
         return listDTO;
+    }
+
+    @Override
+    public InterfaceDTO getById(Integer id) {
+        PedidoDAO dao = new PedidoDAOImpl();
+        return PedidoDTO.toDTO(dao.getById(id));
     }
 }

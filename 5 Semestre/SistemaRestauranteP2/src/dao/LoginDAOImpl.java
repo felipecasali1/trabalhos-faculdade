@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class LoginDAOImpl implements LoginDAO {
     @Override
-    public void insert(Login login) {
+    public boolean insert(Login login) {
         String sql = "INSERT INTO public.login(usuario, senha) VALUES (?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -26,7 +26,9 @@ public class LoginDAOImpl implements LoginDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -79,7 +81,7 @@ public class LoginDAOImpl implements LoginDAO {
     }
 
     @Override
-    public void update(Login login) {
+    public boolean update(Login login) {
         String sql = "UPDATE public.login SET usuario = ?, senha = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -92,11 +94,13 @@ public class LoginDAOImpl implements LoginDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(Login login) {
+    public boolean delete(Login login) {
         String sql = "DELETE FROM public.login WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -107,6 +111,8 @@ public class LoginDAOImpl implements LoginDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }

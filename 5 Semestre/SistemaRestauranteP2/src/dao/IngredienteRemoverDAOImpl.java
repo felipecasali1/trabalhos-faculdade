@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
     @Override
-    public void insert(IngredienteRemover ingRem) {
+    public boolean insert(IngredienteRemover ingRem) {
         String sql = "INSERT INTO public.ingrediente_remover(nome, ing_escolha_id) VALUES (?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -29,7 +29,9 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
             c.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
@@ -110,7 +112,7 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
     }
 
     @Override
-    public void update(IngredienteRemover ingRem) {
+    public boolean update(IngredienteRemover ingRem) {
         String sql = "UPDATE public.ingrediente_remover SET nome = ?, ing_escolha_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -124,11 +126,13 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void delete(IngredienteRemover ingRem) {
+    public boolean delete(IngredienteRemover ingRem) {
         String sql = "DELETE FROM public.ingrediente_remover WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
@@ -140,6 +144,8 @@ public class IngredienteRemoverDAOImpl implements IngredienteRemoverDAO {
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(IngredienteRemoverDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
+        return true;
     }
 }
