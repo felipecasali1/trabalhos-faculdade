@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.IngredienteRemover;
 
 public class IngredienteRemoverDTO extends InterfaceDTO {
-    public String id;
     public String nome;
     public IngredienteEscolhaDTO ingredienteEscolhaDTO;
 

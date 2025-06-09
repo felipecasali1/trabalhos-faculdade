@@ -8,11 +8,10 @@ import models.CarrinhoProduto;
 import models.Produto;
 
 public class CarrinhoProdutoDTO extends InterfaceDTO {
-    private String id;
-    private CarrinhoDTO carrinhoDTO;
-    private ProdutoDTO produtoDTO;
-    private String quantidade;
-    private IngredienteEscolhaDTO ingEscolha;
+    public CarrinhoDTO carrinhoDTO;
+    public ProdutoDTO produtoDTO;
+    public String quantidade;
+    public IngredienteEscolhaDTO ingEscolha;
 
     @Override
     public InterfaceDTO buildDTO(InterfaceEntity e) {

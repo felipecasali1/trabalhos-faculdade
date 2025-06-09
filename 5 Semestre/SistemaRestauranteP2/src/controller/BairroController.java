@@ -4,6 +4,7 @@ import interfaces.InterfaceController;
 import dao.BairroDAO;
 import dao.BairroDAOImpl;
 import dto.BairroDTO;
+import dto.ClienteDTO;
 import interfaces.InterfaceDTO;
 import models.Bairro;
 
@@ -11,6 +12,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BairroController extends InterfaceController {
+    public BairroController() {
+        this.interfaceDTO = new ClienteDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         BairroDTO bairroDTO = (BairroDTO) interfaceDTO;

@@ -6,7 +6,6 @@ import models.Pagamento;
 import models.TipoPagamento;
 
 public class PagamentoDTO extends InterfaceDTO {
-    public String id;
     public PedidoDTO pedidoDTO;
     public CupomDTO cupomDTO;
     public String tipoPagamento;

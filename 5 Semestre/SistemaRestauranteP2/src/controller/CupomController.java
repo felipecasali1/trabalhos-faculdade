@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CupomController extends InterfaceController {
+    public CupomController() {
+        this.interfaceDTO = new CupomDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         CupomDTO cupomDTO = (CupomDTO) interfaceDTO;

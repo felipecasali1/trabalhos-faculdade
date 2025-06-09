@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DeliveryController extends InterfaceController {
+    public DeliveryController() {
+        this.interfaceDTO = new DeliveryDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         DeliveryDTO deliveryDTO = (DeliveryDTO) interfaceDTO;

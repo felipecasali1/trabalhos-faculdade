@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.Delivery;
 
 public class DeliveryDTO extends InterfaceDTO {
-    public String id;
     public String numero;
     public String complemento;
     public EnderecoDTO enderecoDTO;
@@ -42,5 +41,10 @@ public class DeliveryDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, numero, complemento, enderecoDTO.rua};
+    }
+
+    @Override
+    public String toString() {
+        return enderecoDTO.rua + numero;
     }
 }

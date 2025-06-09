@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.TaxaEntrega;
 
 public class TaxaEntregaDTO extends InterfaceDTO {
-    public String id;
     public String taxa;
     public EntregaDTO entregaDTO;
 

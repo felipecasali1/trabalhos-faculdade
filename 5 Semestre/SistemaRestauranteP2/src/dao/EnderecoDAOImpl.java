@@ -36,7 +36,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     @Override
     public List<Endereco> list() {
         List<Endereco> list = new LinkedList<>();
-        String sql = "SELECT id, rua, cep, bairro_id, distancia FROM public.cupom";
+        String sql = "SELECT id, rua, cep, bairro_id, distancia FROM public.endereco";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 
@@ -61,7 +61,7 @@ public class EnderecoDAOImpl implements EnderecoDAO {
     @Override
     public Endereco getById(Integer id) {
         List<Endereco> list = new LinkedList<>();
-        String sql = "SELECT id, rua, cep, bairro_id, distancia FROM public.cupom WHERE id = ?";
+        String sql = "SELECT id, rua, cep, bairro_id, distancia FROM public.endereco WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 

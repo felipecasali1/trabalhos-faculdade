@@ -12,7 +12,7 @@ public class IngredienteEscolhaDAOImpl implements IngredienteEscolhaDAO {
 
     @Override
     public boolean insert(IngredienteEscolha ingEscolha) {
-        String sql = "INSERT INTO public.produto DEFAULT VALUES";
+        String sql = "INSERT INTO public.ngrediente_escolha DEFAULT VALUES";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
             

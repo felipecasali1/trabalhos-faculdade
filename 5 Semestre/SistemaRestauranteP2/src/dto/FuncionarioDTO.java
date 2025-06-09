@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FuncionarioDTO extends InterfaceDTO {
-    public String id;
     public String nome;
     public String cpf;
     public String rg;
     public LoginDTO loginDTO;
-    public List<TelefoneDTO> telefones;
+    public List<Integer> telefoneIds;
 
     @Override
     public InterfaceDTO buildDTO(InterfaceEntity e) {
@@ -27,10 +26,7 @@ public class FuncionarioDTO extends InterfaceDTO {
        fDTO.cpf = funcionario.getCpf();
        fDTO.rg = funcionario.getRg();
        fDTO.loginDTO = LoginDTO.toDTO(funcionario.getLogin());
-       fDTO.telefones = funcionario.getTelefones()
-               .stream()
-               .map(TelefoneDTO::toDTO)
-               .collect(Collectors.toList());
+       fDTO.telefoneIds = funcionario.getTelefoneIds();
        return fDTO;
    }
 
@@ -42,11 +38,7 @@ public class FuncionarioDTO extends InterfaceDTO {
         funcionario.setCpf(cpf);
         funcionario.setRg(rg);
         funcionario.setLogin(loginDTO.buildEntity());
-        funcionario.setTelefones(telefones
-            .stream()
-            .map(TelefoneDTO::buildEntity)
-            .collect(Collectors.toList())
-        );
+        funcionario.getTelefoneIds();
         return funcionario;
     }
 

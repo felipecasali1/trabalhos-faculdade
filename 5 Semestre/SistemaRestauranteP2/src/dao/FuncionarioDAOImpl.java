@@ -47,7 +47,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             TelefoneDAOImpl telefoneDAO = new TelefoneDAOImpl();
             while (rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Funcionario(idRes, rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), loginDAO.getById(rs.getInt("login_id")), telefoneDAO.listByFuncionarioId(rs.getInt(idRes))));
+                list.add(new Funcionario(idRes, rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), loginDAO.getById(rs.getInt("login_id")), telefoneDAO.listIdsByFuncionarioId(rs.getInt(idRes))));
             }
 
             rs.close();
@@ -74,7 +74,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
             TelefoneDAOImpl telefoneDAO = new TelefoneDAOImpl();
             if(rs.next()) {
                 int idRes = rs.getInt("id");
-                funcionario = new Funcionario(idRes, rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), loginDAO.getById(rs.getInt("login_id")), telefoneDAO.listByFuncionarioId(rs.getInt(idRes)));
+                funcionario = new Funcionario(idRes, rs.getString("nome"), rs.getString("cpf"), rs.getString("rg"), loginDAO.getById(rs.getInt("login_id")), telefoneDAO.listIdsByFuncionarioId(rs.getInt(idRes)));
             }
 
             rs.close();

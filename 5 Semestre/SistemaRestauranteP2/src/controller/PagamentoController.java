@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PagamentoController extends InterfaceController {
+    public PagamentoController() {
+        this.interfaceDTO = new PagamentoDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         PagamentoDTO pagamentoDTO = (PagamentoDTO) interfaceDTO;

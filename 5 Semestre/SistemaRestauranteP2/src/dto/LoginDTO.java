@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.Login;
 
 public class LoginDTO extends InterfaceDTO {
-    public String id;
     public String usuario;
     public String senha;
 
@@ -40,4 +39,10 @@ public class LoginDTO extends InterfaceDTO {
     public Object[] getTableData() {
         return new Object[]{id, usuario, senha};
     }
+
+    @Override
+    public String toString() {
+        return usuario;
+    }
+    
 }

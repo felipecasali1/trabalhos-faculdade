@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Carrinho extends InterfaceEntity {
     private int id;
-    private List<CarrinhoProduto> itens;
+    private List<Integer> carrinhoProdutoIds;
 
     public Carrinho() {
     }
 
-    public Carrinho(int id, List<CarrinhoProduto> itens) {
+    public Carrinho(int id, List<Integer> carrinhoProdutoIds) {
         this.id = id;
-        this.itens = itens;
+        this.carrinhoProdutoIds = carrinhoProdutoIds;
     }
 
     public int getId() {
@@ -24,11 +24,11 @@ public class Carrinho extends InterfaceEntity {
         this.id = id;
     }
 
-    public List<CarrinhoProduto> getItens() {
-        return itens;
+    public List<Integer> getCarrinhoProdutoIds() {
+        return carrinhoProdutoIds;
     }
 
-    public void setItens(List<CarrinhoProduto> itens) {
-        this.itens = itens;
+    public void setCarrinhoProdutoIds(List<Integer> carrinhoProdutoIds) {
+        this.carrinhoProdutoIds = carrinhoProdutoIds;
     }
 }

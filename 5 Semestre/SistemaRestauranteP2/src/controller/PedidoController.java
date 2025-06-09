@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PedidoController extends InterfaceController {
+    public PedidoController() {
+        this.interfaceDTO = new PedidoDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         PedidoDTO pedidoDTO = (PedidoDTO) interfaceDTO;

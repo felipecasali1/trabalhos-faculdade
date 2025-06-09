@@ -92,6 +92,28 @@ public class CarrinhoProdutoDAOImpl implements CarrinhoProdutoDAO {
         }
         return null;
     }
+    
+    public List<Integer> listIdsByCarrinhoId(int carrinhoId) {
+        List<Integer> ids = new LinkedList<>();
+        String sql = "SELECT id FROM public.carrinho_produto WHERE carrinho_id = ?";
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, carrinhoId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ids.add(rs.getInt("id"));
+            }
+
+            rs.close();
+            ps.close();
+            return ids;
+        } catch (SQLException ex) {
+            Logger.getLogger(CarrinhoProdutoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     @Override
     public List<CarrinhoProduto> listByCarrinhoId(Integer carrinhoId) {

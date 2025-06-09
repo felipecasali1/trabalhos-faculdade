@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TaxaEntregaController extends InterfaceController {
+    public TaxaEntregaController() {
+        this.interfaceDTO = new TaxaEntregaDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         TaxaEntregaDTO taxaEntregaDTO = (TaxaEntregaDTO) interfaceDTO;

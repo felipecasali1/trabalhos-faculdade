@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class IngredienteEscolhaDTO extends InterfaceDTO {
-    public String id;
     public List<IngredienteAdicionarDTO> ingAdicionados;
     public List<IngredienteRemoverDTO> ingRemovidos;
 

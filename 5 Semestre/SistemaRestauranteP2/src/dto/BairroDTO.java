@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.Bairro;
 
 public class BairroDTO extends InterfaceDTO {
-    public String id;
     public String nome;
 
     @Override
@@ -36,5 +35,10 @@ public class BairroDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, nome};
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

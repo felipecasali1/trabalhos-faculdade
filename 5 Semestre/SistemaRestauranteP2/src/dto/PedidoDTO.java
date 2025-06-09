@@ -7,7 +7,6 @@ import models.Pedido;
 import java.sql.Timestamp;
 
 public class PedidoDTO extends InterfaceDTO {
-    public String id;
     public String data;
     public ClienteDTO clienteDTO;
     public CarrinhoDTO carrinhoDTO;
@@ -50,5 +49,10 @@ public class PedidoDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, data, clienteDTO.nome, carrinhoDTO.id, statusPedidoDTO.status, reembolsoDTO.motivo};
+    }
+
+    @Override
+    public String toString() {
+        return clienteDTO.nome + data;
     }
 }

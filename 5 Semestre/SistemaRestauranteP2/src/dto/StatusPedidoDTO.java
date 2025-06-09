@@ -6,7 +6,6 @@ import models.Status;
 import models.StatusPedido;
 
 public class StatusPedidoDTO extends InterfaceDTO {
-    public String id;
     public String status;
 
     @Override
@@ -37,5 +36,10 @@ public class StatusPedidoDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, status};
+    }
+
+    @Override
+    public String toString() {
+        return status;
     }
 }

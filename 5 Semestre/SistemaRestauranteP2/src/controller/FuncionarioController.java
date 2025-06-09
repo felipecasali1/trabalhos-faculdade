@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FuncionarioController extends InterfaceController {
+    public FuncionarioController() {
+        this.interfaceDTO = new FuncionarioDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         FuncionarioDTO funcionarioDTO = (FuncionarioDTO) interfaceDTO;

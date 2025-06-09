@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IngredienteRemoverController extends InterfaceController {
+    public IngredienteRemoverController() {
+        this.interfaceDTO = new IngredienteRemoverDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         IngredienteRemoverDTO ingredienteRemoverDTO = (IngredienteRemoverDTO) interfaceDTO;

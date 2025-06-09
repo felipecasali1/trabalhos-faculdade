@@ -34,7 +34,7 @@ public class LoginDAOImpl implements LoginDAO {
     @Override
     public List<Login> list() {
         List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone";
+        String sql = "SELECT id, usuario, senha FROM public.login";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 
@@ -58,7 +58,7 @@ public class LoginDAOImpl implements LoginDAO {
     @Override
     public Login getById(Integer id) {
         List<Login> list = new LinkedList<>();
-        String sql = "SELECT id, numero, ddd, cliente_id, funcionario_id FROM public.telefone WHERE id = ?";
+        String sql = "SELECT id, usuario, senha FROM public.login WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 

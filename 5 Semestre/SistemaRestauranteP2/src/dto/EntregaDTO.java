@@ -6,7 +6,6 @@ import models.Entrega;
 import models.TipoEntrega;
 
 public class EntregaDTO extends InterfaceDTO {
-    public String id;
     public ClienteDTO clienteDTO;
     public String tipoEntrega;
     public DeliveryDTO deliveryDTO;

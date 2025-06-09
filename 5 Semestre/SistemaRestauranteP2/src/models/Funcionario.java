@@ -10,18 +10,26 @@ public class Funcionario extends InterfaceEntity {
     private String cpf;
     private String rg;
     private Login login;
-    private List<Telefone> telefones;
+    private List<Integer> telefoneIds;
 
     public Funcionario() {
     }
 
-    public Funcionario(int id, String nome, String cpf, String rg, Login login, List<Telefone> telefones) {
+    public Funcionario(int id, String nome, String cpf, String rg, Login login, List<Integer> telefones) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
         this.login = login;
-        this.telefones = telefones;
+        this.telefoneIds = telefones;
+    }
+
+    public List<Integer> getTelefoneIds() {
+        return telefoneIds;
+    }
+
+    public void setTelefoneIds(List<Integer> telefoneIds) {
+        this.telefoneIds = telefoneIds;
     }
 
     public int getId() {
@@ -62,13 +70,5 @@ public class Funcionario extends InterfaceEntity {
 
     public void setLogin(Login login) {
         this.login = login;
-    }
-
-    public List<Telefone> getTelefones() {
-        return telefones;
-    }
-
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
     }
 }

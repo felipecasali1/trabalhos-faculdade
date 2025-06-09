@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class IngredienteEscolhaController extends InterfaceController {
+    public IngredienteEscolhaController() {
+        this.interfaceDTO = new IngredienteEscolhaDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         IngredienteEscolhaDTO ingredienteEscolhaDTO = (IngredienteEscolhaDTO) interfaceDTO;

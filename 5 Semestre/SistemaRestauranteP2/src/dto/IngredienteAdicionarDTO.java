@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.IngredienteAdicionar;
 
 public class IngredienteAdicionarDTO extends InterfaceDTO {
-    public String id;
     public String nome;
     public String valor;
     public IngredienteEscolhaDTO ingredienteEscolhaDTO;

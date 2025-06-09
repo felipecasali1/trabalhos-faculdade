@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.stream.Collectors;
 
 public class CupomDTO extends InterfaceDTO {
-    public String id;
     public String porcentagem;
     public String codigo;
     public String validade;

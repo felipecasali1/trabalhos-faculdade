@@ -11,6 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ReembolsoController extends InterfaceController {
+    public ReembolsoController() {
+        this.interfaceDTO = new ReembolsoDTO();
+    }
+    
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         ReembolsoDTO reembolsoDTO = (ReembolsoDTO) interfaceDTO;

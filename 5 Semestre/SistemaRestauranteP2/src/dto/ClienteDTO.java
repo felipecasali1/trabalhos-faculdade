@@ -9,9 +9,8 @@ import models.Cliente;
 import java.util.stream.Collectors;
 
 public class ClienteDTO extends InterfaceDTO {
-    public String id;
     public String nome;
-    public List<TelefoneDTO> telefones;
+    public List<Integer> telefoneIds;
 
     @Override
     public InterfaceDTO buildDTO(InterfaceEntity e) {
@@ -22,10 +21,7 @@ public class ClienteDTO extends InterfaceDTO {
        ClienteDTO cDTO = new ClienteDTO();
        cDTO.id = cliente.getId() + "";
        cDTO.nome = cliente.getNome();
-       cDTO.telefones = cliente.getTelefones()
-           .stream()
-           .map(TelefoneDTO::toDTO)
-           .collect(Collectors.toList());
+       cDTO.telefoneIds = cliente.getTelefoneIds();
        return cDTO;
    }
 
@@ -34,11 +30,7 @@ public class ClienteDTO extends InterfaceDTO {
         Cliente cliente = new Cliente();
         cliente.setId(Integer.parseInt(id));
         cliente.setNome(nome);
-        cliente.setTelefones(telefones
-            .stream()
-            .map(TelefoneDTO::buildEntity)
-            .collect(Collectors.toList())
-        );
+        cliente.setTelefoneIds(telefoneIds);
         return cliente;
     }
 
@@ -50,5 +42,10 @@ public class ClienteDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, nome};
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

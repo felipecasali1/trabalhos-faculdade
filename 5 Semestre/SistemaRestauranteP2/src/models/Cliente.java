@@ -7,15 +7,15 @@ import java.util.List;
 public class Cliente extends InterfaceEntity {
     private int id;
     private String nome;
-    private List<Telefone> telefones;
+    private List<Integer> telefoneIds;
 
     public Cliente() {
     }
 
-    public Cliente(int id, String nome, List<Telefone> telefones) {
+    public Cliente(int id, String nome, List<Integer> telefoneIds) {
         this.id = id;
         this.nome = nome;
-        this.telefones = telefones;
+        this.telefoneIds = telefoneIds;
     }
 
     public int getId() {
@@ -34,13 +34,11 @@ public class Cliente extends InterfaceEntity {
         this.nome = nome;
     }
 
-    public List<Telefone> getTelefones() {
-        return telefones;
+    public List<Integer> getTelefoneIds() {
+        return telefoneIds;
     }
 
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+    public void setTelefoneIds(List<Integer> telefoneIds) {
+        this.telefoneIds = telefoneIds;
     }
-    
-    
 }

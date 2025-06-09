@@ -15,14 +15,23 @@ import java.util.logging.Logger;
 public class TelefoneDAOImpl implements TelefoneDAO {
     @Override
     public boolean insert(Telefone telefone) {
-        String sql = "INSERT INTO public.cliente(numero, ddd, cliente_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO public.telefone(numero, ddd, cliente_id, funcionario_id) VALUES (?, ?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, telefone.getNumero());
             ps.setString(2, telefone.getDdd());
-            ps.setInt(3, telefone.getCliente().getId());
+            if (telefone.getClienteId()!= null) {
+                ps.setInt(3, telefone.getClienteId());
+            } else {
+                ps.setNull(3, java.sql.Types.INTEGER);
+            }
+            if (telefone.getFuncionarioId()!= null) {
+                ps.setInt(4, telefone.getFuncionarioId());
+            } else {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
@@ -46,7 +55,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             FuncionarioDAOImpl funcionarioDAO = new FuncionarioDAOImpl();
             while (rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), clienteDAO.getById(rs.getInt("cliente_id")), funcionarioDAO.getById(rs.getInt("funcionario_id"))));
+                list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), rs.getInt("cliente_id"), rs.getInt("funcionario_id")));
             }
 
             rs.close();
@@ -72,7 +81,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             ClienteDAOImpl clienteDAO = new ClienteDAOImpl();
             while (rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), clienteDAO.getById(rs.getInt("cliente_id")), null));
+                list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), rs.getInt("cliente_id"), null));
             }
 
             rs.close();
@@ -98,12 +107,56 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             FuncionarioDAOImpl funcionarioDAO = new FuncionarioDAOImpl();
             while (rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), null, funcionarioDAO.getById(rs.getInt("funcionario_id"))));
+                list.add(new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), null, rs.getInt("funcionario_id")));
             }
 
             rs.close();
             ps.close();
             return list;
+        } catch (SQLException ex) {
+            Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public List<Integer> listIdsByClienteId(int clienteId) {
+        List<Integer> ids = new LinkedList<>();
+        String sql = "SELECT id FROM public.telefone WHERE cliente_id = ?";
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, clienteId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ids.add(rs.getInt("id"));
+            }
+
+            rs.close();
+            ps.close();
+            return ids;
+        } catch (SQLException ex) {
+            Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public List<Integer> listIdsByFuncionarioId(int funcionarioId) {
+        List<Integer> ids = new LinkedList<>();
+        String sql = "SELECT id FROM public.telefone WHERE funcionario_id = ?";
+        try {
+            Connection c = ConnectionJDBC.getInstance().getConnection();
+            PreparedStatement ps = c.prepareStatement(sql);
+            ps.setInt(1, funcionarioId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ids.add(rs.getInt("id"));
+            }
+
+            rs.close();
+            ps.close();
+            return ids;
         } catch (SQLException ex) {
             Logger.getLogger(TelefoneDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -125,7 +178,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
             FuncionarioDAO funcionarioDAO = new FuncionarioDAOImpl();
             if(rs.next()) {
                 int idRes = rs.getInt("id");
-                telefone = new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), clienteDAO.getById(rs.getInt("cliente_id")), funcionarioDAO.getById(rs.getInt("funcionario_id")));
+                telefone = new Telefone(idRes, rs.getString("numero"), rs.getString("ddd"), rs.getInt("cliente_id"), rs.getInt("funcionario_id"));
             }
 
             rs.close();
@@ -139,15 +192,15 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 
     @Override
     public boolean update(Telefone telefone) {
-        String sql = "UPDATE public.telefone SET numero = ?, ddd = ?, cliente_id = ? WHERE id = ?";
+        String sql = "UPDATE public.telefone SET numero = ?, ddd = ?, cliente_id = ? funcionario_id = ? WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 
             PreparedStatement ps = c.prepareStatement(sql);
             ps.setString(1, telefone.getNumero());
             ps.setString(2, telefone.getDdd());
-            ps.setInt(3, telefone.getCliente().getId());
-            ps.setInt(4, telefone.getId());
+            ps.setInt(3, telefone.getClienteId());
+            ps.setInt(4, telefone.getFuncionarioId());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {

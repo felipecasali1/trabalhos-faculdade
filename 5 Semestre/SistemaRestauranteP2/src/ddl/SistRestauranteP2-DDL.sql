@@ -1,3 +1,5 @@
+CREATE DATABASE bancorestaurante;
+
 CREATE TABLE bairro (
 	id SERIAL PRIMARY KEY NOT NULL,
 	nome varchar(100) NOT NULL
@@ -42,7 +44,7 @@ CREATE TABLE cliente (
 
 CREATE TABLE telefone (
 	id SERIAL PRIMARY KEY NOT NULL,
-	numero varchar(20) NOT NULL,
+	numero varchar(20) NOT NULL UNIQUE,
 	ddd char(2) NOT NULL,
 	cliente_id INTEGER,
 	funcionario_id INTEGER,

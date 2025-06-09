@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class DeliveryDAOImpl implements DeliveryDAO {
     @Override
     public boolean insert(Delivery delivery) {
-        String sql = "INSERT INTO public.cupom(numero, complemento, endereco_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO public.delivery(numero, complemento, endereco_id) VALUES (?, ?, ?)";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 
@@ -35,7 +35,7 @@ public class DeliveryDAOImpl implements DeliveryDAO {
     @Override
     public List<Delivery> list() {
         List<Delivery> list = new LinkedList<>();
-        String sql = "SELECT id, numero, complemento, endereco_id FROM public.cupom";
+        String sql = "SELECT id, numero, complemento, endereco_id FROM public.delivery";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 
@@ -59,7 +59,7 @@ public class DeliveryDAOImpl implements DeliveryDAO {
 
     @Override
     public Delivery getById(Integer id) {
-        String sql = "SELECT id, numero, complemento, endereco_id FROM public.cupom WHERE id = ?";
+        String sql = "SELECT id, numero, complemento, endereco_id FROM public.delivery WHERE id = ?";
         try {
             Connection c = ConnectionJDBC.getInstance().getConnection();
 

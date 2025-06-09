@@ -44,7 +44,7 @@ public class ClienteDAOImpl implements ClienteDAO {
             TelefoneDAOImpl telDAO = new TelefoneDAOImpl();
             while(rs.next()) {
                 int idRes = rs.getInt("id");
-                list.add(new Cliente(idRes, rs.getString("nome"), telDAO.listByClienteId(idRes)));
+                list.add(new Cliente(idRes, rs.getString("nome"), telDAO.listIdsByClienteId(idRes)));
             }
 
             rs.close();
@@ -70,7 +70,7 @@ public class ClienteDAOImpl implements ClienteDAO {
             TelefoneDAOImpl telDAO = new TelefoneDAOImpl();
             if(rs.next()) {
                 int idRes = rs.getInt("id");
-                cliente = new Cliente(idRes, rs.getString("nome"), telDAO.listByClienteId(idRes));
+                cliente = new Cliente(idRes, rs.getString("nome"), telDAO.listIdsByClienteId(idRes));
             }
 
             rs.close();

@@ -6,18 +6,18 @@ public class Telefone extends InterfaceEntity {
     private int id;
     private String numero;
     private String ddd;
-    private Cliente cliente;
-    private Funcionario funcionario;
+    private Integer clienteId;
+    private Integer funcionarioId;
 
     public Telefone() {
     }
 
-    public Telefone(int id, String numero, String ddd, Cliente cliente, Funcionario funcionario) {
+    public Telefone(int id, String numero, String ddd, Integer clienteId, Integer funcionarioId) {
         this.id = id;
         this.numero = numero;
         this.ddd = ddd;
-        this.cliente = cliente;
-        this.funcionario = funcionario;
+        this.clienteId = clienteId;
+        this.clienteId = clienteId;
     }
 
     public int getId() {
@@ -44,19 +44,19 @@ public class Telefone extends InterfaceEntity {
         this.ddd = ddd;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Integer getClienteId() {
+        return clienteId;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public Integer getFuncionarioId() {
+        return funcionarioId;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setFuncionarioId(Integer funcionarioId) {
+        this.funcionarioId = funcionarioId;
     }
 }

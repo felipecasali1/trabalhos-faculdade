@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.Endereco;
 
 public class EnderecoDTO extends InterfaceDTO {
-    public String id;
     public String rua;
     public String cep;
     public BairroDTO bairroDTO;
@@ -45,5 +44,10 @@ public class EnderecoDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, rua, cep, bairroDTO.nome, distancia};
+    }
+
+    @Override
+    public String toString() {
+        return rua;
     }
 }

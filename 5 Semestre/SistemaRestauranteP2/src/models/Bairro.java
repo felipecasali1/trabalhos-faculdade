@@ -13,7 +13,7 @@ public class Bairro extends InterfaceEntity {
         this.id = id;
         this.nome = nome;
     }
-
+    
     public int getId() {
         return id;
     }

@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CarrinhoController extends InterfaceController {
+    public CarrinhoController() {
+        this.interfaceDTO = new CarrinhoDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         CarrinhoDTO carrinhoDTO = (CarrinhoDTO) interfaceDTO;

@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class StatusPedidoController extends InterfaceController {
+    public StatusPedidoController() {
+        this.interfaceDTO = new StatusPedidoDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         StatusPedidoDTO statusPedidoDTO = (StatusPedidoDTO) interfaceDTO;

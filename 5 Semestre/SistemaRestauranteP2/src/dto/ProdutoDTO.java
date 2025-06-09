@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.Produto;
 
 public class ProdutoDTO extends InterfaceDTO {
-    public String id;
     public String valorUnitario;
     public String nome;
 

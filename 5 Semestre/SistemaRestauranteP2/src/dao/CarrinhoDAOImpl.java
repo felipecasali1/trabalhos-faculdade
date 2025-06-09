@@ -39,7 +39,7 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             CarrinhoProdutoDAOImpl cpDAO = new CarrinhoProdutoDAOImpl();
             while(rs.next()) {
                 int id = rs.getInt("id");
-                list.add(new Carrinho(id, cpDAO.listByCarrinhoId(id)));
+                list.add(new Carrinho(id, cpDAO.listIdsByCarrinhoId(id)));
             }
             
             rs.close();
@@ -65,7 +65,7 @@ public class CarrinhoDAOImpl implements CarrinhoDAO {
             CarrinhoProdutoDAOImpl cpDAO = new CarrinhoProdutoDAOImpl();
             if(rs.next()) {
                 int idRes = rs.getInt("id");
-                carrinho = new Carrinho(idRes, cpDAO.listByCarrinhoId(idRes));
+                carrinho = new Carrinho(idRes, cpDAO.listIdsByCarrinhoId(idRes));
             }
             
             rs.close();

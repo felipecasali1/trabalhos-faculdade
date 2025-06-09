@@ -5,7 +5,6 @@ import interfaces.InterfaceEntity;
 import models.Reembolso;
 
 public class ReembolsoDTO extends InterfaceDTO {
-    public String id;
     public String motivo;
 
     @Override
@@ -36,5 +35,10 @@ public class ReembolsoDTO extends InterfaceDTO {
     @Override
     public Object[] getTableData() {
         return new Object[]{id, motivo};
+    }
+
+    @Override
+    public String toString() {
+        return motivo;
     }
 }

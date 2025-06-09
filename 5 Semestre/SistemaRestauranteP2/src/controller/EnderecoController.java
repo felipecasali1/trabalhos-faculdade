@@ -11,6 +11,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EnderecoController extends InterfaceController {
+    public EnderecoController() {
+        this.interfaceDTO = new EnderecoDTO();
+    }
+    
     @Override
     public boolean insert(InterfaceDTO interfaceDTO) {
         EnderecoDTO enderecoDTO = (EnderecoDTO) interfaceDTO;
