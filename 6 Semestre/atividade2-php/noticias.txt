@@ -1,0 +1,100 @@
+Notícia 1: Cientistas descobrem nova espécie de peixe que brilha no escuro em rios da Amazônia.
+Notícia 2: Estudo revela que dormir 30 minutos a mais por dia melhora a memória em até 20%.
+Notícia 3: Prefeitura lança aplicativo para denunciar buracos nas ruas em tempo real.
+Notícia 4: Arqueólogos encontram cidade subterrânea com mais de 5 mil anos na Turquia.
+Notícia 5: Tecnologia brasileira promete recarregar celular em apenas 3 minutos.
+Notícia 6: Pesquisa aponta que ouvir música clássica durante o trabalho aumenta a produtividade.
+Notícia 7: Gato some por três anos e retorna para casa atravessando 200 km.
+Notícia 8: Empresa cria carro elétrico dobrável para facilitar o estacionamento.
+Notícia 9: Nova lei prevê multa para quem desperdiçar água em períodos de seca.
+Notícia 10: Astrônomos detectam sinais de possível planeta semelhante à Terra a 12 anos-luz.
+Notícia 11: Festival gastronômico reúne chefs de 15 países no litoral nordestino.
+Notícia 12: Estudo indica que tomar café antes de estudar melhora a retenção de informações.
+Notícia 13: Robô brasileiro vence competição internacional de inteligência artificial.
+Notícia 14: Cientistas criam plástico biodegradável feito de casca de banana.
+Notícia 15: Aplicativo traduz conversas de vídeo em tempo real para 40 idiomas.
+Notícia 16: Nova vacina contra gripe promete imunidade por até 5 anos.
+Notícia 17: Cachorro salva criança de incêndio em apartamento.
+Notícia 18: Empresa lança tênis que gera energia enquanto você caminha.
+Notícia 19: Pesquisadores criam método para limpar oceanos usando ondas sonoras.
+Notícia 20: Astronautas cultivam alface com sucesso na Estação Espacial Internacional.
+Notícia 21: Bairro de São Paulo adota energia 100% solar.
+Notícia 22: Biblioteca pública oferece livros impressos sob demanda em 5 minutos.
+Notícia 23: Cientistas desenvolvem tinta que muda de cor com a temperatura.
+Notícia 24: Festival de cinema exibe filmes feitos inteiramente por inteligência artificial.
+Notícia 25: Criança de 8 anos cria aplicativo que ajuda idosos a lembrar de tomar remédios.
+Notícia 26: Universidade oferece curso gratuito de programação para desempregados.
+Notícia 27: Estudo mostra que caminhar 15 minutos por dia reduz o estresse.
+Notícia 28: Primeiro hotel subaquático da América do Sul será inaugurado em 2027.
+Notícia 29: Cientistas testam medicamento capaz de reverter sinais de envelhecimento.
+Notícia 30: Novo sistema de reciclagem transforma lixo doméstico em combustível.
+Notícia 31: Cidade do interior registra temperatura mais baixa em 50 anos.
+Notícia 32: Drone brasileiro auxilia bombeiros no combate a incêndios florestais.
+Notícia 33: Pesquisadores criam carne cultivada com sabor idêntico à natural.
+Notícia 34: Aplicativo conecta voluntários a pessoas em situação de emergência.
+Notícia 35: Cientistas desenvolvem tecido que se regenera sozinho.
+Notícia 36: Estudo revela que rir 10 minutos por dia melhora o sistema imunológico.
+Notícia 37: Robô doméstico passa a lavar louça e cozinhar automaticamente.
+Notícia 38: Governo lança programa de incentivo para energia eólica residencial.
+Notícia 39: Escola implanta aulas de educação financeira para crianças.
+Notícia 40: Pesquisadores criam bateria que dura 10 vezes mais que as atuais.
+Notícia 41: Cientistas encontram microplásticos no ar que respiramos.
+Notícia 42: Festival cultural reúne música, gastronomia e artesanato em praça pública.
+Notícia 43: Nova tecnologia permite impressão 3D de casas em apenas 48 horas.
+Notícia 44: Estudo mostra que jardinagem ajuda na recuperação de pacientes com depressão.
+Notícia 45: Primeira ponte feita de material 100% reciclado é inaugurada no Brasil.
+Notícia 46: Cientistas criam vidro que se conserta sozinho após rachaduras.
+Notícia 47: Restaurante adota cardápio com realidade aumentada.
+Notícia 48: Pesquisadores testam ônibus autônomo em cidade brasileira.
+Notícia 49: Artista pinta mural de 3 km de extensão em homenagem à natureza.
+Notícia 50: Novo sistema de dessalinização promete água potável a baixo custo.
+Notícia 51: Astrônomos descobrem lua gigante orbitando planeta distante.
+Notícia 52: Empresa desenvolve mochila com painel solar para carregar eletrônicos.
+Notícia 53: Estudo indica que cochilos curtos aumentam a criatividade.
+Notícia 54: Cientistas criam remédio capaz de neutralizar alergias alimentares.
+Notícia 55: Aplicativo ajuda agricultores a prever pragas em plantações.
+Notícia 56: Parque nacional registra aumento recorde de visitantes após melhorias.
+Notícia 57: Robô guia turistas em museu interativo.
+Notícia 58: Cientistas desenvolvem método para reciclar lixo eletrônico.
+Notícia 59: Nova tecnologia permite carregar carros elétricos em movimento.
+Notícia 60: Estudo mostra que contato com a natureza reduz ansiedade.
+Notícia 61: Cidade instala iluminação pública inteligente para economizar energia.
+Notícia 62: Pesquisadores criam tinta que purifica o ar.
+Notícia 63: Escola rural utiliza drones para levar material escolar a alunos isolados.
+Notícia 64: Cientistas descobrem bactéria que consome plástico no oceano.
+Notícia 65: Estudo aponta que meditar diariamente melhora a qualidade do sono.
+Notícia 66: Empresa cria embalagem comestível para reduzir lixo plástico.
+Notícia 67: Arqueólogos encontram templo de 4 mil anos no Egito.
+Notícia 68: Cientistas desenvolvem vacina contra várias doenças de uma só vez.
+Notícia 69: Nova estação de trem é inaugurada com tecnologia de energia limpa.
+Notícia 70: Startup lança bicicleta elétrica dobrável para grandes cidades.
+Notícia 71: Estudo revela que cozinhar em família fortalece vínculos afetivos.
+Notícia 72: Robôs passam a ajudar na limpeza de praias.
+Notícia 73: Cientistas criam material mais leve e resistente que o aço.
+Notícia 74: Empresa lança aplicativo de tradução para linguagem de sinais.
+Notícia 75: Estudo mostra que ler antes de dormir melhora a memória.
+Notícia 76: Cidade adota transporte público gratuito nos fins de semana.
+Notícia 77: Cientistas testam avião movido a hidrogênio.
+Notícia 78: Parque abre área exclusiva para observação de estrelas.
+Notícia 79: Estudo aponta que beber mais água ajuda na perda de peso.
+Notícia 80: Nova tecnologia promete eliminar o mosquito da dengue.
+Notícia 81: Cientistas criam pele artificial para tratar queimaduras graves.
+Notícia 82: Empresa lança guarda-chuva que nunca molha por dentro.
+Notícia 83: Estudo indica que trabalhar 4 dias por semana aumenta a produtividade.
+Notícia 84: Cientistas descobrem fonte de água subterrânea gigantesca.
+Notícia 85: Cidade instala semáforos inteligentes para reduzir congestionamentos.
+Notícia 86: Startup cria óculos que ajudam deficientes visuais a ler textos.
+Notícia 87: Pesquisa aponta que dançar ajuda a melhorar a saúde mental.
+Notícia 88: Cientistas criam método para gerar energia a partir de passos humanos.
+Notícia 89: Empresa desenvolve aplicativo para reduzir desperdício de comida.
+Notícia 90: Estudo revela que escrever à mão ajuda na aprendizagem.
+Notícia 91: Cidade transforma terrenos abandonados em hortas comunitárias.
+Notícia 92: Cientistas desenvolvem vacina contra o câncer em estágio inicial.
+Notícia 93: Festival de luzes atrai milhares de visitantes.
+Notícia 94: Robô salva mergulhador preso em caverna submersa.
+Notícia 95: Nova lei incentiva telhados verdes em prédios.
+Notícia 96: Pesquisadores criam sensor que detecta doenças pelo hálito.
+Notícia 97: Cidade constrói pista de ciclismo com material reciclado.
+Notícia 98: Estudo aponta que animais de estimação ajudam na recuperação de doenças.
+Notícia 99: Cientistas desenvolvem método para dessalinizar água usando energia solar.
+Notícia 100: Primeira fazenda vertical automatizada é inaugurada no Brasil.
