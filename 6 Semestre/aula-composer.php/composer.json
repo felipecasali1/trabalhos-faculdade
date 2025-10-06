@@ -1,0 +1,12 @@
+{
+    "name": "felipe/aula-composer.php",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Felipe\\AulaComposerPhp\\": "src/"
+        }
+    },
+    "require": {
+        "monolog/monolog": "^3.9"
+    }
+}
