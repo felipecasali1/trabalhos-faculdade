@@ -1,3 +1,6 @@
 [submodule "5 Semestre/loja-react"]
 	path = 5 Semestre/loja-react
 	url = https://github.com/felipecasali1/loja-react
+[submodule "6 Semestre/MyFoodBusiness"]
+	path = 6 Semestre/MyFoodBusiness
+	url = https://github.com/YasminFerreira0/MyFoodBusiness

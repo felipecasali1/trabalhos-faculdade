@@ -39,6 +39,11 @@ use PHPUnit\Framework\TestCase;
             $result = $this->calculator->divide(1, 0);
         }
 
+        public function testIsEven(): void {
+            $this->assertTrue($this->calculator->isEven(2));
+            $this->assertFalse($this->calculator->isEven(1));
+        }
+
         public function testArraySum(): void {
             $array = [1,2,3,4,5];
             $result = $this->calculator->arraySum($array);

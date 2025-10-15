@@ -13,3 +13,5 @@ Certificados/
 /5 Semestre/SistemaRestauranteP2/nbproject/private/
 /node_modules
 /5 Semestre/SistemaRestauranteP2/build/
+build/
+.dart_tool/
